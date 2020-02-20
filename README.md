@@ -1,9 +1,29 @@
-# Web App
+# bootstrap-app
 
-This repository define the source code of the **Plan your murder**  web page.
+## Project setup
+```
+npm install
+```
 
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-## Functionalities :
-- Party creation
-- Party parametrisation and personnalization
-- dynamic visual display the for Game Master
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Run your unit tests
+```
+npm run test:unit
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).

@@ -36,7 +36,8 @@ export default {
       })
         .then((res) => res.json())
         .then((data) => {
-          alert(`game created ${data.id}`);
+          // do something
+          console.log(data);
         })
         .catch(() => {
           console.log('error');

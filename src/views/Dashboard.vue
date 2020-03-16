@@ -17,5 +17,15 @@ export default {
     NavBar,
     PlayerView,
   },
+  data() {
+    return {
+      nbPlayers: 0,
+    };
+  },
+  methods: {
+    incrPlayers() {
+      this.nbPlayers += 1;
+    },
+  },
 };
 </script>

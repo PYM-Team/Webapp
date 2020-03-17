@@ -11,6 +11,7 @@
 
 import NavBar from '@/components/DashboardNavBar.vue';
 import PlayerView from '@/components/PlayerView.vue';
+import io from 'socket.io-client';
 
 export default {
   name: 'Dashboard',
@@ -20,7 +21,8 @@ export default {
   },
   data() {
     return {
-      nbPlayers: 4,
+      nbPlayers: 0,
+      socket: io('localhost:1337'),
     };
   },
   methods: {
@@ -28,6 +30,19 @@ export default {
       this.nbPlayers += 1;
       console.log(this.nbPlayers);
     },
+  },
+  mounted() {
+    // on atend la fin du chargement de la page pour commencer les écoutes
+    this.socket.emit('createGame', 101938);
+
+    this.socket.on('playerConnected', () => {
+      console.log('New player');
+      this.nbPlayers += 1;
+    });
+    this.socket.on('playerDisconnected', () => {
+      console.log('Lost a player');
+      this.nbPlayers -= 1;
+    });
   },
 };
 </script>

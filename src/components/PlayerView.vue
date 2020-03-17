@@ -1,16 +1,22 @@
 <template>
 <div class="tile is-ancestor">
-  <tile class="is-vertical is-12">
-    <div class="tile is-6 is-parent">
-        <article class="tile is-child notification is-dark">
-          <a href="#">Players</a>
-        </article>
-      </div>
-      <div class="tile is-6 is-parent">
-        <article class="tile is-child notification is-light">
-          <a href="#">Missions</a>
-        </article>
-    </div>
-  </tile>
+  <div class="tile is-6 is-parent">
+    <article class="tile is-child notification is-dark">
+      <h1>Players</h1>
+      <p>Vous avez {{nombrePlayers}} connectés</p>
+    </article>
+  </div>
 </div>
 </template>
+
+<script>
+export default {
+  name: 'PlayerView',
+  props: {
+    nombrePlayers: {
+      type: Number,
+      default: 900,
+    },
+  },
+};
+</script>

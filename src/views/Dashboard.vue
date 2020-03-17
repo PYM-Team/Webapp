@@ -2,7 +2,8 @@
   <div class="dahsboard">
     <NavBar />
     <div class="title is-1">This will be a pretty Dashboard</div>
-    <PlayerView />
+    <b-button @click="incrPlayers">Increment players number</b-button>
+    <PlayerView :nombrePlayers  ="this.nbPlayers" />
   </div>
 </template>
 
@@ -19,12 +20,13 @@ export default {
   },
   data() {
     return {
-      nbPlayers: 0,
+      nbPlayers: 4,
     };
   },
   methods: {
     incrPlayers() {
       this.nbPlayers += 1;
+      console.log(this.nbPlayers);
     },
   },
 };

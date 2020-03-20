@@ -3,7 +3,7 @@
     <NavBar />
     <div class="title is-1">This will be a pretty Dashboard</div>
     <b-button @click="incrPlayers">Increment players number</b-button>
-    <PlayerView :nombrePlayers  ="this.nbPlayers" />
+    <PlayerView :nombrePlayers  ="this.nbPlayers" :nameGame ="this.nameGame" :idGame="this.idGame"/>
   </div>
 </template>
 
@@ -15,6 +15,16 @@ import io from 'socket.io-client';
 
 export default {
   name: 'Dashboard',
+  props: {
+    nameGame: {
+      type: String,
+      default: 'no game here',
+    },
+    idGame: {
+      type: Number,
+      default: 0,
+    },
+  },
   components: {
     NavBar,
     PlayerView,

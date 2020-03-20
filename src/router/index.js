@@ -23,6 +23,7 @@ const routes = [
     path: '/Dashboard',
     name: 'Dashboard',
     component: Dashboard,
+    props: true,
   },
 ];
 

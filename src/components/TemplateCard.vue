@@ -36,7 +36,7 @@ export default {
       })
         .then((res) => res.json())
         .then((data) => {
-          // do something
+          this.$router.push({ name: 'Dashboard', params: { nameGame: this.title, idGame: data.id } });
           console.log(data);
         })
         .catch(() => {

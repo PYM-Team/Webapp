@@ -2,50 +2,59 @@
 <template>
   <div class="dahsboard">
     <NavBar />
-    <div class="title is-1">This will be a pretty Dashboard</div>
-    <PlayerView :players="this.players" :nameGame="this.nameGame" :idGame="this.idGame" />
+    <b-tabs position="is-centered" v-model="activeTab">
+      <b-tab-item label="Overview">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga similique odio, corporis quaerat, a debitis adipisci doloremque excepturi quia ea sapiente sequi dolores voluptatibus corrupti quos tenetur fugiat, minima quae.
+      </b-tab-item>
+      <b-tab-item label="Player">
+        <PlayerView/>
+      </b-tab-item>
+      <b-tab-item label="Players">
+        <PlayersView />
+      </b-tab-item>
+      <b-tab-item label="Missions">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima eveniet amet beatae deserunt dolorum? Cumque necessitatibus hic eligendi ipsum amet! Quas totam deserunt natus unde rerum delectus placeat et dignissimos.</b-tab-item>
+    </b-tabs>
   </div>
 </template>
 
 <script>
 /* eslint-disable no-unused-vars */
 import NavBar from '@/components/DashboardNavBar.vue';
+import PlayersView from '@/components/PlayersView.vue';
 import PlayerView from '@/components/PlayerView.vue';
 import io from 'socket.io-client';
 
 export default {
   name: 'Dashboard',
-  props: {
-    nameGame: {
-      type: String,
-      default: 'no game here',
-    },
-    idGame: {
-      type: Number,
-      default: 0,
-    },
-  },
   components: {
     NavBar,
+    PlayersView,
     PlayerView,
   },
   data() {
     return {
-      players: {},
-      socket: io('localhost:1337'),
+      players: {
+        toto: { connected: true },
+        tata: { connected: true },
+        tutu: { connected: false },
+      },
+      socket: io('https://rpplanner-api.herokuapp.com/'),
+      activeTab: 0,
     };
   },
   mounted() {
     // on atend la fin du chargement de la page pour commencer les écoutes
     this.socket.emit('createGame', 101938);
+    this.$store.state.gameId = 101938;
 
     this.socket.on('playerConnected', (playerlist) => {
       console.log('New player');
-      this.players = playerlist;
+      this.$store.state.players = playerlist;
     });
     this.socket.on('playerDisconnected', (playerlist) => {
       console.log('Lost a player');
-      this.players = playerlist;
+      this.$store.state.players = playerlist;
     });
   },
 };

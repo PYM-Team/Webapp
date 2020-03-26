@@ -1,5 +1,5 @@
 <template>
-    <b-navbar>
+    <b-navbar id="home-nav">
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ name: 'Dashboard', params: {nameGame: 'Test'}}"  >
                 <img
@@ -31,3 +31,9 @@
         </template>
     </b-navbar>
 </template>
+
+<style>
+#home-nav {
+    background: none;
+}
+</style>

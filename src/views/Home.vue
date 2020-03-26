@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <NavBar />
-    <GameBoard />
+      <GameBoard />
   </div>
 </template>
 

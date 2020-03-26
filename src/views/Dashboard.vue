@@ -1,7 +1,7 @@
 <template>
-  <div class="dahsboard">
+  <div id="dashboard">
     <NavBar />
-    <b-tabs position="is-centered" v-model="activeTab">
+    <b-tabs type="is-toggle" position="is-centered" v-model="activeTab">
       <b-tab-item label="Overview">
         <Overview />
       </b-tab-item>
@@ -64,3 +64,40 @@ export default {
   },
 };
 </script>
+
+<style>
+@import url('https://fonts.googleapis.com/css?family=Luckiest+Guy|Patrick+Hand&display=swap');
+
+html {
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("https://i.imgur.com/Q6jFqbg.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.player-name {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1.2rem;
+}
+.player-role {
+  font-family: "Patrick Hand", cursive;
+  font-size: 1.2rem;
+}
+.tabs a {
+  border: none !important;
+  font-family: "Luckiest Guy", cursive;
+  font-size: 1rem;
+  color: white !important;
+}
+.tabs a:hover {
+  color: black !important;
+}
+.card-footer-item {
+  /* trick to remove the uggly white line on the bottom */
+  margin-top: -1px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-color: #cf86fc;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <b-navbar>
+    <b-navbar id="dashboard-nav">
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
@@ -15,3 +15,9 @@
         </template>
     </b-navbar>
 </template>
+
+<style>
+#dashboard-nav {
+    background: none;
+}
+</style>

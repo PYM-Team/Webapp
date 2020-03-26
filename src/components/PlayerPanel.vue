@@ -1,60 +1,14 @@
 <template>
-  <nav class="panel">
-    <p class="panel-heading">Players</p>
-    <div class="panel-block">
-      <p class="control has-icons-left">
-        <input class="input" type="text" placeholder="Search" />
-        <span class="icon is-left">
-          <i class="fas fa-search" aria-hidden="true"></i>
-        </span>
-      </p>
-    </div>
-    <p class="panel-tabs">
-      <a class="is-active">All</a>
-      <a>Murderer</a>
-      <a>Spy</a>
-      <a>Sources</a>
+  <aside class="menu">
+    <p class="menu-label">
+      Players
     </p>
-    <a class="panel-block is-active">
-      <span class="panel-icon">
-        <i class="fas fa-book" aria-hidden="true"></i>
-      </span>
-      toto
-    </a>
-    <a class="panel-block">
-      <span class="panel-icon">
-        <i class="fas fa-book" aria-hidden="true"></i>
-      </span>
-      tutu
-    </a>
-    <a class="panel-block">
-      <span class="panel-icon">
-        <i class="fas fa-book" aria-hidden="true"></i>
-      </span>
-      toutou
-    </a>
-    <a class="panel-block">
-      <span class="panel-icon">
-        <i class="fas fa-book" aria-hidden="true"></i>
-      </span>
-      titi
-    </a>
-    <a class="panel-block">
-      <span class="panel-icon">
-        <i class="fas fa-code-branch" aria-hidden="true"></i>
-      </span>
-      grominet
-    </a>
-    <a class="panel-block">
-      <span class="panel-icon">
-        <i class="fas fa-code-branch" aria-hidden="true"></i>
-      </span>
-      bipbip
-    </a>
-    <div class="panel-block">
-      <button class="button is-link is-outlined is-fullwidth">Reset all filters</button>
-    </div>
-  </nav>
+    <ul class="menu-list player-name">
+      <div v-for="(player, key) in this.$store.state.players" v-bind:key="key">
+        <li v-if="player.connected"><a>{{ key }}</a></li>
+      </div>
+    </ul>
+  </aside>
 </template>
 
 <script>
@@ -62,3 +16,11 @@ export default {
   name: 'PlayerPanel',
 };
 </script>
+
+<style>
+.menu-label {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 2rem !important;
+  color: white !important;
+}
+</style>

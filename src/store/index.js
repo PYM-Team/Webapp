@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import io from 'socket.io-client';
 
 Vue.use(Vuex);
 
@@ -9,9 +10,11 @@ export default new Vuex.Store({
       toto: { connected: true },
       tata: { connected: true },
       tutu: { connected: false },
+      titi: { connected: true },
     },
     gameTemplate: 'Murder at TC',
     gameId: 100000,
+    socket: io('http://localhost:1337/'),
   },
   mutations: {
   },

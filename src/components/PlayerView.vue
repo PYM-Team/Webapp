@@ -3,11 +3,11 @@
       <div id="player-panel-column" class="column is-3">
         <PlayerPanel v-on:selected='setSelected($event)'/>
       </div>
-      <div class="columns is-multiline is-mobile">
-        <div class="column is-9">
+      <div class="columns is-multiline is-mobile is-offset-2">
+        <div class="column is-8 is-mobile is-offset-2">
             <span class="notification is-primary">Please select a Player to show the detailled PlayerCard</span>
         </div>
-        <div class="column is-9">
+        <div class="column is-8 is-mobile is-offset-2">
           <PlayerCard :title='selectedKey' />
         </div>
       </div>
@@ -32,7 +32,6 @@ export default {
       this.selectedKey = _SelectedKey;
     },
   },
-
 };
 </script>
 

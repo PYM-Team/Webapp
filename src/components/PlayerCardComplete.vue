@@ -9,19 +9,19 @@
     </header>
     <div class="card-content">
       <div class="content Nickname">
-        <p><strong> Nickname : </Strong> El Sampico </p>
+        <p><strong> Nickname : </Strong> {{Nickname}} </p>
       </div>
       <div class="content Age">
-        <p><strong> Age : </Strong> 33 ans </p>
+        <p><strong> Age : </Strong> {{Age}} </p>
       </div>
       <div class="content Role">
-        <p><strong> Role : </Strong> Le meilleur tueur à gage </p>
+        <p><strong> Role : </Strong> {{Role}} </p>
       </div>
       <div class="content Element de jeu">
-        <p><strong> Elements de jeu :  </Strong> Il parle avec un accent espagnol prononcé et fume comme un pompier. Ses manières attentionnées font de lui un véritable gentleman.  </p>
+        <p><strong> Elements de jeu :  </Strong> {{ElementsJeu}}  </p>
       </div>
       <div class="content Objectifs ">
-        <p><strong> Objectifs :  </Strong> La mort du parrain s’annonce pour El Sampico comme une double opportunité : la place du boss est libre et sa femme est enfin seule ! Éperdument amoureux de Carla Gurzio, il va lui déclarer sa flamme pendant la soirée à l’aide d’un poème. Il ne sait pas si Carla est impliqué dans la mort de son mari, mais la protège à tout prix si elle vient à être l’objet de suspicions.  </p>
+        <p><strong> Objectifs :  </Strong> {{Objectifs}} </p>
       </div>
       <div class="content Inventaire ">
         <p><strong> Inventaire  </Strong></p>
@@ -31,7 +31,7 @@
         <figure class="image is-128x128">
           <img  v-on:click="launch1" src="https://www.mistercanne.fr/pub/media/catalog/product/cache/f1db97aae291dd0f66aad3e831efd877/f/l/flask-alcool.png"></figure>
           <button class="button is-small is-dark is-light"
-            @click="this.isAModalActive = true">Flasque</button>
+            @click="alertCustomError">Flasque</button>
       </div>
       <div class="column is-3">
         <figure class="image is-128x128">
@@ -50,18 +50,6 @@
     <footer class="card-footer">
       <a class="card-footer-item">See More</a>
     </footer>
-  <b-modal :active.sync="this.isAModalActive" scroll="keep">
-      <div class="card">
-            <div class="card-header">
-                <p class="card-header-title is-centered player-name">Annoucement</p>
-            </div>
-            <div class="card-content">
-                <b-field>
-                    <b-input placeholder="Message" v-model="announce"></b-input>
-                </b-field>
-            </div>
-      </div>
-  </b-modal>
 </div>
 </template>
 
@@ -73,10 +61,21 @@ export default {
   },
   data() {
     return {
-      isAModalActive: false,
+      Nickname: 'El Sampico',
+      Age: '33ans',
+      Role: ' Le meilleur tueur à gage',
+      ElementsJeu: ' Il parle avec un accent espagnol prononcé et fume comme un pompier. Ses manières attentionnées font de lui un véritable gentleman.',
+      Objectifs: 'La mort du parrain s’annonce pour El Sampico comme une double opportunité : la place du boss est libre et sa femme est enfin seule ! Éperdument amoureux de Carla Gurzio, il va lui déclarer sa flamme pendant la soirée à l’aide d’un poème. Il ne sait pas si Carla est impliqué dans la mort de son mari, mais la protège à tout prix si elle vient à être l’objet de suspicions. ',
     };
   },
   methods: {
+    alertCustom() {
+      this.$buefy.dialog.alert({
+        title: 'Flasque',
+        message: 'Un  petit remontant pour se donner du courage.',
+        confirmText: 'ok !',
+      });
+    },
   },
 };
 </script>

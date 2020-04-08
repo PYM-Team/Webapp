@@ -15,7 +15,7 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a @click="activeTab = 0" class="card-footer-item">See More</a>
+      <a class="card-footer-item" v-on:click="CompleteCard">See More</a>
     </footer>
   </div>
 </template>
@@ -25,6 +25,11 @@ export default {
   name: 'TemplateCard',
   props: {
     title: String,
+  },
+  methods: {
+    CompleteCard() {
+      return 4;
+    },
   },
 };
 </script>

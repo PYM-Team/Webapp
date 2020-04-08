@@ -1,11 +1,15 @@
 <template>
-  <div id="player-view" class="columns is-desktop is-vcentered">
+  <div id="player-view" class="columns is-desktop is-vcentered .is-8">
       <div id="player-panel-column" class="column is-3">
         <PlayerPanel v-on:selected='setSelected($event)'/>
       </div>
-      <div class="column is-9">
-          <span class="notification is-primary">Please select a Player to show the detailled PlayerCard</span>
-        <PlayerCard :title='selectedKey' />
+      <div class="columns is-multiline is-mobile">
+        <div class="column is-9">
+            <span class="notification is-primary">Please select a Player to show the detailled PlayerCard</span>
+        </div>
+        <div class="column is-9">
+          <PlayerCard :title='selectedKey' />
+        </div>
       </div>
   </div>
 </template>
@@ -13,7 +17,7 @@
 <script>
 
 import PlayerPanel from '@/components/PlayerPanel.vue';
-import PlayerCard from '@/components/PlayerCard.vue';
+import PlayerCard from '@/components/PlayerCardComplete.vue';
 
 export default {
   name: 'PlayerView',

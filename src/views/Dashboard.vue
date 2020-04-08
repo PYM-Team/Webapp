@@ -12,10 +12,7 @@
         <PlayersView />
       </b-tab-item>
       <b-tab-item label="Missions">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Minima eveniet amet beatae deserunt dolorum? Cumque necessitatibus
-        hic eligendi ipsum amet! Quas totam deserunt natus unde rerum
-        delectus placeat et dignissimos.
+        <Missions />
       </b-tab-item>
     </b-tabs>
   </div>
@@ -27,6 +24,7 @@ import NavBar from '@/components/DashboardNavBar.vue';
 import PlayersView from '@/components/PlayersView.vue';
 import PlayerView from '@/components/PlayerView.vue';
 import Overview from '@/components/Overview.vue';
+import Missions from '@/components/Missions.vue';
 
 export default {
   name: 'Dashboard',
@@ -35,6 +33,7 @@ export default {
     PlayersView,
     PlayerView,
     Overview,
+    Missions,
   },
   data() {
     return {

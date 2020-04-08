@@ -5,7 +5,7 @@
     </p>
     <ul class="menu-list player-name">
       <div v-for="(player, key) in this.$store.state.players" v-bind:key="key">
-        <li v-if="player.connected"><a>{{ key }}</a></li>
+        <li v-if="player.connected" v-on:click="SelectPlayer(key)"><a>{{ key }}</a></li>
       </div>
     </ul>
   </aside>
@@ -14,7 +14,13 @@
 <script>
 export default {
   name: 'PlayerPanel',
+  methods: {
+    SelectPlayer(key) {
+      this.$emit('selected', key);
+    },
+  },
 };
+
 </script>
 
 <style>

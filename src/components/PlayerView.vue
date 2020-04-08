@@ -1,10 +1,11 @@
 <template>
   <div id="player-view" class="columns is-desktop is-vcentered">
       <div id="player-panel-column" class="column is-3">
-        <PlayerPanel/>
+        <PlayerPanel v-on:selected='setSelected($event)'/>
       </div>
       <div class="column is-9">
           <span class="notification is-primary">Please select a Player to show the detailled PlayerCard</span>
+        <PlayerCard :title='selectedKey' />
       </div>
   </div>
 </template>
@@ -12,10 +13,22 @@
 <script>
 
 import PlayerPanel from '@/components/PlayerPanel.vue';
+import PlayerCard from '@/components/PlayerCard.vue';
 
 export default {
   name: 'PlayerView',
-  components: { PlayerPanel },
+  data() {
+    return {
+      selectedKey: {},
+    };
+  },
+  components: { PlayerPanel, PlayerCard },
+  methods: {
+    setSelected(_SelectedKey) {
+      this.selectedKey = _SelectedKey;
+    },
+  },
+
 };
 </script>
 

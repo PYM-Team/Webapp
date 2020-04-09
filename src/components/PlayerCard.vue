@@ -15,13 +15,38 @@
       </div>
     </div>
     <footer class="card-footer">
-      <a class="card-footer-item" v-on:click="CompleteCard">See More</a>
+    <b-menu-list>
+      <b-menu-item icon="settings" :active="isActive" expanded>
+        <template slot="label" slot-scope="props">
+          See more
+          <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>
+        </template>
+        <b-menu-item>
+          <template slot="label">
+            <strong> Etat : </strong> {{Etat}} <br/>
+            <strong> Dernière mission: </strong> {{Last_Mission}} <br/>
+            <strong> Avancée du personnage: </strong>
+            <b-progress class="progress is-small" :value="Advancement" show-value format="percent"></b-progress>
+            <b-dropdown aria-role="list" class="is-pulled-right" position="is-bottom-left">
+              <b-icon icon="dots-vertical" slot="trigger"></b-icon>
+            </b-dropdown>
+          </template>
+        </b-menu-item>
+      </b-menu-item>
+    </b-menu-list>
     </footer>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      isActive: true,
+      Etat: 'Vivant',
+      Last_Mission: 'Tuer le colonel (avec le chandelier)',
+    };
+  },
   name: 'TemplateCard',
   props: {
     title: String,

@@ -46,17 +46,17 @@
       <div class="columns is-mobile">
           <li class="column is-mobile" v-for="(value, key) in Inventaire" :key="key">
             {{key}}
-            <figure class='image is-64x64 is-centered'>
+            <figure class='image is-125x125 is-centered'>
               <img class="is-rounded" :src= value.image></figure>
             {{value.description}} </li>
       </div>
       <div class="content AutrePerso ">
-        <p><strong> AutrePerso  </Strong></p>
+        <p><strong> AutrePerso  </strong></p>
       </div>
       <div class="columns is-mobile">
           <li class="column is-mobile" v-for="(value, key) in AutrePerso" :key="key">
             {{key}}
-            <figure class='image is-64x64 is-centered'>
+            <figure class='image is-128x128 is-centered'>
               <img class="is-rounded" :src= value.image></figure>
             {{value.description}} </li>
       </div>

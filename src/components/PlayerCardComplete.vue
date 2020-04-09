@@ -26,27 +26,24 @@
       <div class="content Inventaire ">
         <p><strong> Inventaire  </Strong></p>
       </div>
-      <div class="columns">
-      <div class="column is-3">
-        <figure class="image is-128x128">
-          <img  v-on:click="launch1" src="https://www.mistercanne.fr/pub/media/catalog/product/cache/f1db97aae291dd0f66aad3e831efd877/f/l/flask-alcool.png"></figure>
-          <button class="button is-small is-dark is-light"
-            @click="alertCustomError">Flasque</button>
+      <div class="columns is-mobile">
+          <li class="column is-mobile" v-for="(value, key) in Inventaire" :key="key">
+            {{key}}
+            <figure class='image is-64x64 is-centered'>
+              <img class="is-rounded" :src= value.image></figure>
+            {{value.description}} </li>
       </div>
-      <div class="column is-3">
-        <figure class="image is-128x128">
-          <img src="https://www.pngfactory.net/_png/_thumb/19678-Ornorm-Ornormcigarettes.png"></figure>
+      <div class="content AutrePerso ">
+        <p><strong> AutrePerso  </Strong></p>
       </div>
-      <div class="column is-3">
-        <figure class="image is-128x128">
-          <img src="https://static.wixstatic.com/media/2cd43b_fe0ab3cf5f1244149931a9a77df263ef~mv2.png/v1/fill/w_320,h_249,fp_0.50_0.50/2cd43b_fe0ab3cf5f1244149931a9a77df263ef~mv2.png"></figure>
+      <div class="columns is-mobile">
+          <li class="column is-mobile" v-for="(value, key) in AutrePerso" :key="key">
+            {{key}}
+            <figure class='image is-64x64 is-centered'>
+              <img class="is-rounded" :src= value.image></figure>
+            {{value.description}} </li>
       </div>
-      <div class="column is-3">
-        <figure class="image is-128x128">
-          <img src="https://pluspng.com/img-png/png-penny--727.png"></figure>
-      </div>
-    </div>
-    </div>
+  </div>
     <footer class="card-footer">
       <a class="card-footer-item">See More</a>
     </footer>
@@ -61,6 +58,22 @@ export default {
   },
   data() {
     return {
+      Inventaire: {
+        Flasque: { image: 'https://www.mistercanne.fr/pub/media/catalog/product/cache/f1db97aae291dd0f66aad3e831efd877/f/l/flask-alcool.png', description: 'Sa flasque fetiche' },
+        Flasq: { image: 'https://www.mistercanne.fr/pub/media/catalog/product/cache/f1db97aae291dd0f66aad3e831efd877/f/l/flask-alcool.png', description: 'Sa flasque fetiche' },
+        Flas: { image: 'https://www.mistercanne.fr/pub/media/catalog/product/cache/f1db97aae291dd0f66aad3e831efd877/f/l/flask-alcool.png', description: 'Sa flasque fetiche' },
+        Flae: { image: 'https://www.mistercanne.fr/pub/media/catalog/product/cache/f1db97aae291dd0f66aad3e831efd877/f/l/flask-alcool.png', description: 'Sa flasque fetiche' },
+        Fla: { image: 'https://www.mistercanne.fr/pub/media/catalog/product/cache/f1db97aae291dd0f66aad3e831efd877/f/l/flask-alcool.png', description: 'Sa flasque fetiche' },
+
+      },
+      AutrePerso: {
+        Flasque: { image: 'https://image.noelshack.com/fichiers/2017/26/4/1498692476-stiker-luigi.png', description: 'Le bras droit du parrain' },
+        Flasq: { image: 'https://image.noelshack.com/fichiers/2017/26/4/1498692476-stiker-luigi.png', description: 'Le bras droit du parrain' },
+        Flas: { image: 'https://image.noelshack.com/fichiers/2017/26/4/1498692476-stiker-luigi.png', description: 'Le bras droit du parrain' },
+        Flae: { image: 'https://image.noelshack.com/fichiers/2017/26/4/1498692476-stiker-luigi.png', description: 'Le bras droit du parrain' },
+        Fla: { image: 'https://image.noelshack.com/fichiers/2017/26/4/1498692476-stiker-luigi.png', description: 'Le bras droit du parrain' },
+
+      },
       Nickname: 'El Sampico',
       Age: '33ans',
       Role: ' Le meilleur tueur à gage',

@@ -1,17 +1,34 @@
 <template>
-  <div id="player-view" class="columns is-desktop is-vcentered .is-8">
-      <div id="player-panel-column" class="column is-3">
-        <PlayerPanel v-on:selected='setSelected($event)'/>
+<!-- <div id="player-view" class="='tile is-ancestor">
+  <div class="tile is-parent is-vertical">
+    <div id="player-panel-tile" class="tile is-child is-3">
+      <PlayerPanel v-on:selected='setSelected($event)'/>
+    </div>
+    <div class="tile is-parent is-vertical is-8">
+          <span class="tile is-child notification is-primary">Please select a Player to show the detailled PlayerCard</span>
+      <div class="tile is-child">
+        <PlayerCard :title='selectedKey' />
       </div>
-      <div class="columns is-multiline is-mobile is-offset-2">
-        <div class="column is-8 is-mobile is-offset-2">
-            <span class="notification is-primary">Please select a Player to show the detailled PlayerCard</span>
-        </div>
-        <div class="column is-8 is-mobile is-offset-2">
-          <PlayerCard :title='selectedKey' />
-        </div>
-      </div>
+    </div>
+    </div>
+  </div> -->
+<div id="player-view" class="tile is-ancestor">
+  <div class="tile is-parent">
+    <article class="tile is-child is-12 is-centered">
+      <PlayerPanel v-on:selected='setSelected($event)'/>
+    </article>
   </div>
+  <div class="tile is-vertical is-8">
+    <div class="tile">
+      <div class="tile is-parent is-vertical">
+        <span class="tile is-child notification is-primary">Please select a Player to show the detailled PlayerCard</span>
+        <p class="tile is-child">
+          <PlayerCard :title='selectedKey' />
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 </template>
 
 <script>

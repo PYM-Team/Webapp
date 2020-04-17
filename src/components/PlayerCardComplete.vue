@@ -8,31 +8,31 @@
       </p>
     </header>
     <div class="card-content">
-      <div class="content Nickname">
+      <div class="has-text-left" id ="content Nickname">
         <p>
           <strong>Nickname :</strong>
-          {{Nickname}}
+          {{Nickname}} <br>
         </p>
       </div>
-      <div class="content Age">
+      <div class="has-text-left" id =" content Age ">
         <p>
           <strong>Age :</strong>
-          {{Age}}
+          {{Age}} <br>
         </p>
       </div>
-      <div class="content Role">
+      <div class="has-text-left" id="content Role">
         <p>
           <strong>Role :</strong>
-          {{Role}}
+          {{Role}} <br>
         </p>
       </div>
-      <div class="content Element de jeu">
+      <div class=" has-text-left" di="content Element de jeu">
         <p>
           <strong>Elements de jeu :</strong>
-          {{ElementsJeu}}
+          {{ElementsJeu}} <br>
         </p>
       </div>
-      <div class="content Objectifs">
+      <div class="has-text-left" id= "content Objectifs">
         <p>
           <strong>Objectifs :</strong>
           {{Objectifs}}

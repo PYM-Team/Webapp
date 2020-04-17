@@ -1,17 +1,4 @@
 <template>
-<!-- <div id="player-view" class="='tile is-ancestor">
-  <div class="tile is-parent is-vertical">
-    <div id="player-panel-tile" class="tile is-child is-3">
-      <PlayerPanel v-on:selected='setSelected($event)'/>
-    </div>
-    <div class="tile is-parent is-vertical is-8">
-          <span class="tile is-child notification is-primary">Please select a Player to show the detailled PlayerCard</span>
-      <div class="tile is-child">
-        <PlayerCard :title='selectedKey' />
-      </div>
-    </div>
-    </div>
-  </div> -->
 <div id="player-view" class="tile is-ancestor">
   <div class="tile is-parent">
     <article class="tile is-child is-12 is-centered">

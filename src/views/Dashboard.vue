@@ -14,6 +14,9 @@
       <b-tab-item label="Missions">
         <Missions />
       </b-tab-item>
+      <b-tab-item label="Setup">
+        <Setup />
+      </b-tab-item>
     </b-tabs>
   </div>
 </template>
@@ -25,6 +28,7 @@ import PlayersView from '@/components/PlayersView.vue';
 import PlayerView from '@/components/PlayerView.vue';
 import Overview from '@/components/Overview.vue';
 import Missions from '@/components/Missions.vue';
+import Setup from '@/components/Setup/SetupTotal.vue';
 
 export default {
   name: 'Dashboard',
@@ -34,6 +38,7 @@ export default {
     PlayerView,
     Overview,
     Missions,
+    Setup,
   },
   data() {
     return {

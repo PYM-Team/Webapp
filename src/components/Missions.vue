@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'TemplateCard',
+  name: 'Missions',
   props: {
     title: String,
   },

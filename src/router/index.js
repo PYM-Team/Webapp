@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Dashboard from '../views/Dashboard.vue';
+import Setup from '../components/Setup/SetupTotal.vue';
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,12 @@ const routes = [
     name: 'Dashboard',
     component: Dashboard,
     props: true,
+  },
+
+  {
+    path: '/Setup',
+    name: 'Setup',
+    component: Setup,
   },
 ];
 

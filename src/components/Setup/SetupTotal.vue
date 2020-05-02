@@ -4,10 +4,10 @@
     <article class="tile is-child is-12 is-centered">
       <PlayerPanel v-on:selected='setSelected($event)'/>
     </article>
-     <b-button class="notification is-primary title-font"  v-on:click="Randomize()">
+     <b-button class="notification is-primary title-font"  v-on:click="Randomize">
       <strong> Randomize </strong>
      </b-button>
-    <b-button class="notification is-primary title-font menu-list"  v-on:click="Start()">
+    <b-button tag="router-link" :to="{ path: '/Dashboard' }" class="notification is-primary title-font menu-list"  v-on:click="Start">
       <strong> Start </strong>
     </b-button>
   </div>

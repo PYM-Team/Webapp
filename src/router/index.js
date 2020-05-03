@@ -2,7 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Home from '../views/Home.vue';
 import Dashboard from '../views/Dashboard.vue';
-import Setup from '../components/Setup/SetupTotal.vue';
+import Setup from '../views/Setup.vue';
+import Overview from '../views/Overview.vue';
+import Choice from '../views/Choice.vue'
 
 Vue.use(VueRouter);
 
@@ -31,6 +33,18 @@ const routes = [
     path: '/Setup',
     name: 'Setup',
     component: Setup,
+  },
+
+  {
+    path: '/Overview',
+    name: 'Overview',
+    component: Overview,
+  },
+
+  {
+    path: '/Choice',
+    name: 'Choice',
+    component: Choice,
   },
 ];
 

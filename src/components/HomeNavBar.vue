@@ -1,4 +1,5 @@
 <template>
+<div>
     <b-navbar id="home-nav">
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ name: 'Dashboard', params: {nameGame: 'Test'}}"  >
@@ -20,17 +21,49 @@
         <template slot="end">
             <b-navbar-item tag="div">
                 <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
+                    <a class="button is-primary" @click="log = true">
                         Log in
                     </a>
                 </div>
             </b-navbar-item>
         </template>
     </b-navbar>
+    <b-modal :active.sync="log" scroll="keep">
+        <b-message title="Log in" class= "is-primary has-text-centered is-size-5">
+            <div class="field">
+            <label class="label">Game ID</label>
+            <div class="control">
+                <input class="input" type="number" v-model="Game.id" placeholder="135644" maxlength="6">
+            </div>
+            </div>
+
+            <div class="field">
+            <label class="label">Name of a player</label>
+            <div class="control">
+                <input class="input" type="password" v-model="Game.name" placeholder="Tom" password-reveal >
+            </div>
+            </div>
+            <b-button tag="router-link" :to="{ path: '/Choice' }"  class="button is-primary" @click="Submit = true" >Submit</b-button>
+        </b-message>
+  </b-modal>
+</div>
 </template>
+
+<script>
+export default {
+  name: 'HomeNavBar',
+  data() {
+    return {
+      log: false,
+      Submit: false,
+      Game: {
+        id: '',
+        name: '',
+      },
+    };
+  },
+};
+</script>
 
 <style>
 #home-nav {

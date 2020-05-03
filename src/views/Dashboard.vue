@@ -14,9 +14,6 @@
       <b-tab-item label="Missions">
         <Missions />
       </b-tab-item>
-      <b-tab-item label="Setup">
-        <Setup />
-      </b-tab-item>
     </b-tabs>
   </div>
 </template>

@@ -7,7 +7,7 @@
      <b-button class="notification is-primary title-font"  v-on:click="Randomize">
       <strong> Randomize </strong>
      </b-button>
-    <b-button tag="router-link" :to="{ path: '/Dashboard' }" class="notification is-primary title-font menu-list"  v-on:click="Start">
+    <b-button tag="router-link" :to="{ path: '/Overview' }" class="notification is-primary title-font menu-list"  v-on:click="Start">
       <strong> Start </strong>
     </b-button>
   </div>

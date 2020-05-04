@@ -25,7 +25,6 @@ import PlayersView from '@/components/PlayersView.vue';
 import PlayerView from '@/components/PlayerView.vue';
 import Overview from '@/components/Overview.vue';
 import Missions from '@/components/Missions.vue';
-import Setup from '@/components/Setup/SetupTotal.vue';
 
 export default {
   name: 'Dashboard',
@@ -35,7 +34,6 @@ export default {
     PlayerView,
     Overview,
     Missions,
-    Setup,
   },
   data() {
     return {

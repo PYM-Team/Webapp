@@ -28,12 +28,14 @@ export default {
   data() {
     return {
       selectedKey: {},
+      prefered: {},
     };
   },
   components: { PlayerPanel, PlayerCard },
   methods: {
     setSelected(_SelectedKey) {
       this.selectedKey = _SelectedKey;
+      //this.selectedKey = _SelectedKey[1];
     },
   },
 };

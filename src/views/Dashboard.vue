@@ -35,7 +35,6 @@ export default {
     PlayerView,
     Overview,
     Missions,
-    Setup,
   },
   data() {
     return {

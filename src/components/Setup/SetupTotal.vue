@@ -23,10 +23,26 @@
       <h1>{{this.$store.state.gameTemplate}}</h1>
       <strong>{{Description}}</strong>
     </article>
-        <p class="tile is-child">
-          <Setup />
-        </p>
+    <p class="tile is-child is-12">
+      <Setup/>
+    </p>
+    <div id="app" class="is-child is-12">
+        <div :key="Players.length" class="state has-text-centered">
+          {{ Players.length}} / 7
+        </div>
+        <div class="container has-text-centered">
+          <transition-group name="fading">
+            <span class="fading-item" v-for="(value, key) in Players" v-bind:key="key">
+              <img class="" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png" />
+              <h1 class=""> {{value.name}} <br> jouera <br>{{value.role}} </h1>
+              </span>
+          </transition-group>
+          <img v-if="value==0" class="empty" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png"/>
+        </div>
+        <div class="container has-text-centered addremove">
+        </div>
       </div>
+    </div>
       <b-modal :active.sync="choose" scroll="keep">
         <b-message title="Choose the role" class= "is-primary has-text-centered is-size-5">
            <article class="is-centered has-text-centered"> {{selectedKey}} jouera {{pref}}</article>
@@ -37,9 +53,8 @@
                 {{Role}}
                 </option>
             </b-select>
-             <b-button class="button is-primary tile is-right is-4" @click="ValidatePlayer(SelectedRole, selectedKey), choose = false"> Valid </b-button>
+             <b-button class="button is-primary tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer)"> Valid </b-button>
         </b-message>
-        
   </b-modal>
     </div>
   </div>
@@ -50,6 +65,7 @@
 
 import PlayerPanel from '@/components/Setup/PlayerPanelSetup.vue';
 import Setup from '@/components/Setup/Setup.vue';
+// import bus from '@/main.js';
 
 export default {
   name: 'PlayerView',
@@ -75,11 +91,34 @@ export default {
     },
     Randomize() {
     },
-    ValidatePlayer(Role, Player) {
+    Choose(Role, Player, ValidatePlayer) {
+      if (Role.length !== 0) {
+        this.choose = false;
+        this.SelectedRole = [];
+        ValidatePlayer(Role, Player);
+        this.$buefy.snackbar.open('You didn\'t choose a role');
+      }
+    },
+    ValidatePlayer(genre, player) {
+      let place = 0;
+      let act;
+      for (let i = 0; i < this.Players.length; i += 1) {
+        if (this.Players[i].name === player) {
+          place = i; // Found it
+          act = this.Players[i].role;
+        } else {
+          place = -1;
+        }
+      } // Not found
+      if (place !== -1) {
+        this.role.push(act);
+        this.Players.splice(place, 1);
+      }
       this.Players.push({
-        name: Player,
-        role: Role,
+        name: player,
+        role: genre,
       });
+      this.role.splice(this.role.indexOf(genre), 1);
     },
   },
 };

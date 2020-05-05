@@ -4,7 +4,7 @@ import Home from '../views/Home.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Setup from '../views/Setup.vue';
 import Overview from '../views/Overview.vue';
-import Choice from '../views/Choice.vue'
+import Choice from '../views/Choice.vue';
 
 Vue.use(VueRouter);
 

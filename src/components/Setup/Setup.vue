@@ -10,19 +10,25 @@
     <img v-if="value==0" class="empty" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png"/>
   </div>
   <div class="container has-text-centered addremove">
-    <b-button @click="add">Add one</b-button>
+    <b-button @click="add">{{dote}}</b-button>
     <b-button @click="remove">Remove one</b-button>
   </div>
 </div>
 </template>
 
 <script>
+import bus from '@/main.js';
+
+
 export default {
   name: 'Setup',
   data() {
     return {
       value: 3,
+      dote: {},
     };
+  },
+  created() {
   },
   methods: {
     add() {

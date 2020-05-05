@@ -96,6 +96,7 @@ export default {
         this.choose = false;
         this.SelectedRole = [];
         ValidatePlayer(Role, Player);
+      } else {
         this.$buefy.snackbar.open('You didn\'t choose a role');
       }
     },

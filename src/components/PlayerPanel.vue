@@ -1,7 +1,7 @@
 <template>
   <aside class="menu">
     <p class="menu-label">
-      Players
+      Joueurs
     </p>
     <ul class="menu-list player-name">
       <div v-for="(player, key) in this.$store.state.players" v-bind:key="key">

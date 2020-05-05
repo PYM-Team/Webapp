@@ -12,7 +12,7 @@ export default new Vuex.Store({
       tutu: { connected: false },
       titi: { connected: true },
     },
-    gameTemplate: 'Murder at TC',
+    gameTemplate: 'La mort du parrain',
     gameId: 100000,
     socket: io('http://localhost:1337/'),
   },

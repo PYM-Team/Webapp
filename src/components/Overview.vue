@@ -1,9 +1,9 @@
 <template>
   <div id="Overview">
     <article class="notification is-primary title-font">
-      <h1>Running Game</h1>
+      <h1>Partie en cours</h1>
       <p>{{this.$store.state.gameTemplate}}</p>
-      <p>Game Number : {{this.$store.state.gameId}}</p>
+      <p>Identifiant de partie : {{this.$store.state.gameId}}</p>
     </article>
     <button class="button is-primary is-medium" @click="isAnnModalActive = true">Faire une annonce</button>
     <b-modal :active.sync="isAnnModalActive" scroll="keep">
@@ -34,21 +34,8 @@
             <h1 class="is-size-4">En cours depuis :</h1>
             <h1 class="time is-size-1 has-text-white">{{ temps }}</h1>
           </article>
-          <button class="button tile is-child is-primary is-medium is-5" @click="Pause= true">Pause</button>
-          <b-modal :active.sync="Pause" scroll="keep">
-            <b-message title="Pause" class="is-primary has-text-centered is-size-5">
-              <article class="is-centered has-text-centered">
-                La partie est en pause, aucune action n'est plus possible et le timer a été mis en pause.
-                <br />Pour reprendre la partie, cliquer sur play
-              </article>
-            </b-message>
-          </b-modal>
-          <button class="button tile is-child is-primary is-medium is-5" @click="Play = true">Play</button>
-          <b-modal :active.sync="Play" scroll="keep">
-            <b-message title="Play" class="is-primary has-text-centered is-size-5">
-              <article class="is-centered has-text-centered">La partie a repris</article>
-            </b-message>
-          </b-modal>
+          <button class="button tile is-child is-primary is-medium is-5" @click="setPause()">Pause</button>
+          <button class="button tile is-child is-primary is-medium is-5" @click="calculTemps()">Play</button>
         </div>
       </div>
     </div>
@@ -57,7 +44,6 @@
 
 <script>
 import playerPanel from '@/components/PlayerPanel.vue';
-
 // fonction utile pour afficher le temps (ex : remplace 4 par 04)
 function bourrageZeros(k) {
   if (k < 10) {
@@ -65,7 +51,6 @@ function bourrageZeros(k) {
   }
   return k;
 }
-
 export default {
   name: 'Overview',
   components: { playerPanel },
@@ -73,8 +58,10 @@ export default {
     return {
       isAnnModalActive: false,
       temps: '',
-      Pause: false,
-      Play: false,
+      secondes: 0,
+      minutes: 0,
+      heures: 0,
+      intervalle: undefined,
     };
   },
   methods: {
@@ -97,9 +84,25 @@ export default {
       return datePropre;
     },
     calculTemps() {
-      setInterval(() => {
-        this.temps = new Date().toLocaleTimeString();
+      this.intervalle = setInterval(() => {
+        // this.temps = new Date().toLocaleTimeString(); pour afficher l'heure du PC
+        this.secondes += 1;
+        if (this.secondes === 60) {
+          this.secondes = 0;
+          this.minutes += 1;
+        }
+        if (this.minutes === 60) {
+          this.minutes = 0;
+          this.heures += 1;
+        }
+        if (this.heures === 24) {
+          this.heures = 0;
+        }
+        this.temps = `${bourrageZeros(this.heures)} : ${bourrageZeros(this.minutes)} : ${bourrageZeros(this.secondes)}`;
       }, 1000);
+    },
+    setPause() {
+      clearInterval(this.intervalle);
     },
   },
   mounted() {

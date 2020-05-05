@@ -17,7 +17,7 @@ export default {
   components: { TemplateCard },
   data() {
     return {
-      templates: [{ name: 'murder at TC' }, { name: 'strange story hmm' }, { name: 'murder in the museum' }, { name: 'not a murder at TC' }, { name: 'not a murder at TC' }, { name: 'not a murder at TC' }],
+      templates: [{ name: 'La mort du parrain' }, { name: 'Intrigues à la cour du roi' }, { name: 'En pleine guerre froide' }, { name: 'Bagarre de saloon' }, { name: 'Mariage compromis' }, { name: 'Panique à la discothèque' }],
     };
   },
 };

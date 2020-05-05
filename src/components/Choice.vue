@@ -4,10 +4,10 @@
         <div class="hero-body">
             <div class="container">
             <h1 class="title">
-                Choose your role
+                Choisissez votre rôle
             </h1>
             <h2 class="subtitle">
-                Player or Game Master
+                Joueur ou maitre du jeu
             </h2>
             </div>
         </div>
@@ -24,8 +24,8 @@
     </div>
     <b-modal :active.sync="GameMaster" scroll="keep">
         <b-message title="Are you sure ?" class= "is-primary has-text-centered is-size-5">
-            <article class="is-centered has-text-centered"> Attention, you're going to access at the Game Master mode, with all the solutions, it can be unfortunate if you're just a player !  </article>
-            <b-button tag="router-link" :to="{ path: '/Dashboard' }" class="button is-primary tile is-centered is-12"> I'm the Game Master and I want to access </b-button>
+            <article class="is-centered has-text-centered"> Attention, ceci est un espace réservé au maitre du jeu qui contient des solutions !</article>
+            <b-button tag="router-link" :to="{ path: '/Dashboard' }" class="button is-primary tile is-centered is-12"> Je suis le maitre du jeu </b-button>
             </b-message>
     </b-modal>
 </div>

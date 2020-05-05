@@ -11,7 +11,7 @@
         </template>
         <template slot="start">
             <b-navbar-item href="#">
-                Home
+                Accueil
             </b-navbar-item>
             <b-navbar-item href="#">
                 Documentation
@@ -22,7 +22,7 @@
             <b-navbar-item tag="div">
                 <div class="buttons">
                     <a class="button is-primary" @click="log = true">
-                        Log in
+                        Identification
                     </a>
                 </div>
             </b-navbar-item>
@@ -31,19 +31,19 @@
     <b-modal :active.sync="log" scroll="keep">
         <b-message title="Log in" class= "is-primary has-text-centered is-size-5">
             <div class="field">
-            <label class="label">Game ID</label>
+            <label class="label">Identifiant de partie</label>
             <div class="control">
                 <input class="input" type="number" v-model="Game.id" placeholder="135644" maxlength="6">
             </div>
             </div>
 
             <div class="field">
-            <label class="label">Name of a player</label>
+            <label class="label">Nom du joueur</label>
             <div class="control">
                 <input class="input" type="password" v-model="Game.name" placeholder="Tom" password-reveal >
             </div>
             </div>
-            <b-button tag="router-link" :to="{ path: '/Choice' }"  class="button is-primary" @click="Submit = true" >Submit</b-button>
+            <b-button tag="router-link" :to="{ path: '/Choice' }"  class="button is-primary" @click="Submit = true" >Valider</b-button>
         </b-message>
   </b-modal>
 </div>

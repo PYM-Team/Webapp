@@ -39,7 +39,6 @@
             </b-select>
              <b-button class="button is-primary tile is-right is-4" @click="ValidatePlayer(SelectedRole, selectedKey), choose = false"> Valid </b-button>
         </b-message>
-        
   </b-modal>
     </div>
   </div>

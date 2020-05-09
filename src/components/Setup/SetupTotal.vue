@@ -7,9 +7,15 @@
      <b-button class="notification is-primary title-font is-vcentered is-centered"  v-on:click="Randomize">
       <strong> Randomize </strong>
      </b-button>
-    <b-button tag="router-link" :to="{ path: '/Overview' }" class="notification is-primary title-font menu-list"  v-on:click="Start">
+    <b-button class="notification is-primary title-font menu-list"  v-on:click="Start">
       <strong> Start </strong>
     </b-button>
+    <b-modal :active.sync="start" scroll="keep">
+        <b-message title="Description" class= "is-primary has-text-centered is-size-5">
+           <article class="is-centered has-text-centered"> {{description}} </article>
+           <b-button tag="router-link" :to="{ path: '/Overview' }" class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
+        </b-message>
+  </b-modal>
   </div>
   <div class="tile is-vertical is-8">
     <div class="tile">
@@ -28,7 +34,7 @@
     </p>
     <div id="app" class="is-child is-12">
         <div :key="Players.length" class="state has-text-centered">
-          {{ Players.length}} / 7
+          {{ Players.length}} / {{Value}}
         </div>
         <div class="container has-text-centered">
           <transition-group name="fading">
@@ -71,10 +77,12 @@ export default {
   name: 'PlayerView',
   data() {
     return {
+      Value: 1,
       Players: [],
       SelectedRole: [],
       role: ['Espion', 'meurtrier', 'fils', 'serviteur'],
       choose: false,
+      start: false,
       selectedKey: {},
       pref: {},
       Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum ',
@@ -90,6 +98,13 @@ export default {
       this.pref = _SelectedKey[1];
     },
     Randomize() {
+    },
+    Start() {
+      if (this.Players.length === this.Value) {
+        this.start = true;
+      } else {
+        this.$buefy.snackbar.open('Tout les rôles ne sont pas attribués');
+      }
     },
     Choose(Role, Player, ValidatePlayer) {
       if (Role.length !== 0) {

@@ -1,4 +1,4 @@
-<template>
+s<template>
   <div id="Overview">
     <article class="notification is-primary title-font">
       <h1>Partie en cours</h1>

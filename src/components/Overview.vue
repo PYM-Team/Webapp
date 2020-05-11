@@ -1,4 +1,4 @@
-s<template>
+<template>
   <div id="Overview">
     <article class="notification is-primary title-font">
       <h1>Partie en cours</h1>
@@ -33,6 +33,7 @@ s<template>
             <h1 class="date is-size-2 is-centered has-text-dark">{{ getDate() }}</h1>
             <h1 class="is-size-4">En cours depuis :</h1>
             <h1 class="time is-size-1 has-text-white">{{ temps }}</h1>
+            <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ tempsMax }}</h1>
           </article>
           <button class="button tile is-child is-primary is-medium is-5" @click="setPause()">Pause</button>
           <button class="button tile is-child is-primary is-medium is-5" @click="calculTemps()">Play</button>
@@ -58,6 +59,9 @@ export default {
     return {
       isAnnModalActive: false,
       temps: '',
+      tempsActuelSecondes: 0,
+      pourcentage: 0,
+      tempsMax: 60,
       secondes: 0,
       minutes: 0,
       heures: 0,
@@ -98,6 +102,10 @@ export default {
         if (this.heures === 24) {
           this.heures = 0;
         }
+        // calcul
+        this.tempsActuelSecondes = this.secondes + this.minutes * 60 + this.heures * 3600;
+        this.pourcentage = (100 * this.tempsActuelSecondes) / this.tempsMax;
+        this.pourcentage = (Math.round(this.pourcentage * 100) / 100).toFixed(2); // sert à arrondir à deux décimales près
         this.temps = `${bourrageZeros(this.heures)} : ${bourrageZeros(this.minutes)} : ${bourrageZeros(this.secondes)}`;
       }, 1000);
     },

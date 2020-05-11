@@ -36,12 +36,13 @@
                 <input class="input" type="number" v-model="Game.id" placeholder="135644" maxlength="6">
             </div>
             </div>
-
             <div class="field">
-            <label class="label">Nom du joueur</label>
-            <div class="control">
-                <input class="input" type="password" v-model="Game.name" placeholder="Tom" password-reveal >
-            </div>
+            <b-field label="Prenom d'un joueur">
+            <b-input type="password"
+                value="Tom"
+                password-reveal>
+            </b-input>
+        </b-field>
             </div>
             <b-button tag="router-link" :to="{ path: '/Choice' }"  class="button is-primary" @click="Submit = true" >Valider</b-button>
         </b-message>

@@ -23,7 +23,19 @@
   <b-modal :active.sync="learn" scroll="keep">
         <b-message title="Description" class= "is-primary has-text-centered is-size-5">
            <article class="is-centered has-text-centered"> {{description}} </article>
-           <b-button tag="router-link" :to="{ path: '/Setup' }" class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
+           <b-button class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
+        </b-message>
+  </b-modal>
+  <b-modal :active.sync="Param" scroll="keep">
+        <b-message title="Description" class= "is-primary has-text-centered is-size-5">
+          <article class="is-centered has-text-centered"> Parametrez votre partie </article>
+          <b-field label="Nom de la partie">
+            <b-input v-model="name"></b-input> </b-field>
+          <b-field label="Durée de la partie (en heure)">
+            <b-numberinput controls-rounded min="0" placeholder="8" type="number" v-model="duree">
+            </b-numberinput>
+          </b-field>
+          <b-button tag="router-link" :to="{ path: '/Setup' }" class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
         </b-message>
   </b-modal>
 </div>
@@ -35,6 +47,9 @@ export default {
   data() {
     return {
       learn: false,
+      name: [],
+      duree: [],
+      Param: false,
       description: 'Don Giorgio, baron de la drogue et parrain de la pègre locale, a rendu l\'âme. A qui profite le crime ? ',
     };
   },
@@ -43,17 +58,8 @@ export default {
   },
   methods: {
     createGame() {
-      fetch('https://rpplanner-api.herokuapp.com/api/games', {
-        method: 'post',
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          this.$router.push({ name: 'Dashboard', params: { nameGame: this.title, idGame: '0001' } });
-          console.log(data);
-        })
-        .catch(() => {
-          console.log('error');
-        });
+      this.learn = false;
+      this.Param = true;
     },
   },
 };

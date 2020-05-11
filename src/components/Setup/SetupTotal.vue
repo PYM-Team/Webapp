@@ -31,7 +31,7 @@
         </article>
         <div id="app" class="tile is-child is-12">
           <div :key="Players.length" class="state has-text-centered">
-            {{ Players.length}} / {{Value}}
+            {{ Players.length}} / {{role.length}}
           </div>
           <div class="container has-text-centered">
             <transition-group name="fading">
@@ -74,7 +74,7 @@ export default {
       Value: 1,
       Players: [],
       SelectedRole: [],
-      role: ['Espion', 'meurtrier', 'fils', 'serviteur'],
+      role: ['Espion', 'meurtrier', 'fils', 'serviteur', 'femme'],
       choose: false,
       start: false,
       selectedKey: {},

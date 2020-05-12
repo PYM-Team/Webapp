@@ -1,4 +1,3 @@
-/* eslint-disable radix */
 <template>
   <div id="Overview">
     <article class="notification is-primary title-font">
@@ -62,7 +61,7 @@ export default {
       temps: '',
       tempsActuelSecondes: 0,
       pourcentage: 0,
-      tempsMax: 60,
+      tempsMax: this.$store.state.duree,
       secondes: 0,
       minutes: 0,
       heures: 0,

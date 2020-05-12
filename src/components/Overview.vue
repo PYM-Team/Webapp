@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 <template>
   <div id="Overview">
     <article class="notification is-primary title-font">
@@ -33,7 +34,7 @@
             <h1 class="date is-size-2 is-centered has-text-dark">{{ getDate() }}</h1>
             <h1 class="is-size-4">En cours depuis :</h1>
             <h1 class="time is-size-1 has-text-white">{{ temps }}</h1>
-            <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }} : {{afficheHeureMax(tempsMax).minutes}}</h1>
+            <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }}h{{afficheHeureMax(tempsMax).minutes}}min</h1>
           </article>
           <button class="button tile is-child is-primary is-medium is-5" @click="setPause()">Pause</button>
           <button class="button tile is-child is-primary is-medium is-5" @click="calculTemps()">Play</button>
@@ -89,7 +90,6 @@ export default {
     },
     calculTemps() {
       this.intervalle = setInterval(() => {
-        // this.temps = new Date().toLocaleTimeString(); pour afficher l'heure du PC
         this.secondes += 1;
         if (this.secondes === 60) {
           this.secondes = 0;
@@ -110,10 +110,8 @@ export default {
       }, 1000);
     },
     afficheHeureMax(tempsMax) {
-      // eslint-disable-next-line radix
-      const h = parseInt(tempsMax / 3600);
-      // eslint-disable-next-line radix
-      const m = parseInt((tempsMax % 3600) / 60);
+      const h = parseInt((tempsMax / 3600), 10);
+      const m = parseInt(((tempsMax % 3600) / 60), 10);
 
       return {
         heures: (h === 24 ? bourrageZeros(0) : bourrageZeros(h)),

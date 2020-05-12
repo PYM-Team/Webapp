@@ -13,7 +13,7 @@
     <b-modal :active.sync="start" scroll="keep">
         <b-message title="Description" class= "is-primary has-text-centered is-size-5">
            <article class="is-centered has-text-centered"> {{description}} </article>
-           <b-button tag="router-link" :to="{ path: '/Overview' }" class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
+           <b-button tag="router-link" :to="{ path: '/Overview' }" class="button is-primary tile is-centered is-12" @click="createGame"> C'est parti ! </b-button>
         </b-message>
   </b-modal>
   </div>

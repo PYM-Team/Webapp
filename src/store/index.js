@@ -15,11 +15,16 @@ export default new Vuex.Store({
     gameTemplate: 'La mort du parrain',
     gameId: 100000,
     socket: io('http://localhost:1337/'),
+    duree: 0,
   },
   mutations: {
+    setDuree(state, n) {
+      state.duree = n;
+    },
   },
   actions: {
   },
   modules: {
   },
 });
+

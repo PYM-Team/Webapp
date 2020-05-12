@@ -13,7 +13,7 @@
     </header>
     <div class="card-content">
       <div class="content">
-        Une ou deux phrases d'accroches afin de titiller votre curiosité.
+        Don Giorgio, baron de la drogue et parrain de la pègre locale, a rendu l'âme. A qui profite le crime ?
       </div>
     </div>
     <footer class="card-footer">
@@ -50,7 +50,7 @@ export default {
       name: [],
       duree: [],
       Param: false,
-      description: 'Don Giorgio, baron de la drogue et parrain de la pègre locale, a rendu l\'âme. A qui profite le crime ? ',
+      description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
     };
   },
   props: {

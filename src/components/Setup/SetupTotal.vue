@@ -21,9 +21,9 @@
     <div class="tile">
       <div class="tile is-parent is-vertical">
         <article class="notification is-primary title-font">
-          <h1>Creation of the Game</h1>
+          <h1>Création de la partie</h1>
           <p>{{this.$store.state.gameTemplate}}</p>
-          <p>Game Number : {{this.$store.state.gameId}}</p>
+          <p>Identifiant de partie : {{this.$store.state.gameId}}</p>
         </article>
         <article class="is-primary notification title-font">
           <h1>{{this.$store.state.gameTemplate}}</h1>
@@ -54,7 +54,7 @@
                 {{Role}}
                 </option>
             </b-select>
-            <b-button class="button is-primary tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer)"> Valid </b-button>
+            <b-button class="button is-primary tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer)"> Valider </b-button>
         </b-message>
       </b-modal>
     </div>
@@ -97,7 +97,7 @@ export default {
       if (this.Players.length === this.Value) {
         this.start = true;
       } else {
-        this.$buefy.snackbar.open('Tout les rôles ne sont pas attribués');
+        this.$buefy.snackbar.open('Tous les rôles ne sont pas attribués');
       }
     },
     Choose(Role, Player, ValidatePlayer) {
@@ -106,7 +106,7 @@ export default {
         this.SelectedRole = [];
         ValidatePlayer(Role, Player);
       } else {
-        this.$buefy.snackbar.open('You didn\'t choose a role');
+        this.$buefy.snackbar.open('Vous n\'avez pas assigné de rôle');
       }
     },
     ValidatePlayer(genre, player) {

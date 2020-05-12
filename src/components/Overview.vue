@@ -33,7 +33,7 @@
             <h1 class="date is-size-2 is-centered has-text-dark">{{ getDate() }}</h1>
             <h1 class="is-size-4">En cours depuis :</h1>
             <h1 class="time is-size-1 has-text-white">{{ temps }}</h1>
-            <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ tempsMax }}</h1>
+            <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }} : {{afficheHeureMax(tempsMax).minutes}}</h1>
           </article>
           <button class="button tile is-child is-primary is-medium is-5" @click="setPause()">Pause</button>
           <button class="button tile is-child is-primary is-medium is-5" @click="calculTemps()">Play</button>
@@ -45,7 +45,7 @@
 
 <script>
 import playerPanel from '@/components/PlayerPanel.vue';
-// fonction utile pour afficher le temps (ex : remplace 4 par 04)
+// fonction utile pour afficher le temps (ex : remplace 4:16 par 04:16)
 function bourrageZeros(k) {
   if (k < 10) {
     return `0${k}`;
@@ -108,6 +108,17 @@ export default {
         this.pourcentage = (Math.round(this.pourcentage * 100) / 100).toFixed(2); // sert à arrondir à deux décimales près
         this.temps = `${bourrageZeros(this.heures)} : ${bourrageZeros(this.minutes)} : ${bourrageZeros(this.secondes)}`;
       }, 1000);
+    },
+    afficheHeureMax(tempsMax) {
+      // eslint-disable-next-line radix
+      const h = parseInt(tempsMax / 3600);
+      // eslint-disable-next-line radix
+      const m = parseInt((tempsMax % 3600) / 60);
+
+      return {
+        heures: (h === 24 ? bourrageZeros(0) : bourrageZeros(h)),
+        minutes: (m === 60 ? bourrageZeros(0) : bourrageZeros(m)),
+      };
     },
     setPause() {
       clearInterval(this.intervalle);

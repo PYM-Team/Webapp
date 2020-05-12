@@ -5,10 +5,10 @@
       <PlayerPanel v-on:selected='setSelected($event)'/>
     </article>
      <b-button class="notification is-primary title-font is-vcentered is-centered"  v-on:click="Randomize">
-      <strong> Randomize </strong>
+      <strong> Distribution aléatoire </strong>
      </b-button>
     <b-button class="notification is-primary title-font menu-list"  v-on:click="Start">
-      <strong> Start </strong>
+      <strong> Commencer </strong>
     </b-button>
     <b-modal :active.sync="start" scroll="keep">
         <b-message title="Description" class= "is-primary has-text-centered is-size-5">
@@ -74,12 +74,12 @@ export default {
       Value: 1,
       Players: [],
       SelectedRole: [],
-      role: ['Espion', 'meurtrier', 'fils', 'serviteur', 'femme'],
+      role: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'],
       choose: false,
       start: false,
       selectedKey: {},
       pref: {},
-      Description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum ',
+      Description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
     };
   },
   components: { PlayerPanel },

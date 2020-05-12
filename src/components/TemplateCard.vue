@@ -32,7 +32,7 @@
           <b-field label="Nom de la partie">
             <b-input v-model="name"></b-input> </b-field>
           <b-field label="Durée de la partie (en secondes)">
-            <b-numberinput controls-rounded min="0" placeholder="8" type="number" v-bind="duree">
+            <b-numberinput controls-rounded min="0" placeholder="8" type="number" v-model.number="duree" @input="inputChange">
             </b-numberinput>
           </b-field>
           <b-button tag="router-link" :to="{ path: '/Setup' }" class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
@@ -48,7 +48,7 @@ export default {
     return {
       learn: false,
       name: [],
-      duree: 3600,
+      duree: 0,
       Param: false,
       description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
     };
@@ -58,9 +58,11 @@ export default {
   },
   methods: {
     createGame() {
-      this.$store.commit('setDuree', this.duree);
       this.learn = false;
       this.Param = true;
+    },
+    inputChange() {
+      this.$store.commit('setDuree', this.duree);
     },
   },
 };

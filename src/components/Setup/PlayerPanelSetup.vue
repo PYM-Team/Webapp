@@ -26,6 +26,7 @@ export default {
         tato: { connected: true, prefered: 'Espion' },
         tito: { connected: true, prefered: 'Serviteur' },
         tuti: { connected: true, prefered: 'Fils' },
+        titi: { connected: true, prefered: 'Femme' },
       },
     };
   },

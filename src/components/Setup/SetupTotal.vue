@@ -31,7 +31,7 @@
         </article>
         <div id="app" class="tile is-child is-12">
           <div :key="Players.length" class="state has-text-centered">
-            {{ Players.length}} / {{role.length}}
+            {{ Players.length}} / {{ Value}}
           </div>
           <div class="container has-text-centered">
             <transition-group name="fading">
@@ -71,7 +71,7 @@ export default {
   name: 'PlayerView',
   data() {
     return {
-      Value: 1,
+      Value: 6,
       Players: [],
       SelectedRole: [],
       role: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'],

@@ -19,15 +19,7 @@ export default {
   name: 'PlayerPanel',
   data() {
     return {
-      players: {
-        toto: { connected: true, prefered: 'Meurtrier' },
-        tata: { connected: true, prefered: 'Serviteur' },
-        tutu: { connected: false, prefered: 'Epouse' },
-        tato: { connected: true, prefered: 'Espion' },
-        tito: { connected: true, prefered: 'Serviteur' },
-        tuti: { connected: true, prefered: 'Fils' },
-        titi: { connected: true, prefered: 'Femme' },
-      },
+      players: this.$store.state.players,
     };
   },
   methods: {

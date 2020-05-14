@@ -12,8 +12,8 @@
     </b-button>
     <b-modal :active.sync="start" scroll="keep">
         <b-message title="Description" class= "is-primary has-text-centered is-size-5">
-           <article class="is-centered has-text-centered"> {{description}} </article>
-           <b-button tag="router-link" :to="{ path: '/Overview' }" class="button is-primary tile is-centered is-12" @click="createGame"> C'est parti ! </b-button>
+           <article class="is-centered has-text-centered"> Voulez vous vraiment lancer la partie ? </article>
+           <b-button tag="router-link" :to="{ path: '/Overview' }" class="button is-primary tile is-centered is-12" @click="createGame, inputPlayers"> C'est parti ! </b-button>
         </b-message>
   </b-modal>
   </div>
@@ -21,13 +21,13 @@
     <div class="tile">
       <div class="tile is-parent is-vertical">
         <article class="notification is-primary title-font">
-          <h1>Création de la partie</h1>
-          <p>{{this.$store.state.gameTemplate}}</p>
-          <p>Identifiant de partie : {{this.$store.state.gameId}}</p>
+          <h1>Création de la partie : {{this.$store.state.Game.gameName}} </h1>
+          <p>{{this.$store.state.Game.gameTemplate}}</p>
+          <p>Identifiant de partie : {{this.$store.state.Game.gameId}}</p>
         </article>
         <article class="is-primary notification title-font">
           <h1>{{this.$store.state.gameTemplate}}</h1>
-          <strong>{{Description}}</strong>
+          <strong>{{this.$store.state.Game.description}}</strong>
         </article>
         <div id="app" class="tile is-child is-12">
           <div :key="Players.length" class="state has-text-centered">
@@ -54,7 +54,7 @@
                 {{Role}}
                 </option>
             </b-select>
-            <b-button class="button is-primary tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer)"> Valider </b-button>
+            <b-button class="button is-primary tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer, inputPlayers)"> Valider </b-button>
         </b-message>
       </b-modal>
     </div>
@@ -79,7 +79,6 @@ export default {
       start: false,
       selectedKey: {},
       pref: {},
-      Description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
     };
   },
   components: { PlayerPanel },
@@ -108,6 +107,11 @@ export default {
       } else {
         this.$buefy.snackbar.open('Vous n\'avez pas assigné de rôle');
       }
+    },
+    inputPlayers() {
+      console.log('done');
+      this.$store.commit('setPlayers', this.Players);
+      console.log('done');
     },
     ValidatePlayer(genre, player) {
       let place = 0;

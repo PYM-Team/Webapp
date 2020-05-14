@@ -1,9 +1,9 @@
 <template>
   <div id="Overview">
     <article class="notification is-primary title-font">
-      <h1>Partie en cours</h1>
-      <p>{{this.$store.state.gameTemplate}}</p>
-      <p>Identifiant de partie : {{this.$store.state.gameId}}</p>
+      <h1>Partie en cours : {{this.$store.state.Game.gameName}}</h1>
+      <p>{{this.$store.state.Game.gameTemplate}}</p>
+      <p>Identifiant de partie : {{this.$store.state.Game.gameId}}</p>
     </article>
     <button class="button is-primary is-medium" @click="isAnnModalActive = true">Faire une annonce</button>
     <b-modal :active.sync="isAnnModalActive" scroll="keep">
@@ -61,7 +61,7 @@ export default {
       temps: '',
       tempsActuelSecondes: 0,
       pourcentage: 0,
-      tempsMax: this.$store.state.duree,
+      tempsMax: this.$store.state.Game.duree,
       secondes: 0,
       minutes: 0,
       heures: 0,

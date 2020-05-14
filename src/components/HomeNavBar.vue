@@ -75,7 +75,6 @@ export default {
       // receive name
       for (let i = 0; i < this.Receive.name.length; i += 1) {
         if (this.Game.name === this.Receive.name[i]) {
-        // tag="router-link" :to="{ path: '/Choice' }
           valid = true;
           this.$router.push({ path: '/Choice' });
         }

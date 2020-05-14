@@ -30,7 +30,7 @@
         <b-message title="Description" class= "is-primary has-text-centered is-size-5">
           <article class="is-centered has-text-centered"> Parametrez votre partie </article>
           <b-field label="Nom de la partie">
-            <b-input v-model="name"></b-input> </b-field>
+            <b-input v-model="name" @input="inputName"></b-input> </b-field>
           <b-field label="Durée de la partie (en secondes)">
             <b-numberinput controls-rounded min="0" placeholder="8" type="number" v-model.number="duree" @input="inputChange">
             </b-numberinput>
@@ -46,8 +46,9 @@ export default {
   name: 'TemplateCard',
   data() {
     return {
+      Players: [{ name: 'toto', role: 'Vito Falcaninio' }, { name: 'tata', role: 'Carla Gurzio' }, { name: 'tato', role: 'Petro Francesco' }],
       learn: false,
-      name: [],
+      name: '',
       duree: 0,
       Param: false,
       description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
@@ -63,6 +64,9 @@ export default {
     },
     inputChange() {
       this.$store.commit('setDuree', this.duree);
+    },
+    inputName() {
+      this.$store.commit('setName', this.name);
     },
   },
 };

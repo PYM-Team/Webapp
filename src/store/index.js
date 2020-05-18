@@ -6,15 +6,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    players: {
-      toto: { connected: true, prefered: 'Meurtrier' },
-      tata: { connected: true, prefered: 'Serviteur' },
-      tutu: { connected: false, prefered: 'Epouse' },
-      tato: { connected: true, prefered: 'Espion' },
-      tito: { connected: true, prefered: 'Serviteur' },
-      tuti: { connected: true, prefered: 'Fils' },
-      titi: { connected: true, prefered: 'Femme' },
-    },
+    players: [
+        { name: 'toto', connected: true, prefered: 'Meurtrier' },
+        { name: 'tata', connected: true, prefered: 'Serviteur' },
+        { name: 'tutu', connected: false, prefered: 'Epouse' },
+        { name: 'tato', connected: true, prefered: 'Espion' },
+        { name: 'tito', connected: true, prefered: 'Serviteur' },
+        { name: 'tuti', connected: true, prefered: 'Fils' },
+      ],
     Game: {
       gameName: 'fff',
       gameTemplate: 'La mort du parrain',

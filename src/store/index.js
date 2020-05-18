@@ -5,42 +5,22 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-<<<<<<< HEAD
-socket: {
-  isConnected: false,
-  message: '',
-  reconnectError: false,
-},
-connection: null,
-token: '',
-ID: 0,  
-    players: {
-      toto: { connected: true, prefered: 'Meurtrier' },
-      tata: { connected: true, prefered: 'Serviteur' },
-      tutu: { connected: false, prefered: 'Epouse' },
-      tato: { connected: true, prefered: 'Espion' },
-      tito: { connected: true, prefered: 'Serviteur' },
-      tuti: { connected: true, prefered: 'Fils' },
-      titi: { connected: true, prefered: 'Femme' },
+    socket: {
+      isConnected: false,
+      message: '',
+      reconnectError: false,
     },
-=======
-socket: {
-  isConnected: false,
-  message: '',
-  reconnectError: false,
-},
-connection: null,
-token: '',
-ID: 0,
+    connection: null,
+    token: '',
+    ID: 0,
     players: [
-        { name: 'toto', connected: true, prefered: 'Meurtrier' },
-        { name: 'tata', connected: true, prefered: 'Serviteur' },
-        { name: 'tutu', connected: false, prefered: 'Epouse' },
-        { name: 'tato', connected: true, prefered: 'Espion' },
-        { name: 'tito', connected: true, prefered: 'Serviteur' },
-        { name: 'tuti', connected: true, prefered: 'Fils' },
-      ],
->>>>>>> 2b5a9afb4e8804ae1014c99a6ca9860b493e8b7a
+      { name: 'toto', connected: true, prefered: 'Meurtrier' },
+      { name: 'tata', connected: true, prefered: 'Serviteur' },
+      { name: 'tutu', connected: false, prefered: 'Epouse' },
+      { name: 'tato', connected: true, prefered: 'Espion' },
+      { name: 'tito', connected: true, prefered: 'Serviteur' },
+      { name: 'tuti', connected: true, prefered: 'Fils' },
+    ],
     Game: {
       gameName: 'fff',
       gameTemplate: 'La mort du parrain',

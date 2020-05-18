@@ -22,7 +22,7 @@
   </div>
   <b-modal :active.sync="learn" scroll="keep">
         <b-message title="Description" class= "is-primary has-text-centered is-size-5">
-           <article class="is-centered has-text-centered"> {{description}} </article>
+           <article class="is-centered has-text-centered"> {{description}} {{data}} </article>
            <b-button class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
         </b-message>
   </b-modal>
@@ -35,7 +35,7 @@
             <b-numberinput controls-rounded min="0" placeholder="8" type="number" v-model.number="duree" @input="inputChange">
             </b-numberinput>
           </b-field>
-          <b-button tag="router-link" :to="{ path: '/Setup' }" class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
+          <b-button @click="GameStart" tag="router-link" :to="{ path: '/Setup' }" class="button is-primary tile is-centered is-12" > Démarrer </b-button>
         </b-message>
   </b-modal>
 </div>
@@ -49,8 +49,10 @@ export default {
       Players: [{ name: 'toto', role: 'Vito Falcaninio' }, { name: 'tata', role: 'Carla Gurzio' }, { name: 'tato', role: 'Petro Francesco' }],
       learn: false,
       name: '',
+      connection: null,
       duree: 0,
       Param: false,
+      data: '',
       description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
     };
   },
@@ -67,6 +69,10 @@ export default {
     },
     inputName() {
       this.$store.commit('setName', this.name);
+    },
+    GameStart() {
+      console.log('game starting...');
+      this.$store.commit('dataobtain', 9);
     },
   },
 };

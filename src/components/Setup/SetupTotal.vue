@@ -2,7 +2,7 @@
 <div id="player-view" class="tile is-ancestor">
   <div class="tile is-parent is-vertical">
     <article class="tile is-child is-12 is-centered">
-      <PlayerPanel v-on:selected='setSelected($event)'/>
+      <PlayerPanel :random="this.RandomiseOn" v-on:selected='setSelected($event)' v-on:randomise='Assigner($event)'/>
     </article>
      <b-button class="notification is-primary title-font is-vcentered is-centered"  v-on:click="Randomize">
       <strong> Distribution aléatoire </strong>
@@ -71,6 +71,7 @@ export default {
   name: 'PlayerView',
   data() {
     return {
+      RandomiseOn: false,
       Value: 6,
       Players: [],
       SelectedRole: [],
@@ -91,6 +92,12 @@ export default {
       this.pref = _SelectedKey[1];
     },
     Randomize() {
+      this.RandomiseOn = true; // dis à la liste de player de faire un tirage aléatoire
+    },
+    Assigner(_SelectedKey) {
+      for (let i = 0; i < _SelectedKey.length; i += 1) {
+        this.ValidatePlayer(_SelectedKey[i][0], _SelectedKey[i][1]); //récupère et assigne en fonction de la ditribution aléatoire
+      }
     },
     Start() {
       if (this.Players.length === this.Value) {

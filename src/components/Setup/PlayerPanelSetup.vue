@@ -34,18 +34,18 @@ export default {
     },
   },
   SendRandom() {
-      let dice = 0;
-      for (let i = 0; i < (this.players.length); i += 1) {
-        if (this.players[i].connected) {
-          dice = Math.floor(Math.random() * this.roles.length);
-          this.RandomRoles.push([this.roles[dice], this.players[i].name]);
-          this.roles.splice(dice, 1);
-        }
+    let dice = 0;
+    for (let i = 0; i < (this.players.length); i += 1) {
+      if (this.players[i].connected) {
+        dice = Math.floor(Math.random() * this.roles.length);
+        this.RandomRoles.push([this.roles[dice], this.players[i].name]);
+        this.roles.splice(dice, 1);
       }
-      this.RandomDone = true;
-      this.$emit('randomise', this.RandomRoles);
-    },
-    props: {
+    }
+    this.RandomDone = true;
+    this.$emit('randomise', this.RandomRoles);
+  },
+  props: {
     random: Boolean,
   },
 };

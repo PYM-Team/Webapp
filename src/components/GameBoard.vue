@@ -22,25 +22,6 @@ export default {
     };
   },
   methods: {
-    gamestart() {
-      const content = {
-        type: 'createGame',
-        status: 'ok',
-        token: null,
-        data: {
-          templateName: 'basicMurder',
-        },
-      };
-      let data;
-      this.$socket.sendObj(content);
-      this.$options.sockets.onmessage = function (message) {
-        data = JSON.parse(message.data);
-        this.$store.commit('setGameId', data.data.gameId);
-      };
-      if (data) {
-        delete this.$options.sockets.onmessage;
-      }
-    },
   },
 };
 </script>

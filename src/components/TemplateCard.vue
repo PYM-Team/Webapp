@@ -35,7 +35,7 @@
             <b-numberinput controls-rounded min="0" placeholder="8" type="number" v-model.number="duree" @input="inputChange">
             </b-numberinput>
           </b-field>
-          <b-button @click="GameStart" tag="router-link" :to="{ path: '/Setup' }" class="button is-primary tile is-centered is-12" > Démarrer </b-button>
+          <b-button @click="GameStart" class="button is-primary tile is-centered is-12" > Démarrer </b-button>
         </b-message>
   </b-modal>
 </div>
@@ -71,8 +71,25 @@ export default {
       this.$store.commit('setName', this.name);
     },
     GameStart() {
-      console.log('game starting...');
-      this.$store.commit('dataobtain', 9);
+      console.log('executing...');
+      const content = {
+        type: 'createGame',
+        status: 'ok',
+        token: null,
+        data: {
+          templateName: 'basicMurder',
+        },
+      };
+      let data;
+      this.$socket.sendObj(content);
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        this.$store.commit('setGameId', data.data.gameId);
+        this.$router.push({ path: '/setup' });
+      };
+      if (data) {
+        delete this.$options.sockets.onmessage;
+      }
     },
   },
 };

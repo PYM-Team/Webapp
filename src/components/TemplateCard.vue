@@ -41,6 +41,7 @@
               @input="inputChange"
               editable>
           </b-timepicker>
+          <br>
           <b-button @click="GameStart" class="button is-primary tile is-centered is-12" > Démarrer </b-button>
         </b-message>
   </b-modal>

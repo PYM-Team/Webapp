@@ -12,7 +12,6 @@
     </b-button>
     <b-modal :active.sync="start" scroll="keep">
         <b-message class= "is-primary has-text-centered is-size-5">
-          <article class="title is-2 has-text-black is-centered has-text-centered"> Description <br></article>
           <article class="is-centered has-text-centered"> Voulez vous vraiment lancer la partie ? </article>
           <b-button class="button is-primary tile is-centered is-12" @click="demarrer"> C'est parti ! </b-button>
         </b-message>
@@ -38,7 +37,7 @@
             <transition-group name="fading">
               <span class="fading-item" v-for="(value, key) in Players" v-bind:key="key">
                 <img class="" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png" />
-                <h1 class=""> {{value.name}} <br> jouera <br>{{value.role}} </h1>
+                <p> {{value.name}} <br> jouera <br>{{value.role}} </p>
                 </span>
             </transition-group>
             <img v-if="value==0" class="empty" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png"/>
@@ -47,16 +46,17 @@
       </div>
       <b-modal :active.sync="choose" scroll="keep">
         <b-message>
-          <article class="title is-2 has-text-black is-centered has-text-centered"> Choose the role <br></article>
-           <article class="is-centered has-text-centered"> {{selectedKey}} jouera {{pref}}</article>
-            <b-select placeholder='ok' v-model="SelectedRole">
+          <article class="title is-2 has-text-black is-centered has-text-centered"> Choisissez votre rôle <br></article>
+           <h1 class ="is-size-4 has-text-centered"><em> {{selectedKey}} voudrait jouer {{pref}}</em><br></h1>
+            <b-select expanded placeholder='default' v-model="SelectedRole">
                 <option v-for="Role in role"
                 :value = Role
                 :key= Role>
                 {{Role}}
                 </option>
             </b-select>
-            <b-button class="button is-primary tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer, inputPlayers)"> Valider </b-button>
+            <br>
+            <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer, inputPlayers)"> Valider </b-button>
         </b-message>
       </b-modal>
     </div>

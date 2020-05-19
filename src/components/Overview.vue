@@ -30,7 +30,7 @@
         <div class="tile is-parent is-vertical is-12">
           <article class="tile notification is-child is-primary is-5 is-centered">
             <h1 class="is-size-4">Partie débutée le :</h1>
-            <h1 class="date is-size-2 is-centered has-text-dark">{{ getDate() }}</h1>
+            <h1 class="date is-size-2 is-centered">{{ getDate() }}</h1>
             <h1 class="is-size-4">En cours depuis :</h1>
             <h1 class="time is-size-1 has-text-white">{{ temps }}</h1>
             <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }}h{{afficheHeureMax(tempsMax).minutes}}min</h1>

@@ -21,14 +21,15 @@
     </footer>
   </div>
   <b-modal :active.sync="learn" scroll="keep">
-        <b-message title="Description" class= "is-primary has-text-centered is-size-5">
+        <b-message class= "is-primary has-text-centered is-size-5">
+          <article class="title is-2 has-text-black is-centered has-text-centered"> Description <br></article>
            <article class="is-centered has-text-centered"> {{description}} {{data}} </article>
            <b-button class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
         </b-message>
   </b-modal>
   <b-modal :active.sync="Param" scroll="keep">
-        <b-message title="Description" class= "is-primary has-text-centered is-size-5">
-          <article class="is-centered has-text-centered"> Parametrez votre partie </article>
+        <b-message class= "is-primary has-text-centered is-size-5">
+          <article class="is-centered title is-2 has-text-black has-text-centered"> Parametrez votre partie </article>
           <label v-if="error === true" class ="is-danger">  <b> Veuillez remplir les deux champs </b> </label>
           <b-field label="Nom de la partie">
             <b-input v-model="name" @input="inputName"></b-input> </b-field>

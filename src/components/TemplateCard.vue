@@ -29,12 +29,13 @@
   <b-modal :active.sync="Param" scroll="keep">
         <b-message title="Description" class= "is-primary has-text-centered is-size-5">
           <article class="is-centered has-text-centered"> Parametrez votre partie </article>
+          <label v-if="error === true" class ="is-danger">  <b> Veuillez remplir les deux champs </b> </label>
           <b-field label="Nom de la partie">
             <b-input v-model="name" @input="inputName"></b-input> </b-field>
-          <b-field label="Durée de la partie (en secondes)">
+          <b-field label="Durée de la partie">
             </b-field>
           <b-timepicker
-              placeholder="00:00"
+              placeholder="Cliquez sur l'heure pour la modifier"
               v-model="dureeDate"
               @input="inputChange"
               editable>
@@ -52,6 +53,7 @@ export default {
     return {
       Players: [{ name: 'toto', role: 'Vito Falcaninio' }, { name: 'tata', role: 'Carla Gurzio' }, { name: 'tato', role: 'Petro Francesco' }],
       learn: false,
+      error: false,
       name: '',
       connection: null,
       dureeDate: undefined,
@@ -81,24 +83,28 @@ export default {
       this.$store.commit('setName', this.name);
     },
     GameStart() {
-      console.log('executing...');
-      const content = {
-        type: 'createGame',
-        status: 'ok',
-        token: null,
-        data: {
-          templateName: 'basicMurder',
-        },
-      };
-      let data;
-      this.$socket.sendObj(content);
-      this.$options.sockets.onmessage = function (message) {
-        data = JSON.parse(message.data);
-        this.$store.commit('setGameId', data.data.gameId);
-        this.$router.push({ path: '/setup' });
-      };
-      if (data) {
-        delete this.$options.sockets.onmessage;
+      if (!this.duree || !this.name) {
+        this.error = true;
+      } else {
+        console.log('executing...');
+        const content = {
+          type: 'createGame',
+          status: 'ok',
+          token: null,
+          data: {
+            templateName: 'basicMurder',
+          },
+        };
+        let data;
+        this.$socket.sendObj(content);
+        this.$options.sockets.onmessage = function (message) {
+          data = JSON.parse(message.data);
+          this.$store.commit('setGameId', data.data.gameId);
+          this.$router.push({ path: '/setup' });
+        };
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
       }
     },
   },

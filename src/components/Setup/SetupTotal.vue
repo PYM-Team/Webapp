@@ -123,10 +123,13 @@ export default {
     ValidatePlayer(genre, player) {
       let place = 0;
       let act;
+      console.log(`entrance in validate player ${player}`);
       for (let i = 0; i < this.Players.length; i += 1) {
         if (this.Players[i].name === player) {
           place = i; // Found it
           act = this.Players[i].role;
+          console.log(`doublon detecte${act}`);
+          break;
         } else {
           place = -1;
         }

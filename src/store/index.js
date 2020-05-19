@@ -16,7 +16,7 @@ export default new Vuex.Store({
     players: [
       { name: 'toto', connected: true, prefered: 'Meurtrier' },
       { name: 'tata', connected: true, prefered: 'Serviteur' },
-      { name: 'tutu', connected: false, prefered: 'Epouse' },
+      { name: 'tutu', connected: true, prefered: 'Epouse' },
       { name: 'tato', connected: true, prefered: 'Espion' },
       { name: 'tito', connected: true, prefered: 'Serviteur' },
       { name: 'tuti', connected: true, prefered: 'Fils' },

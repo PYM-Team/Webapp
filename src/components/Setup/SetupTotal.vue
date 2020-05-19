@@ -11,9 +11,10 @@
       <strong> Commencer </strong>
     </b-button>
     <b-modal :active.sync="start" scroll="keep">
-        <b-message title="Description" class= "is-primary has-text-centered is-size-5">
-           <article class="is-centered has-text-centered"> Voulez vous vraiment lancer la partie ? </article>
-           <b-button class="button is-primary tile is-centered is-12" @click="demarrer"> C'est parti ! </b-button>
+        <b-message class= "is-primary has-text-centered is-size-5">
+          <article class="title is-2 has-text-black is-centered has-text-centered"> Description <br></article>
+          <article class="is-centered has-text-centered"> Voulez vous vraiment lancer la partie ? </article>
+          <b-button class="button is-primary tile is-centered is-12" @click="demarrer"> C'est parti ! </b-button>
         </b-message>
   </b-modal>
   </div>
@@ -45,7 +46,8 @@
         </div>
       </div>
       <b-modal :active.sync="choose" scroll="keep">
-        <b-message title="Choose the role" class= "is-primary has-text-centered is-size-5">
+        <b-message>
+          <article class="title is-2 has-text-black is-centered has-text-centered"> Choose the role <br></article>
            <article class="is-centered has-text-centered"> {{selectedKey}} jouera {{pref}}</article>
             <b-select placeholder='ok' v-model="SelectedRole">
                 <option v-for="Role in role"

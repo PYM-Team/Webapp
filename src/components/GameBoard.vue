@@ -1,5 +1,5 @@
 <template>
-  <div class="container" id="board">
+  <div class="container" id="board"> <!-- Pour chaque template affiche un template card de ce template -->
     <div class="columns is-multiline is-desktop">
       <div class="column is-3" v-for="template in templates" v-bind:key="template">
           <TemplateCard :title="template.name" />

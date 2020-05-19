@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card"> <!-- Crée une carte détailllé avec le nom, le surnom, l'age, le role et tous les éléments relatif au rôle -->
     <header class="card-header">
       <p class="card-header-title is-centered player-name">
         <img class="player-profile-pic" src="https://i.imgur.com/SfvDmCx.png" />

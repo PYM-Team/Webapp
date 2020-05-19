@@ -1,5 +1,5 @@
 <template>
-    <b-navbar id="dashboard-nav">
+    <b-navbar id="dashboard-nav"> <!-- barre de navigation du dashboard  renvoyant à l'acceuil-->
         <template slot="brand">
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
@@ -9,9 +9,6 @@
             </b-navbar-item>
         </template>
         <template slot="start">
-            <b-navbar-item href="#">
-              Documentation
-            </b-navbar-item>
         </template>
     </b-navbar>
 </template>

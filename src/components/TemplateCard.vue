@@ -1,9 +1,9 @@
 <template>
 <div>
-  <div class="card">
+  <div class="card"> <!-- Implemente la carte de description rapide d'un template -->
     <header class="card-header">
       <p class="card-header-title">
-        {{title}}
+        {{title}} <!-- Affiche le titre des templates -->
       </p>
       <a href="#" class="card-header-icon" aria-label="more options">
         <span class="icon">
@@ -11,39 +11,43 @@
         </span>
       </a>
     </header>
+
     <div class="card-content">
-      <div class="content">
+      <div class="content"> <!-- affiche un resume bref du template -->
         Don Giorgio, baron de la drogue et parrain de la pègre locale, a rendu l'âme. A qui profite le crime ?
       </div>
     </div>
-    <footer class="card-footer">
+
+    <footer class="card-footer"> <!-- affiche en savoir plus qui lorsque l'on clique dessus lance un modal -->
       <a href="#" @click="learn = true" class="card-footer-item">En savoir plus</a>
     </footer>
   </div>
-  <b-modal :active.sync="learn" scroll="keep">
+
+  <b-modal :active.sync="learn" scroll="keep"> <!-- modal lancé par le "en savoir plus" donne une description plus detaillée du template -->
         <b-message class= "is-primary has-text-centered is-size-5">
           <article class="title is-2 has-text-black is-centered has-text-centered"> Description <br></article>
-           <article class="is-centered has-text-centered"> {{description}} {{data}} </article>
-           <b-button class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button>
+          <article class="is-centered has-text-centered"> {{description}} {{data}} </article>
+          <b-button class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button> <!-- Crée un bouton démarrer pour choisir ce template et lancer l'initialisation de la partie -->
         </b-message>
   </b-modal>
-  <b-modal :active.sync="Param" scroll="keep">
-        <b-message class= "is-primary has-text-centered is-size-5">
-          <article class="is-centered title is-2 has-text-black has-text-centered"> Parametrez votre partie </article>
-          <label v-if="error === true" class ="is-danger">  <b> Veuillez remplir les deux champs </b> </label>
-          <b-field label="Nom de la partie">
-            <b-input v-model="name" @input="inputName"></b-input> </b-field>
-          <b-field label="Durée de la partie">
-            </b-field>
-          <b-timepicker
-              placeholder="Cliquez sur l'heure pour la modifier"
-              v-model="dureeDate"
-              @input="inputChange"
-              editable>
-          </b-timepicker>
-          <br>
-          <b-button @click="GameStart" class="button is-primary tile is-centered is-12" > Démarrer </b-button>
-        </b-message>
+
+  <b-modal :active.sync="Param" scroll="keep"> <!-- modal pour initialiser la partie -->
+    <b-message class= "is-primary has-text-centered is-size-5">
+      <article class="is-centered title is-2 has-text-black has-text-centered"> Parametrez votre partie </article>
+      <label v-if="error === true" class ="is-danger">  <b> Veuillez remplir les deux champs </b> </label>
+      <b-field label="Nom de la partie"> <!-- Champ pour remplir le nom de la partie -->
+        <b-input v-model="name" @input="inputName"></b-input> </b-field>
+      <b-field label="Durée de la partie"> <!-- champ pour choisir la durée de la partie -->
+        </b-field>
+      <b-timepicker
+          placeholder="Cliquez sur l'heure pour la modifier"
+          v-model="dureeDate"
+          @input="inputChange"
+          editable>
+      </b-timepicker>
+      <br>
+      <b-button @click="GameStart" class="button is-primary tile is-centered is-12" > Démarrer </b-button> <!-- Permet de lancer une partie -->
+    </b-message>
   </b-modal>
 </div>
 </template>
@@ -72,7 +76,7 @@ export default {
     console.log(this.dureeDate.getMinutes());
   },
   methods: {
-    createGame() {
+    createGame() { // ferme le modal de description de la partie pour ouvrir celui d'initialisation
       this.learn = false;
       this.Param = true;
     },
@@ -81,11 +85,11 @@ export default {
       console.log(this.duree);
       this.$store.commit('setDuree', this.duree);
     },
-    inputName() {
+    inputName() { // enregistre le nom de la partie dans le store
       this.$store.commit('setName', this.name);
     },
     GameStart() {
-      if (!this.duree || !this.name) {
+      if (!this.duree || !this.name) { // si les deux champs sont remplis on lance un processus de création de partie au backend qui nous renvoi un gameId
         this.error = true;
       } else {
         console.log('executing...');

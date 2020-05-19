@@ -1,12 +1,14 @@
 <template>
-  <div id="Overview">
-    <article class="notification is-primary title-font">
+  <div id="Overview"> <!-- affichage de l'interface joueur -->
+    <article class="notification is-primary title-font"> <!-- Première partie affichant les données de la partie en cours (Nom- description - ID) -->
       <h1>Partie en cours : {{this.$store.state.Game.gameName}}</h1>
       <p>{{this.$store.state.Game.gameTemplate}}</p>
       <p>Identifiant de partie : {{this.$store.state.Game.gameId}}</p>
     </article>
-    <button class="button is-primary is-medium" @click="isAnnModalActive = true">Faire une annonce</button>
-    <b-modal :active.sync="isAnnModalActive" scroll="keep">
+
+    <button class="button is-primary is-medium" @click="isAnnModalActive = true">Faire une annonce</button> <!-- Bouton pour faire une annonce à tout les joueurs -->
+
+    <b-modal :active.sync="isAnnModalActive" scroll="keep"> <!-- bodal pour ecrire et envoyer l'annonce -->
       <div class="card">
         <div class="card-header">
           <p class="card-header-title is-centered player-name">Annonce</p>
@@ -19,15 +21,15 @@
         </div>
       </div>
     </b-modal>
-    <p>
-      <br />
-    </p>
-    <div class="tile is-ancestor is-vertical">
+
+    <div class="tile is-ancestor is-vertical"><!-- Mis en place d'un tile pour afficher l'heure et les joueurs connectés -->
       <div class="tile is-parent">
+
         <article class="tile is-child is-5 is-centered">
-          <playerPanel v-on:selected="setSelected($event)" />
+          <playerPanel v-on:selected="setSelected($event)" /> <!--  affiche les joueurs connectés  -->
         </article>
-        <div class="tile is-parent is-vertical is-12">
+
+        <div class="tile is-parent is-vertical is-12"> <!-- affiche la durée de la partie en cours avec la durée parametrée -->
           <article class="tile notification is-child is-primary is-5 is-centered">
             <h1 class="is-size-4">Partie débutée le :</h1>
             <h1 class="date is-size-2 is-centered">{{ getDate() }}</h1>
@@ -35,8 +37,10 @@
             <h1 class="time is-size-1 has-text-white">{{ temps }}</h1>
             <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }}h{{afficheHeureMax(tempsMax).minutes}}min</h1>
           </article>
+
           <button class="button tile is-child is-primary is-medium is-5" @click="setPause()">Pause</button>
-          <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false">
+
+          <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"> <!-- Quand la partie est mise en pause fige l'ecran avec seulement un bouton play -->
             <button class="button tile is-child is-primary is-large is-1 is-rounded" @click="calculTemps(), isLoading = false">Play</button>
           </b-loading>
         </div>
@@ -74,7 +78,7 @@ export default {
   methods: {
     // TODO: Handle message
     sendAnnounce() {
-      this.$store.state.socket.emit('announcement', this.announce);
+      // this.$store.state.socket.emit('announcement', this.announce);
       this.isAnnModalActive = false;
     },
     setSelected(_SelectedKey) {

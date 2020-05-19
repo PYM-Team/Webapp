@@ -1,6 +1,6 @@
 <template>
 <div>
-  <aside class="menu">
+  <aside class="menu"> <!-- on affiche un menu avec pour titre players et comme contenu la liste des joueurs connectés avec leurs rôles préférés-->
     <p class="menu-label">
       Players
     </p>
@@ -10,6 +10,7 @@
       </div>
     </ul>
   </aside>
+
   <b-modal v-if="!RandomDone && random" :active.sync="random" scroll="keep">
     <b-button class="button is-primary is-large is-vcentered is-4" @click="SendRandom()"> Êtes vous vraiment sûr ? </b-button>
   </b-modal>
@@ -22,7 +23,7 @@ export default {
   name: 'PlayerPanel',
   data() {
     return {
-      players: this.$store.state.players,
+      players: this.$store.state.players, // la liste des joueurs connectés avec leur rôles préférés
       RandomRoles: [],
       roles: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'],
       RandomDone: false,
@@ -30,7 +31,7 @@ export default {
   },
   methods: {
     SelectPlayer(key, prefered) {
-      this.$emit('selected', [key, prefered]);
+      this.$emit('selected', [key, prefered]); // quand on clique sur un joueur emet un evenement renvoyant un tableau avec le nom du joueur et son rôle preféré
     },
     SendRandom() {
       let dice = 0;

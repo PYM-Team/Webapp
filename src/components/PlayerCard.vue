@@ -1,5 +1,5 @@
 <template>
-  <div class="card">
+  <div class="card"> <!-- Creer la carte resumé d'un joueur avec son avancement son etat et ses dernières missions -->
     <header class="card-header">
       <p class="card-header-title is-centered player-name">
         <img class="player-profile-pic" src="https://i.imgur.com/SfvDmCx.png"/>

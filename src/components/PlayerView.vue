@@ -1,4 +1,4 @@
-<template>
+<template> <!-- Associe avec tile un menu avec les joueurs connectés et lorsque l'on clique sur l'un sa carte détaillée-->
 <div id="player-view" class="tile is-ancestor">
   <div class="tile is-parent">
     <article class="tile is-child is-12 is-centered">

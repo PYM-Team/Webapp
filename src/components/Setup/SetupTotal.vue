@@ -1,54 +1,66 @@
 <template>
 <div id="player-view" class="tile is-ancestor">
+  <!-- On cree un entier de type tile qui va contenir l'ensemble des elements presents -->
   <div class="tile is-parent is-vertical">
-    <article class="tile is-child is-12 is-centered">
+    <!-- La première partie est verticale - c'est notre panneau avec les joueurs et les boutons de choix aléatoire et de démarrage de la partie -->
+
+    <article class="tile is-child is-12 is-centered"> <!-- Le panneau avec les joueurs qui renvoit les fonctions random/selected/randomise-->
       <PlayerPanel :random="this.RandomiseOn" v-on:selected='setSelected($event)' v-on:randomise='Assigner($event)'/>
     </article>
-     <b-button class="notification is-primary title-font is-vcentered is-centered"  v-on:click="Randomize">
+
+     <b-button class="notification is-primary title-font is-vcentered is-centered"  v-on:click="Randomize"> <!-- Le bouton qui lance la distribution aleatoire en appelant la fonction Randomize-->
       <strong> Distribution aléatoire </strong>
      </b-button>
-    <b-button class="notification is-primary title-font menu-list"  v-on:click="Start">
+
+    <b-button class="notification is-primary title-font menu-list"  v-on:click="Start"> <!-- Le bouton start lançant la fonction start qui lance le modal associé si tous les joueurs sont assignés -->
       <strong> Commencer </strong>
     </b-button>
-    <b-modal :active.sync="start" scroll="keep">
+
+    <b-modal :active.sync="start" scroll="keep"> <!-- le modal associé au start permettant de valider le lancement de la partie. Lance la partie avec la fonction demarrer -->
         <b-message class= "is-primary has-text-centered is-size-5">
           <article class="is-centered has-text-centered"> Voulez vous vraiment lancer la partie ? </article>
           <b-button class="button is-primary tile is-centered is-12" @click="demarrer"> C'est parti ! </b-button>
         </b-message>
-  </b-modal>
+    </b-modal>
   </div>
-  <div class="tile is-vertical is-8">
+
+  <div class="tile is-vertical is-8"> <!-- Seconde partie, à droite de la première, aussi verticale -->
     <div class="tile">
+
       <div class="tile is-parent is-vertical">
-        <article class="notification is-primary title-font">
+        <article class="notification is-primary title-font"> <!-- affichage d'un panneau de texte contenant le titre de la partie, son Id et le template qu'elle suit - recupere dans le store -->
           <p class="title is-1">{{this.$store.state.Game.gameTemplate}}</p>
           <h1 class="title is-4">Création de la partie : <h1 class="content is-large">{{this.$store.state.Game.gameName}}</h1></h1>
           <h1 class="title is-4">Identifiant de partie : <h1 class="content is-large">{{this.$store.state.Game.gameId}}</h1></h1>
         </article>
-        <article class="is-primary notification title-font">
+
+        <article class="is-primary notification title-font"> <!-- Description detaille du template de la partie - recupere dans le store -->
           <h1>{{this.$store.state.gameTemplate}}</h1>
           <p class="content is-large">{{this.$store.state.Game.description}}</p>
         </article>
-        <div id="app" class="tile is-child is-12">
-          <div :key="Players.length" class="state has-text-centered">
+
+        <div id="app" class="tile is-child is-12"> <!-- second panel de cette partie contenant le visuel des joueurs connectés -->
+          <div :key="Players.length" class="state has-text-centered"> <!-- affichage du nombre de joueur connecté sur le nombre total de rôle à attribuer -->
             {{ Players.length}} / {{ Value}}
           </div>
-          <div class="container has-text-centered">
+
+          <div class="container has-text-centered"> <!-- affichage pour chaque joueur dans la liste des joueurs aux rôles attribué une image avec une entrée personnalisée -->
             <transition-group name="fading">
               <span class="fading-item" v-for="(value, key) in Players" v-bind:key="key">
                 <img class="" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png" />
                 <p> {{value.name}} <br> jouera <br>{{value.role}} </p>
                 </span>
             </transition-group>
-            <img v-if="value==0" class="empty" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png"/>
+            <img v-if="Players.length==0" class="empty" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png"/> <!-- si il n'y a aucun element image à afficher -->
           </div>
         </div>
       </div>
-      <b-modal :active.sync="choose" scroll="keep">
+
+      <b-modal :active.sync="choose" scroll="keep"> <!-- modal de choix du rôle pour chaque joueur -  appeler en cliquant sur un joueur -->
         <b-message>
           <article class="title is-2 has-text-black is-centered has-text-centered"> Choisissez votre rôle <br></article>
            <h1 class ="is-size-4 has-text-centered"><em> {{selectedKey}} voudrait jouer {{pref}}</em><br></h1>
-            <b-select expanded placeholder='default' v-model="SelectedRole">
+            <b-select expanded placeholder='default' v-model="SelectedRole"> <!-- menu déroulant -->
                 <option v-for="Role in role"
                 :value = Role
                 :key= Role>
@@ -56,7 +68,7 @@
                 </option>
             </b-select>
             <br>
-            <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer, inputPlayers)"> Valider </b-button>
+            <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer)"> Valider </b-button> <!-- bouton pour valider un choix en appelant la fonction choose -->
         </b-message>
       </b-modal>
     </div>
@@ -75,23 +87,23 @@ export default {
     return {
       RandomiseOn: false,
       Value: 6,
-      Players: [],
-      SelectedRole: [],
-      role: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'],
-      choose: false,
-      start: false,
-      selectedKey: {},
-      pref: {},
+      Players: [], // tableau des players attribue
+      SelectedRole: [], // rôle choisi dans le menu déroulant
+      role: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'], // rôle disponible initialement
+      choose: false, // permet d'activer le modal pour assigner un rôle à un joueur
+      start: false, // permet d'activer le modal pour valider le demarrage de la partie
+      selectedKey: {}, // joueur selectionné
+      pref: {}, // rôle préféré du joueur concerné
     };
   },
   components: { PlayerPanel },
   methods: {
     setSelected(_SelectedKey) {
       // eslint-disable-next-line prefer-destructuring
-      this.selectedKey = _SelectedKey[0];
-      this.choose = true;
+      this.selectedKey = _SelectedKey[0]; // le joueur selectionne est renvoye par le player panel dans un tableau de la forme [nom_du_joueur, role prefere]
+      this.choose = true; // on active choose qui permet de lancer le modal pour choisir un joueur
       // eslint-disable-next-line prefer-destructuring
-      this.pref = _SelectedKey[1];
+      this.pref = _SelectedKey[1]; // on assigne a pref le rôle prefere du joueur selectionne
     },
     Randomize() {
       this.RandomiseOn = true; // dis à la liste de player de faire un tirage aléatoire
@@ -102,57 +114,49 @@ export default {
       }
     },
     Start() {
-      if (this.Players.length === this.Value) {
-        this.start = true;
+      if (this.Players.length === this.Value) { // si il y a autant de joueurs avec rôles que de rôles à assigner (=chaque joueur à un rôle)
+        this.start = true; // on lance le modal pour lancer la partie
       } else {
-        this.$buefy.snackbar.open('Tous les rôles ne sont pas attribués');
+        this.$buefy.snackbar.open('Tous les rôles ne sont pas attribués'); // sinon on affiche un popup pour dire que tous les rôles ne sont pas assignés
       }
     },
     demarrer() {
-      this.$store.commit('setPlayers', this.Players);
-      this.$router.push({ path: '/overview' });
+      this.$store.commit('setPlayers', this.Players); // on enregistre nos joueurs avec leurs rôles dans le store
+      this.$router.push({ path: '/overview' }); // on change de page
     },
     Choose(Role, Player, ValidatePlayer) {
-      if (Role.length !== 0) {
-        this.choose = false;
-        this.SelectedRole = [];
-        ValidatePlayer(Role, Player);
+      if (Role.length !== 0) { // si un rôle est selectionne
+        this.choose = false; // on ferme le modal
+        ValidatePlayer(Role, Player); // on lance validatePlayer avec notre rôle et notre player
+        this.SelectedRole = []; // on reinitialise le rôle selectionne
       } else {
         this.$buefy.snackbar.open('Vous n\'avez pas assigné de rôle');
       }
     },
-    inputPlayers() {
-      console.log('done');
-      this.$store.commit('setPlayers', this.Players);
-      console.log('done');
-    },
-    ValidatePlayer(genre, player) {
+    ValidatePlayer(genre, player) { // permet d'assigner à un joueur un role
       let place = 0;
       let act;
-      console.log(`entrance in validate player ${player}`);
       for (let i = 0; i < this.Players.length; i += 1) {
-        if (this.Players[i].name === player) {
+        if (this.Players[i].name === player) { // recherche le nom du joueur dans le tableau des joueurs aux roles attribués
           place = i; // Found it
           act = this.Players[i].role;
-          console.log(`doublon detecte${act}`);
           break;
         } else {
           place = -1;
         }
       } // Not found
-      if (place !== -1) {
+      if (place !== -1) { // si le joueur a deja un role on place ce role dans la liste des rôles dispo et on retire ce joueur des joueurs avec un role
         this.role.push(act);
         this.Players.splice(place, 1);
       }
-      this.Players.push({
+      this.Players.push({ // on ajoute ce joueur avec ce role à la liste des joueurs avec un role
         name: player,
         role: genre,
       });
-      this.role.splice(this.role.indexOf(genre), 1);
+      this.role.splice(this.role.indexOf(genre), 1); // on enleve ce role des roles dispos
     },
   },
-  created() {
-    console.log('creating the data');
+  created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role
     const ourtoken = this.$store.state.token;
     const content = {
       type: 'getSetup',
@@ -162,9 +166,7 @@ export default {
       },
     };
     let data;
-    console.log('sending the data');
     this.$socket.sendObj(content);
-    console.log('data sent');
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       this.$store.commit('setRoles', data.data.rolesNames);

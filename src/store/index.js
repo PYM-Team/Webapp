@@ -11,7 +11,7 @@ export default new Vuex.Store({
       reconnectError: false,
     },
     connection: null,
-    token: '',
+    token: 0,
     ID: 0,
     players: [
       { name: 'toto', connected: true, prefered: 'Meurtrier' },
@@ -59,18 +59,9 @@ export default new Vuex.Store({
     setGameId(state, n) {
       state.Game.gameId = n;
     },
-    /* dataobtain(state, content) {
-      let data;
-      this.$socket.sendObj(content);
-      this.$options.sockets.onmessage = function (message) {
-        data = JSON.parse(message.data);
-        console.log(data);
-        // this.$store.commit('setGameId', data.data.gameId);
-      };
-      if (data) {
-        delete this.$options.sockets.onmessage;
-      }
-    }, */
+    setToken(state, n) {
+      state.token = n;
+    },
     setName(state, n) {
       state.Game.gameName = n;
     },

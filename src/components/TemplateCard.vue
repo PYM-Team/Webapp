@@ -80,7 +80,6 @@ export default {
       this.$store.commit('setName', this.name);
     },
     GameStart() {
-      console.log('executing...');
       const content = {
         type: 'createGame',
         status: 'ok',
@@ -94,6 +93,7 @@ export default {
       this.$options.sockets.onmessage = function (message) {
         data = JSON.parse(message.data);
         this.$store.commit('setGameId', data.data.gameId);
+        this.$store.commit('setToken', data.data.token);
         this.$router.push({ path: '/setup' });
       };
       if (data) {

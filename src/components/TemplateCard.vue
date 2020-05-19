@@ -32,9 +32,16 @@
           <b-field label="Nom de la partie">
             <b-input v-model="name" @input="inputName"></b-input> </b-field>
           <b-field label="Durée de la partie (en secondes)">
-            <b-numberinput controls-rounded min="0" placeholder="8" type="number" v-model.number="duree" @input="inputChange">
-            </b-numberinput>
-          </b-field>
+            </b-field>
+              <b-field label="Select time">
+                <b-clockpicker
+                  rounded
+                  placeholder="Click to select..."
+                  icon="clock"
+                  v-model="dureeDate"
+                  @input="inputChange">
+                </b-clockpicker>
+            </b-field>
           <b-button @click="GameStart" class="button is-primary tile is-centered is-12" > Démarrer </b-button>
         </b-message>
   </b-modal>
@@ -50,7 +57,8 @@ export default {
       learn: false,
       name: '',
       connection: null,
-      duree: 0,
+      dureeDate: undefined,
+      dureeSecondes: 0,
       Param: false,
       data: '',
       description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
@@ -65,6 +73,7 @@ export default {
       this.Param = true;
     },
     inputChange() {
+      this.duree = this.dureeDate.getHours() * 3600 + this.dureeDate.getMinutes() * 60; // conversion en secondes
       this.$store.commit('setDuree', this.duree);
     },
     inputName() {

@@ -21,13 +21,13 @@
     <div class="tile">
       <div class="tile is-parent is-vertical">
         <article class="notification is-primary title-font">
-          <h1>Création de la partie : {{this.$store.state.Game.gameName}} </h1>
-          <p>{{this.$store.state.Game.gameTemplate}}</p>
-          <p>Identifiant de partie : {{this.$store.state.Game.gameId}}</p>
+          <p class="title is-1">{{this.$store.state.Game.gameTemplate}}</p>
+          <h1 class="title is-4">Création de la partie : <h1 class="content is-large">{{this.$store.state.Game.gameName}}</h1></h1>
+          <h1 class="title is-4">Identifiant de partie : <h1 class="content is-large">{{this.$store.state.Game.gameId}}</h1></h1>
         </article>
         <article class="is-primary notification title-font">
           <h1>{{this.$store.state.gameTemplate}}</h1>
-          <strong>{{this.$store.state.Game.description}}</strong>
+          <p class="content is-large">{{this.$store.state.Game.description}}</p>
         </article>
         <div id="app" class="tile is-child is-12">
           <div :key="Players.length" class="state has-text-centered">
@@ -228,5 +228,9 @@ export default {
   filter: grayscale(100%);
   width: 100px;
   height: auto;
+}
+.title {
+  font-family: "Luckiest Guy", cursive;
+  color: white !important;
 }
 </style>

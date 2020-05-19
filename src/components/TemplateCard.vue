@@ -29,19 +29,17 @@
   <b-modal :active.sync="Param" scroll="keep">
         <b-message title="Description" class= "is-primary has-text-centered is-size-5">
           <article class="is-centered has-text-centered"> Parametrez votre partie </article>
+          <label v-if="error === true" class ="is-danger">  <b> Veuillez remplir les deux champs </b> </label>
           <b-field label="Nom de la partie">
             <b-input v-model="name" @input="inputName"></b-input> </b-field>
-          <b-field label="Durée de la partie (en secondes)">
+          <b-field label="Durée de la partie">
             </b-field>
-              <b-field label="Select time">
-                <b-clockpicker
-                  rounded
-                  placeholder="Click to select..."
-                  icon="clock"
-                  v-model="dureeDate"
-                  @input="inputChange">
-                </b-clockpicker>
-            </b-field>
+          <b-timepicker
+              placeholder="Cliquez sur l'heure pour la modifier"
+              v-model="dureeDate"
+              @input="inputChange"
+              editable>
+          </b-timepicker>
           <b-button @click="GameStart" class="button is-primary tile is-centered is-12" > Démarrer </b-button>
         </b-message>
   </b-modal>
@@ -55,6 +53,7 @@ export default {
     return {
       Players: [{ name: 'toto', role: 'Vito Falcaninio' }, { name: 'tata', role: 'Carla Gurzio' }, { name: 'tato', role: 'Petro Francesco' }],
       learn: false,
+      error: false,
       name: '',
       connection: null,
       dureeDate: undefined,
@@ -67,37 +66,45 @@ export default {
   props: {
     title: String,
   },
+  mounted() {
+    console.log(this.dureeDate.getMinutes());
+  },
   methods: {
     createGame() {
       this.learn = false;
       this.Param = true;
     },
     inputChange() {
-      this.duree = this.dureeDate.getHours() * 3600 + this.dureeDate.getMinutes() * 60; // conversion en secondes
+      this.duree = this.dureeDate.getHours() * 3600 + this.dureeDate.getMinutes() * 60;
+      console.log(this.duree);
       this.$store.commit('setDuree', this.duree);
     },
     inputName() {
       this.$store.commit('setName', this.name);
     },
     GameStart() {
-      const content = {
-        type: 'createGame',
-        status: 'ok',
-        token: null,
-        data: {
-          templateName: 'basicMurder',
-        },
-      };
-      let data;
-      this.$socket.sendObj(content);
-      this.$options.sockets.onmessage = function (message) {
-        data = JSON.parse(message.data);
-        this.$store.commit('setGameId', data.data.gameId);
-        this.$store.commit('setToken', data.data.token);
-        this.$router.push({ path: '/setup' });
-      };
-      if (data) {
-        delete this.$options.sockets.onmessage;
+      if (!this.duree || !this.name) {
+        this.error = true;
+      } else {
+        console.log('executing...');
+        const content = {
+          type: 'createGame',
+          status: 'ok',
+          token: null,
+          data: {
+            templateName: 'basicMurder',
+          },
+        };
+        let data;
+        this.$socket.sendObj(content);
+        this.$options.sockets.onmessage = function (message) {
+          data = JSON.parse(message.data);
+          this.$store.commit('setGameId', data.data.gameId);
+          this.$router.push({ path: '/setup' });
+        };
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
       }
     },
   },

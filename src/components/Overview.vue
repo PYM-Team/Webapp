@@ -36,7 +36,9 @@
             <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }}h{{afficheHeureMax(tempsMax).minutes}}min</h1>
           </article>
           <button class="button tile is-child is-primary is-medium is-5" @click="setPause()">Pause</button>
-          <button class="button tile is-child is-primary is-medium is-5" @click="calculTemps()">Play</button>
+          <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false">
+            <button class="button tile is-child is-primary is-large is-1 is-rounded" @click="calculTemps(), isLoading = false">Play</button>
+          </b-loading>
         </div>
       </div>
     </div>
@@ -59,6 +61,7 @@ export default {
     return {
       isAnnModalActive: false,
       temps: '',
+      isLoading: false,
       tempsActuelSecondes: 0,
       pourcentage: 0,
       tempsMax: this.$store.state.Game.duree,
@@ -119,6 +122,7 @@ export default {
     },
     setPause() {
       clearInterval(this.intervalle);
+      this.isLoading = true;
     },
   },
   mounted() {

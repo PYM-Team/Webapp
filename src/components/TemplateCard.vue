@@ -33,15 +33,12 @@
             <b-input v-model="name" @input="inputName"></b-input> </b-field>
           <b-field label="Durée de la partie (en secondes)">
             </b-field>
-              <b-field label="Select time">
-                <b-clockpicker
-                  rounded
-                  placeholder="Click to select..."
-                  icon="clock"
-                  v-model="dureeDate"
-                  @input="inputChange">
-                </b-clockpicker>
-            </b-field>
+          <b-timepicker
+              placeholder="00:00"
+              v-model="dureeDate"
+              @input="inputChange"
+              editable>
+          </b-timepicker>
           <b-button @click="GameStart" class="button is-primary tile is-centered is-12" > Démarrer </b-button>
         </b-message>
   </b-modal>
@@ -67,13 +64,17 @@ export default {
   props: {
     title: String,
   },
+  mounted() {
+    console.log(this.dureeDate.getMinutes());
+  },
   methods: {
     createGame() {
       this.learn = false;
       this.Param = true;
     },
     inputChange() {
-      this.duree = this.dureeDate.getHours() * 3600 + this.dureeDate.getMinutes() * 60; // conversion en secondes
+      this.duree = this.dureeDate.getHours() * 3600 + this.dureeDate.getMinutes() * 60;
+      console.log(this.duree);
       this.$store.commit('setDuree', this.duree);
     },
     inputName() {

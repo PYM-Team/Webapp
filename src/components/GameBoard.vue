@@ -4,7 +4,6 @@
       <div class="column is-3" v-for="template in templates" v-bind:key="template">
           <TemplateCard :title="template.name" />
       </div>
-      <button @click="gamestart"> button </button>
     </div>
   </div>
 </template>

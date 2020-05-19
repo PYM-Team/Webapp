@@ -24,7 +24,7 @@ export default {
     return {
       players: this.$store.state.players,
       RandomRoles: [],
-      roles: ['Meurtrier', 'Serviteur', 'Epouse', 'Espion', 'Fils'],
+      roles: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'],
       RandomDone: false,
     };
   },

@@ -4,8 +4,8 @@
       Joueurs
     </p>
     <ul class="menu-list player-name">
-      <div v-for="(player, key) in this.$store.state.Game.Players" v-bind:key="key">
-        <li v-if="player.connected" v-on:click="SelectPlayer(key)"><a>{{ key }}</a></li>
+      <div v-for="(player) in this.$store.state.Game.Players" v-bind:key="player.name">
+        <li v-on:click="SelectPlayer(player.name)"><a>{{ player.name }}</a></li>
       </div>
     </ul>
   </aside>

@@ -13,7 +13,7 @@
     <b-modal :active.sync="start" scroll="keep">
         <b-message title="Description" class= "is-primary has-text-centered is-size-5">
            <article class="is-centered has-text-centered"> Voulez vous vraiment lancer la partie ? </article>
-           <b-button tag="router-link" :to="{ path: '/Overview' }" class="button is-primary tile is-centered is-12" @click="createGame, inputPlayers"> C'est parti ! </b-button>
+           <b-button class="button is-primary tile is-centered is-12" @click="demarrer"> C'est parti ! </b-button>
         </b-message>
   </b-modal>
   </div>
@@ -105,6 +105,10 @@ export default {
       } else {
         this.$buefy.snackbar.open('Tous les rôles ne sont pas attribués');
       }
+    },
+    demarrer() {
+      this.$store.commit('setPlayers', this.Players);
+      this.$router.push({ path: '/overview' });
     },
     Choose(Role, Player, ValidatePlayer) {
       if (Role.length !== 0) {

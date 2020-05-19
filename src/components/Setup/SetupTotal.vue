@@ -96,7 +96,7 @@ export default {
     },
     Assigner(_SelectedKey) {
       for (let i = 0; i < _SelectedKey.length; i += 1) {
-        this.ValidatePlayer(_SelectedKey[i][0], _SelectedKey[i][1]); //récupère et assigne en fonction de la ditribution aléatoire
+        this.ValidatePlayer(_SelectedKey[i][0], _SelectedKey[i][1]); // récupère et assigne en fonction de la ditribution aléatoire
       }
     },
     Start() {

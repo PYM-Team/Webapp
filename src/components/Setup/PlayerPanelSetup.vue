@@ -32,8 +32,7 @@ export default {
     SelectPlayer(key, prefered) {
       this.$emit('selected', [key, prefered]);
     },
-  },
-  SendRandom() {
+    SendRandom() {
       let dice = 0;
       for (let i = 0; i < (this.players.length); i += 1) {
         if (this.players[i].connected) {
@@ -45,7 +44,8 @@ export default {
       this.RandomDone = true;
       this.$emit('randomise', this.RandomRoles);
     },
-    props: {
+  },
+  props: {
     random: Boolean,
   },
 };

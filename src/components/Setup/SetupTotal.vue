@@ -148,26 +148,6 @@ export default {
       });
       this.role.splice(this.role.indexOf(genre), 1);
     },
-    GameStart() {
-      const ourtoken = this.$store.state.token;
-      const content = {
-        type: 'getSetup',
-        status: 'ok',
-        token: ourtoken,
-        data: {
-        },
-      };
-      let data;
-      this.$socket.sendObj(content);
-      this.$options.sockets.onmessage = function (message) {
-        data = JSON.parse(message.data);
-        console.log('data received');
-        console.log(data);
-      };
-      if (data) {
-        delete this.$options.sockets.onmessage;
-      }
-    },
   },
   created() {
     console.log('creating the data');
@@ -185,7 +165,9 @@ export default {
     console.log('data sent');
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
-      console.log('data received');
+      this.$store.commit('setRoles', data.data.rolesNames);
+      // this.$store.commit('setPlayerInit', data.data.players);
+      this.$store.commit('setDescription', data.data.gameDescription);
       console.log(data);
     };
     if (data) {

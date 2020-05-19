@@ -25,6 +25,7 @@ export default new Vuex.Store({
       gameName: 'fff',
       gameTemplate: 'La mort du parrain',
       gameId: 100000,
+      roles: [],
       description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
       duree: 0,
       Players: [],
@@ -55,6 +56,15 @@ export default new Vuex.Store({
     },
     setDuree(state, n) {
       state.Game.duree = n;
+    },
+    setDescription(state, desc) {
+      state.Game.description = desc;
+    },
+    setRoles(state, roles) {
+      state.Game.roles = roles;
+    },
+    setPlayerInit(state, playerinit) {
+      state.players = playerinit;
     },
     setGameId(state, n) {
       state.Game.gameId = n;

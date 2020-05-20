@@ -40,15 +40,16 @@
         </article>
 
         <div id="app" class="tile is-child is-12"> <!-- second panel de cette partie contenant le visuel des joueurs connectés -->
-          <div :key="Players.length" class="state has-text-centered"> <!-- affichage du nombre de joueur connecté sur le nombre total de rôle à attribuer -->
+          <div :key="Players.length" class="state title is-2 has-text-centered"> <!-- affichage du nombre de joueur connecté sur le nombre total de rôle à attribuer -->
             {{ Players.length}} / {{ Value}}
           </div>
 
-          <div class="container has-text-centered"> <!-- affichage pour chaque joueur dans la liste des joueurs aux rôles attribué une image avec une entrée personnalisée -->
-            <transition-group name="fading">
-              <span class="fading-item" v-for="(value, key) in Players" v-bind:key="key">
+          <div class="container is-vcentered"> <!-- affichage pour chaque joueur dans la liste des joueurs aux rôles attribué une image avec une entrée personnalisée -->
+            <transition-group class="tile is-parent is-12 is-centered" name="fading">
+              <span class="tile is-child fading-item is-vcentered" v-for="(value, key) in Players" v-bind:key="key">
+                <h1 class="title is-4 has-text-white">{{value.name}} </h1>
                 <img class="" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png" />
-                <p> {{value.name}} <br> jouera <br>{{value.role}} </p>
+                <p class=" is-6 has-text-white"> {{value.role}} </p>
                 </span>
             </transition-group>
             <img v-if="Players.length==0" class="empty" src="https://img.pngio.com/parent-directory-avatar-2png-avatar-png-256_256.png"/> <!-- si il n'y a aucun element image à afficher -->
@@ -57,7 +58,7 @@
       </div>
 
       <b-modal :active.sync="choose" scroll="keep"> <!-- modal de choix du rôle pour chaque joueur -  appeler en cliquant sur un joueur -->
-        <b-message>
+        <b-message v-if="role.length!==0">
           <article class="title is-2 has-text-black is-centered has-text-centered"> Choisissez votre rôle <br></article>
            <h1 class ="is-size-4 has-text-centered"><em> {{selectedKey}} voudrait jouer {{pref}}</em><br></h1>
             <b-select expanded placeholder='default' v-model="SelectedRole"> <!-- menu déroulant -->
@@ -70,6 +71,11 @@
             <br>
             <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer)"> Valider </b-button> <!-- bouton pour valider un choix en appelant la fonction choose -->
         </b-message>
+        <b-message v-if="role.length===0">
+          <article class="title is-2 has-text-black is-centered has-text-centered"> Tout les rôles sont assignés <br></article>
+            <h1 class ="is-size-4 has-text-centered"><em> {{selectedKey}} voulait jouer {{pref}}</em><br></h1>
+            <h1 class ="is-size-4 has-text-centered"><em> Il joue {{Quelrole(selectedKey)}}</em><br></h1>
+          </b-message>
       </b-modal>
     </div>
   </div>
@@ -98,6 +104,15 @@ export default {
   },
   components: { PlayerPanel },
   methods: {
+    Quelrole(Player) { // renvoie le rôle d'un joueur assigne
+      let role;
+      for (let i = 0; i < this.Players.length; i += 1) {
+        if (this.Players[i].name === Player) { // recherche le nom du joueur dans le tableau des joueurs aux roles attribués
+          role = (this.Players[i].role);
+        }
+      }
+      return role;
+    },
     setSelected(_SelectedKey) {
       // eslint-disable-next-line prefer-destructuring
       this.selectedKey = _SelectedKey[0]; // le joueur selectionne est renvoye par le player panel dans un tableau de la forme [nom_du_joueur, role prefere]
@@ -153,7 +168,10 @@ export default {
         name: player,
         role: genre,
       });
-      this.role.splice(this.role.indexOf(genre), 1); // on enleve ce role des roles dispos
+      this.role.splice(this.role.indexOf(genre), 1);// on enleve ce role des roles dispos
+      if (this.Players.length === 1) {
+        this.role.splice(this.role.indexOf(undefined), 1);
+      }
     },
   },
   created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role

@@ -187,14 +187,16 @@ export default {
     this.$socket.sendObj(content);
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
-      this.$store.commit('setRoles', data.data.rolesNames);
-      // this.$store.commit('setPlayerInit', data.data.players);
-      this.$store.commit('setDescription', data.data.gameDescription);
-      console.log(data);
+      if (data.type === 'getSetup') {
+        this.$store.commit('setRoles', data.data.rolesNames);
+        // this.$store.commit('setPlayerInit', data.data.players);
+        this.$store.commit('setDescription', data.data.gameDescription);
+        console.log(data);
+      }
+      if (data) {
+        delete this.$options.sockets.onmessage;
+      }
     };
-    if (data) {
-      delete this.$options.sockets.onmessage;
-    }
   },
 };
 </script>

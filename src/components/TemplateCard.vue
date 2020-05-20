@@ -73,7 +73,7 @@ export default {
     title: String,
   },
   mounted() {
-    console.log(this.dureeDate.getMinutes());
+    // console.log(this.dureeDate.getMinutes());
   },
   methods: {
     createGame() { // ferme le modal de description de la partie pour ouvrir celui d'initialisation
@@ -92,7 +92,6 @@ export default {
       if (!this.duree || !this.name) { // si les deux champs sont remplis on lance un processus de création de partie au backend qui nous renvoi un gameId
         this.error = true;
       } else {
-        console.log('executing...');
         const content = {
           type: 'createGame',
           status: 'ok',

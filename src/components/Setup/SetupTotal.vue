@@ -69,7 +69,7 @@
                 </option>
             </b-select>
             <br>
-            <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer)"> Valider </b-button> <!-- bouton pour valider un choix en appelant la fonction choose -->
+            <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer, envoijoueur)"> Valider </b-button> <!-- bouton pour valider un choix en appelant la fonction choose -->
         </b-message>
         <b-message v-if="role.length===0">
           <article class="title is-2 has-text-black is-centered has-text-centered"> Tout les rôles sont assignés <br></article>
@@ -135,20 +135,46 @@ export default {
         this.$buefy.snackbar.open('Tous les rôles ne sont pas attribués'); // sinon on affiche un popup pour dire que tous les rôles ne sont pas assignés
       }
     },
+    envoijoueur(name, role, envoijoueur) {
+      const ourtoken = this.$store.state.token;
+      const content = {
+        type: 'setPlayerRole',
+        status: 'ok',
+        token: ourtoken,
+        data: {
+          newRole: role,
+          playerName: name,
+        },
+      };
+      let data;
+      this.$socket.sendObj(content);
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        if (data.type === 'setPlayerRole') {
+          console.log(data);
+          if (data.status === 'error') {
+            envoijoueur(name, role);
+          }
+        }
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
+      };
+    },
     demarrer() {
       this.$store.commit('setPlayers', this.Players); // on enregistre nos joueurs avec leurs rôles dans le store
       this.$router.push({ path: '/overview' }); // on change de page
     },
-    Choose(Role, Player, ValidatePlayer) {
+    Choose(Role, Player, ValidatePlayer, envoijoueur) {
       if (Role.length !== 0) { // si un rôle est selectionne
         this.choose = false; // on ferme le modal
-        ValidatePlayer(Role, Player); // on lance validatePlayer avec notre rôle et notre player
+        ValidatePlayer(Role, Player, envoijoueur); // on lance validatePlayer avec notre rôle et notre player
         this.SelectedRole = []; // on reinitialise le rôle selectionne
       } else {
         this.$buefy.snackbar.open('Vous n\'avez pas assigné de rôle');
       }
     },
-    ValidatePlayer(genre, player) { // permet d'assigner à un joueur un role
+    ValidatePlayer(genre, player, envoijoueur) { // permet d'assigner à un joueur un role
       let place = 0;
       let act;
       for (let i = 0; i < this.Players.length; i += 1) {
@@ -172,6 +198,7 @@ export default {
       if (this.Players.length === 1) {
         this.role.splice(this.role.indexOf(undefined), 1);
       }
+      envoijoueur(player, genre, envoijoueur);
     },
   },
   created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role

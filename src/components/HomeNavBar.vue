@@ -62,7 +62,7 @@ export default {
   },
   methods: {
     Submit() {
-      const ourgameId = parseInt(this.Game.id, 10);
+      const ourgameId = this.Game.id;
       const ourgameName = this.Game.name;
       const content = {
         type: 'gmReconnectGame',
@@ -75,16 +75,16 @@ export default {
       };
       let data;
       this.$socket.sendObj(content);
-      console.log('sent');
       this.$options.sockets.onmessage = function (message) {
         data = JSON.parse(message.data);
         console.log(data);
-        if (data.type === 'createGame') {
-          console.log(data);
-          this.$store.commit('setToken', data.data.token);
-          this.$router.push({ path: '/choice' });
+        if (data.type === 'gmReconnectGame') {
           if (data.status === 'error') {
             this.error = true;
+          } else {
+            console.log(data);
+            this.$store.commit('setToken', data.data.token);
+            this.$router.push({ path: '/choice' });
           }
         }
         if (data) {

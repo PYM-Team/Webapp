@@ -24,7 +24,7 @@ export default {
     return {
       players: this.$store.state.players, // la liste des joueurs connectés avec leur rôles préférés
       RandomRoles: [],
-      roles: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'],
+      roles: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'], // rôle disponible initialement
       RandomDone: false,
     };
   },
@@ -46,9 +46,9 @@ export default {
     },
   },
   mounted() { // a la creation de la page on instaure un listener qui recoit une update quand un nouveau joueur se connecte
-    console.log('PlayerPanelsetup Created');
+    this.players = this.$store.state.players;
     let data;
-    let n;
+    let n = 0;
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       console.log(data);
@@ -57,9 +57,12 @@ export default {
         this.$store.commit('setPlayerInit', data.data.players);
         this.players = this.$store.state.players;
         console.log(data);
+        if (n === 1) { // au premier joueur reçu on recupere les rôles
+          this.roles = this.$store.state.Game.roles;
+        }
       }
     };
-    if (n === 6) {
+    if (n === this.roles.length) {
       delete this.$options.sockets.onmessage;
     }
   },

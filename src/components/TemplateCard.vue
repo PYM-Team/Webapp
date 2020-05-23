@@ -108,9 +108,12 @@ export default {
         this.$socket.sendObj(content);
         this.$options.sockets.onmessage = function (message) {
           data = JSON.parse(message.data);
-          this.$store.commit('setGameId', data.data.gameId);
-          this.$store.commit('setToken', data.data.token);
-          this.$router.push({ path: '/setup' });
+          console.log(data);
+          if (data.type === 'createGame') {
+            this.$store.commit('setGameId', data.data.gameId);
+            this.$store.commit('setToken', data.data.token);
+            this.$router.push({ path: '/setup' });
+          }
         };
         if (data) {
           delete this.$options.sockets.onmessage;

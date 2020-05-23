@@ -92,10 +92,11 @@ export default {
   data() {
     return {
       RandomiseOn: false,
-      Value: 6,
+      Value: 0,
       Players: [], // tableau des players attribue
       SelectedRole: [], // rôle choisi dans le menu déroulant
-      role: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'], // rôle disponible initialement
+      role: [],
+      // role: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'], // rôle disponible initialement
       choose: false, // permet d'activer le modal pour assigner un rôle à un joueur
       start: false, // permet d'activer le modal pour valider le demarrage de la partie
       selectedKey: {}, // joueur selectionné
@@ -218,8 +219,10 @@ export default {
       data = JSON.parse(message.data);
       if (data.type === 'getSetup') {
         this.$store.commit('setRoles', data.data.rolesNames);
-        // this.$store.commit('setPlayerInit', data.data.players);
+        this.$store.commit('setPlayerInit', data.data.players);
         this.$store.commit('setDescription', data.data.gameDescription);
+        this.role = this.$store.state.Game.roles;
+        this.Value = this.role.length;
         console.log(data);
       }
       if (data) {

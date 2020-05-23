@@ -31,11 +31,15 @@
 
         <div class="tile is-parent is-vertical is-12"> <!-- affiche la durée de la partie en cours avec la durée parametrée -->
           <article class="tile notification is-child is-primary is-5 is-centered">
+            <h1 v-if="TempsDepasse === true" class="time is-size-1 has-text-danger">Temps dépassé</h1>
             <h1 class="is-size-4">Partie débutée le :</h1>
             <h1 class="date is-size-2 is-centered">{{ getDate() }}</h1>
             <h1 class="is-size-4">En cours depuis :</h1>
-            <h1 class="time is-size-1 has-text-white">{{ temps }}</h1>
-            <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }}h{{afficheHeureMax(tempsMax).minutes}}min</h1>
+            <h1 v-if="TempsDepasse === false" class="time is-size-1 has-text-white">{{ temps }}</h1>
+            <h1 v-if="TempsDepasse === true" class="time is-size-1 has-text-danger">{{ temps }}</h1>
+            <h1 v-if="TempsDepasse === false"  class="is-size-4 has-text-white">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }}h{{afficheHeureMax(tempsMax).minutes}}min</h1>
+            <h1 v-if="TempsDepasse === true"  class="is-size-4 has-text-danger">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }}h{{afficheHeureMax(tempsMax).minutes}}min</h1>
+
           </article>
 
           <button class="button tile is-child is-primary is-medium is-5" @click="setPause(setPause)">Pause</button>
@@ -43,6 +47,12 @@
           <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"> <!-- Quand la partie est mise en pause fige l'ecran avec seulement un bouton play -->
             <button class="button tile is-child is-primary is-large is-1 is-rounded" @click="setPlay(setPlay, calculTemps)">Play</button>
           </b-loading>
+
+          <b-modal :active.sync="AlertTemps" scroll="keep">
+            <b-message >
+            <article class="title is-2 has-text-danger is-centered has-text-centered"> Le temps est depassé ! <br></article>
+            </b-message>
+          </b-modal>
         </div>
       </div>
     </div>
@@ -63,8 +73,11 @@ export default {
   components: { playerPanel },
   data() {
     return {
+      AlertTemps: false, // declencheur du modal pour dire que le temps est depassé
+      n: 0, // permet de vérifier que le modal ne se déclenche qu'une fois
       isAnnModalActive: false,
       temps: '',
+      TempsDepasse: false,
       isLoading: false,
       tempsActuelSecondes: 0,
       pourcentage: 0,
@@ -165,6 +178,13 @@ export default {
         this.pourcentage = (100 * this.tempsActuelSecondes) / this.tempsMax;
         this.pourcentage = (Math.round(this.pourcentage * 100) / 100).toFixed(2); // sert à arrondir à deux décimales près
         this.temps = `${bourrageZeros(this.heures)} : ${bourrageZeros(this.minutes)} : ${bourrageZeros(this.secondes)}`;
+        if (this.tempsActuelSecondes > this.tempsMax) {
+          this.TempsDepasse = true;
+          if (this.n === 0) {
+            this.AlertTemps = true;
+            this.n += 1;
+          }
+        }
       }, 1000);
     },
     afficheHeureMax(tempsMax) {

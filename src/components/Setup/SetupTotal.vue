@@ -174,6 +174,7 @@ export default {
         this.$buefy.snackbar.open('Vous n\'avez pas assigné de rôle');
       }
     },
+    // eslint-disable-next-line no-unused-vars
     ValidatePlayer(genre, player, envoijoueur) { // permet d'assigner à un joueur un role
       let place = 0;
       let act;
@@ -198,7 +199,8 @@ export default {
       if (this.Players.length === 1) {
         this.role.splice(this.role.indexOf(undefined), 1);
       }
-      envoijoueur(player, genre, envoijoueur);
+
+      // envoijoueur(player, genre, envoijoueur);
     },
   },
   created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role

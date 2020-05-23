@@ -17,7 +17,7 @@
           <b-field>
             <b-input placeholder="Message" v-model="announce"></b-input>
           </b-field>
-          <button class="button is-medium is-centered is-primary" @click="sendAnnounce()">Envoyer !</button>
+          <button class="button is-medium is-centered is-primary" @click="sendAnnounce(sendAnnounce)">Envoyer !</button>
         </div>
       </div>
     </b-modal>
@@ -38,10 +38,10 @@
             <h1 class="is-size-4">soit {{ pourcentage }} % du temps conseillé de {{ afficheHeureMax(tempsMax).heures }}h{{afficheHeureMax(tempsMax).minutes}}min</h1>
           </article>
 
-          <button class="button tile is-child is-primary is-medium is-5" @click="setPause()">Pause</button>
+          <button class="button tile is-child is-primary is-medium is-5" @click="setPause(setPause)">Pause</button>
 
           <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"> <!-- Quand la partie est mise en pause fige l'ecran avec seulement un bouton play -->
-            <button class="button tile is-child is-primary is-large is-1 is-rounded" @click="calculTemps(), isLoading = false">Play</button>
+            <button class="button tile is-child is-primary is-large is-1 is-rounded" @click="setPlay(setPlay, calculTemps)">Play</button>
           </b-loading>
         </div>
       </div>
@@ -73,12 +73,64 @@ export default {
       minutes: 0,
       heures: 0,
       intervalle: undefined,
+      announce: '',
     };
   },
   methods: {
+
+    setPlay(setPlay, calculTemps) {
+      calculTemps();
+      this.isLoading = false;
+      const ourtoken = this.$store.state.token;
+      const content = {
+        type: 'resume',
+        status: 'ok',
+        token: ourtoken,
+        data: {
+        },
+      };
+      let data;
+      this.$socket.sendObj(content);
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        if (data.type === 'resume') {
+          console.log(data);
+          this.data.data.currentTime = this.tempsActuelSecondes;
+          if (data.status === 'error') {
+            setPlay();
+          }
+        }
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
+      };
+    },
     // TODO: Handle message
-    sendAnnounce() {
-      // this.$store.state.socket.emit('announcement', this.announce);
+    sendAnnounce(sendAnnounce) {
+      const ourtoken = this.$store.state.token;
+      const ourmessage = this.announce;
+      const content = {
+        type: 'announce',
+        status: 'ok',
+        token: ourtoken,
+        data: {
+          message: ourmessage,
+        },
+      };
+      let data;
+      this.$socket.sendObj(content);
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        if (data.type === 'announce') {
+          console.log(data);
+          if (data.status === 'error') {
+            sendAnnounce();
+          }
+        }
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
+      };
       this.isAnnModalActive = false;
     },
     setSelected(_SelectedKey) {
@@ -124,9 +176,34 @@ export default {
         minutes: (m === 60 ? bourrageZeros(0) : bourrageZeros(m)),
       };
     },
-    setPause() {
+    setPause(setPause) {
       clearInterval(this.intervalle);
       this.isLoading = true;
+
+      const ourtoken = this.$store.state.token;
+      const TimePause = this.tempsActuelSecondes;
+      const content = {
+        type: 'pause',
+        status: 'ok',
+        token: ourtoken,
+        data: {
+          currentTime: TimePause,
+        },
+      };
+      let data;
+      this.$socket.sendObj(content);
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        if (data.type === 'pause') {
+          console.log(data);
+          if (data.status === 'error') {
+            setPause();
+          }
+        }
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
+      };
     },
   },
   mounted() {

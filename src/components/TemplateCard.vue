@@ -92,12 +92,16 @@ export default {
       if (!this.duree || !this.name) { // si les deux champs sont remplis on lance un processus de création de partie au backend qui nous renvoi un gameId
         this.error = true;
       } else {
+        const ourduree = this.duree;
+        const ourname = this.name;
         const content = {
           type: 'createGame',
           status: 'ok',
           token: null,
           data: {
             templateName: 'basicMurder',
+            duree: ourduree,
+            name: ourname,
           },
         };
         let data;

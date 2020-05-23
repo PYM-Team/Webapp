@@ -28,6 +28,23 @@ export default {
       RandomDone: false,
     };
   },
+  methods: {
+    SelectPlayer(key, prefered) {
+      this.$emit('selected', [key, prefered]); // quand on clique sur un joueur emet un evenement renvoyant un tableau avec le nom du joueur et son rôle preféré
+    },
+    SendRandom() {
+      let dice = 0;
+      for (let i = 0; i < (this.players.length); i += 1) {
+        if (this.players[i].connected) {
+          dice = Math.floor(Math.random() * this.roles.length);
+          this.RandomRoles.push([this.roles[dice], this.players[i].name]);
+          this.roles.splice(dice, 1);
+        }
+      }
+      this.RandomDone = true;
+      this.$emit('randomise', this.RandomRoles);
+    },
+  },
   mounted() { // a la creation de la page on instaure un listener qui recoit une update quand un nouveau joueur se connecte
     console.log('PlayerPanelsetup Created');
     let data;
@@ -45,23 +62,6 @@ export default {
     if (n === 6) {
       delete this.$options.sockets.onmessage;
     }
-  },
-  methods: {
-    SelectPlayer(key, prefered) {
-      this.$emit('selected', [key, prefered]); // quand on clique sur un joueur emet un evenement renvoyant un tableau avec le nom du joueur et son rôle preféré
-    },
-    SendRandom() {
-      let dice = 0;
-      for (let i = 0; i < (this.players.length); i += 1) {
-        if (this.players[i].connected) {
-          dice = Math.floor(Math.random() * this.roles.length);
-          this.RandomRoles.push([this.roles[dice], this.players[i].name]);
-          this.roles.splice(dice, 1);
-        }
-      }
-      this.RandomDone = true;
-      this.$emit('randomise', this.RandomRoles);
-    },
   },
   props: {
     random: Boolean,

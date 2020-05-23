@@ -58,26 +58,39 @@ export default {
         id: '',
         name: '',
       },
-      Receive: {
-        name: ['jean', 'toto', 'jacques'],
-      },
     };
   },
   methods: {
     Submit() {
-      // eslint-disable-next-line no-unused-vars
-      let valid = false;
-      // sent Game id
-      // receive name
-      for (let i = 0; i < this.Receive.name.length; i += 1) {
-        if (this.Game.name === this.Receive.name[i]) {
-          valid = true;
-          this.$router.push({ path: '/Choice' });
+      const ourgameId = parseInt(this.Game.id, 10);
+      const ourgameName = this.Game.name;
+      const content = {
+        type: 'gmReconnectGame',
+        status: 'ok',
+        token: null,
+        data: {
+          gameId: ourgameId,
+          playerName: ourgameName,
+        },
+      };
+      let data;
+      this.$socket.sendObj(content);
+      console.log('sent');
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        console.log(data);
+        if (data.type === 'createGame') {
+          console.log(data);
+          this.$store.commit('setToken', data.data.token);
+          this.$router.push({ path: '/choice' });
+          if (data.status === 'error') {
+            this.error = true;
+          }
         }
-      }
-      if (valid === false) {
-        this.error = true;
-      }
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
+      };
     },
   },
 };

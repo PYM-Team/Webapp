@@ -43,6 +43,24 @@
           </article>
 
           <button class="button tile is-child is-primary is-medium is-5" @click="setPause(setPause)">Pause</button>
+          <button class="button tile is-child is-primary is-medium is-5" @click="stop = true">Arreter la partie</button>
+
+          <b-modal :active.sync="stop" scroll="keep"> <!-- le modal demande confirmation avant de quitter -->
+            <b-message class= "is-primary has-text-centered is-size-5">
+            <article class="title is-centered has-text-black has-text-centered"> Voulez vous vraiment arreter la partie ? </article>
+            <article class="is-centered is-size-3 has-text-centered"> Ceci est définitif, vous ne pourrez plus la reprendre plus tard</article> <br>
+            <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="stopsur = true, stop = false"> Je suis sûr ! </b-button>
+            <b-button class="button is-primary is-pulled-left tile is-right is-4" @click="stop = false"> Non </b-button>
+            </b-message>
+          </b-modal>
+
+          <b-modal :active.sync="stopsur" scroll="keep"> <!-- le modal demande confirmation avant de quitter -->
+            <b-message class= "is-primary has-text-centered is-size-5">
+            <article class="is-centered is-size-3 has-text-centered"> Vraiment sûr ?</article> <br>
+            <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="StopPartie"> Oui </b-button>
+            <b-button class="button is-primary is-pulled-left tile is-right is-4" @click="stopsur = false"> Non </b-button>
+            </b-message>
+          </b-modal>
 
           <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"> <!-- Quand la partie est mise en pause fige l'ecran avec seulement un bouton play -->
             <button class="button tile is-child is-primary is-large is-1 is-rounded" @click="setPlay(setPlay, calculTemps)">Play</button>
@@ -73,6 +91,8 @@ export default {
   components: { playerPanel },
   data() {
     return {
+      stopsur: false,
+      stop: false,
       AlertTemps: false, // declencheur du modal pour dire que le temps est depassé
       n: 0, // permet de vérifier que le modal ne se déclenche qu'une fois
       isAnnModalActive: false,
@@ -90,7 +110,10 @@ export default {
     };
   },
   methods: {
-
+    StopPartie() {
+      // Envoyer à l'API
+      this.$router.push({ path: '/' });
+    },
     setPlay(setPlay, calculTemps) {
       calculTemps();
       this.isLoading = false;

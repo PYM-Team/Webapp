@@ -14,7 +14,7 @@
 
     <div class="card-content">
       <div class="content"> <!-- affiche un resume bref du template -->
-        Don Giorgio, baron de la drogue et parrain de la pègre locale, a rendu l'âme. A qui profite le crime ?
+        {{this.catchphrase}}
       </div>
     </div>
 
@@ -66,11 +66,13 @@ export default {
       dureeSecondes: 0,
       Param: false,
       data: '',
-      description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
+      // description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
     };
   },
   props: {
     title: String,
+    description: String,
+    catchphrase: String,
   },
   mounted() {
     // console.log(this.dureeDate.getMinutes());

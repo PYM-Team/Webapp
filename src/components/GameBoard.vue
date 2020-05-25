@@ -2,7 +2,7 @@
   <div class="container" id="board"> <!-- Pour chaque template affiche un template card de ce template -->
     <div class="columns is-multiline is-desktop">
       <div class="column is-3" v-for="template in templates" v-bind:key="template">
-          <TemplateCard :title="template.name" />
+          <TemplateCard :title="template.name" :catchphrase="template.catchphrase" :description="template.description" />
       </div>
     </div>
   </div>
@@ -17,7 +17,7 @@ export default {
   components: { TemplateCard },
   data() {
     return {
-      templates: [{ name: 'La mort du parrain' }, { name: 'Intrigues à la cour du roi' }, { name: 'En pleine guerre froide' }, { name: 'Bagarre de saloon' }, { name: 'Mariage compromis' }, { name: 'Panique à la discothèque' }],
+      templates: this.$store.state.init.templates,
     };
   },
   methods: {
@@ -44,6 +44,7 @@ export default {
   },
 };
 </script>
+
 
 <style>
 #board {

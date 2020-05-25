@@ -15,29 +15,9 @@
           Etat : Vivant
         </p>
       </div>
+    <button class="button is-primary is-medium is-pulled-right" @click="voirInv()">Voir inventaire</button>
+    <button class="button is-primary is-medium if-pulled-left" @click="voirRel()">Voir relations</button>
     </div>
-    <button class="button is-primary is-medium" @click="voir()">Voir inventaire</button>
-    <!-- <footer class="card-footer">
-    <b-menu-list>
-      <b-menu-item icon="settings" :active="isActive" expanded>
-        <template slot="label" slot-scope="props">
-          See more
-          <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>
-        </template>
-        <b-menu-item>
-          <template slot="label">
-            <strong> Etat : </strong> {{Etat}} <br/>
-            <strong> Dernière mission: </strong> {{Last_Mission}} <br/>
-            <strong> Avancée du personnage: </strong>
-            <b-progress class="progress is-small" :value="Advancement" show-value format="percent"></b-progress>
-            <b-dropdown aria-role="list" class="is-pulled-right" position="is-bottom-left">
-              <b-icon icon="dots-vertical" slot="trigger"></b-icon>
-            </b-dropdown>
-          </template>
-        </b-menu-item>
-      </b-menu-item>
-    </b-menu-list>
-    </footer> -->
   </div>
 </template>
 
@@ -45,10 +25,7 @@
 export default {
   data() {
     return {
-      // IL FAUDRAIT Game.Players.name au lieu de players.name utilisé pour les tests
       isActive: true,
-      Etat: 'Vivant',
-      Last_Mission: 'Tuer le colonel (avec le chandelier)',
     };
   },
   name: 'TemplateCard',
@@ -59,8 +36,11 @@ export default {
     CompleteCard() {
       return 4;
     },
-    voir() {
-      console.log('YEAH');
+    voirInv() {
+      // affiche l'inventaire sous forme d'un tableau
+    },
+    voirRel() {
+      // affiche le tableau des relations
     },
   },
 };

@@ -5,24 +5,7 @@
       <p>{{this.$store.state.Game.gameTemplate}}</p>
       <p>Identifiant de partie : {{this.$store.state.Game.gameId}}</p>
     </article>
-
-    <button class="button is-primary is-medium" @click="isAnnModalActive = true">Faire une annonce</button> <!-- Bouton pour faire une annonce à tout les joueurs -->
-
-    <b-modal :active.sync="isAnnModalActive" scroll="keep"> <!-- bodal pour ecrire et envoyer l'annonce -->
-      <div class="card">
-        <div class="card-header">
-          <p class="card-header-title is-centered player-name">Annonce</p>
-        </div>
-        <div class="card-content">
-          <b-field>
-            <b-input placeholder="Message" v-model="announce"></b-input>
-          </b-field>
-          <button class="button is-medium is-centered is-primary" @click="sendAnnounce(sendAnnounce)">Envoyer !</button>
-        </div>
-      </div>
-    </b-modal>
-
-    <div class="tile is-ancestor is-vertical"><!-- Mis en place d'un tile pour afficher l'heure et les joueurs connectés -->
+    <div class="tile is-ancestor is-vertical"><!-- Mise en place d'un tile pour afficher l'heure et les joueurs connectés -->
       <div class="tile is-parent">
 
         <article class="tile is-child is-5 is-centered">
@@ -95,7 +78,6 @@ export default {
       stop: false,
       AlertTemps: false, // declencheur du modal pour dire que le temps est depassé
       n: 0, // permet de vérifier que le modal ne se déclenche qu'une fois
-      isAnnModalActive: false,
       temps: '',
       TempsDepasse: false,
       isLoading: false,
@@ -112,7 +94,7 @@ export default {
   methods: {
     StopPartie() {
       // Envoyer à l'API
-      this.$router.push({ path: '/Results' });
+      this.$router.push({ path: '/' });
     },
     setPlay(setPlay, calculTemps) {
       calculTemps();
@@ -140,34 +122,6 @@ export default {
           delete this.$options.sockets.onmessage;
         }
       };
-    },
-    // TODO: Handle message
-    sendAnnounce(sendAnnounce) {
-      const ourtoken = this.$store.state.token;
-      const ourmessage = this.announce;
-      const content = {
-        type: 'announce',
-        status: 'ok',
-        token: ourtoken,
-        data: {
-          message: ourmessage,
-        },
-      };
-      let data;
-      this.$socket.sendObj(content);
-      this.$options.sockets.onmessage = function (message) {
-        data = JSON.parse(message.data);
-        if (data.type === 'announce') {
-          console.log(data);
-          if (data.status === 'error') {
-            sendAnnounce();
-          }
-        }
-        if (data) {
-          delete this.$options.sockets.onmessage;
-        }
-      };
-      this.isAnnModalActive = false;
     },
     setSelected(_SelectedKey) {
       this.selectedKey = _SelectedKey;
@@ -249,40 +203,8 @@ export default {
       };
     },
   },
-  created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role
-    const ourtoken = this.$store.state.token;
-    const content = {
-      type: 'getOverview',
-      status: 'ok',
-      token: ourtoken,
-      data: {
-      },
-    };
-    let data;
-    this.$socket.sendObj(content);
-    this.$options.sockets.onmessage = function (message) {
-      data = JSON.parse(message.data);
-      if (data.type === 'getOverview') {
-        console.log(data);
-      }
-      if (data) {
-        delete this.$options.sockets.onmessage;
-      }
-    };
-  },
   mounted() {
-    this.calculTemps();// a la creation de la page on instaure un listener qui recoit une update quand un nouveau joueur se connecte
-    let data;
-    this.$options.sockets.onmessage = function (message) {
-      data = JSON.parse(message.data);
-      if (data.type === 'updatePlayers') {
-        this.$store.commit('setPlayerInit', data.data.players);
-        console.log(data);
-      }
-    };
-  },
-  beforeDestroy() {
-    delete this.$options.sockets.onmessage;
+    this.calculTemps();
   },
 };
 </script>

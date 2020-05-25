@@ -4,6 +4,7 @@ import Home from '../views/Home.vue';
 import Dashboard from '../views/Dashboard.vue';
 import Setup from '../views/Setup.vue';
 import Overview from '../views/Overview.vue';
+import Results from '../views/Results.vue';
 import Choice from '../views/Choice.vue';
 
 Vue.use(VueRouter);
@@ -29,7 +30,7 @@ const routes = [
   {
     path: '/Results',
     name: 'Results',
-    component: Overview,
+    component: Results,
   },
   {
     path: '/Overview',

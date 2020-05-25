@@ -112,7 +112,7 @@ export default {
   methods: {
     StopPartie() {
       // Envoyer à l'API
-      this.$router.push({ path: '/' });
+      this.$router.push({ path: '/Results' });
     },
     setPlay(setPlay, calculTemps) {
       calculTemps();

@@ -99,7 +99,7 @@ export default {
           status: 'ok',
           token: null,
           data: {
-            templateName: 'basicMurder',
+            templateName: 'LeParrain',
             duree: ourduree,
             name: ourname,
           },

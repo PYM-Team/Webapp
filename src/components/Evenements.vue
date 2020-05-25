@@ -1,19 +1,19 @@
 <template>
-    <section>
-        <h1> Progression Globale </h1>
-        <b-progress :value="Advancement" show-value format="percent"></b-progress>
-    </section>
+  <ul id="item-list">
+    <li v-for="(event, index) of evenements" v-bind:key="index" :id="event.nom">
+      {{ event.nom }} : {{ event.description }}
+      <h1 v-if="event.declenche">FAIT</h1>
+      <h1 v-else>PAS FAIT</h1>
+    </li>
+</ul>
 </template>
 
 <script>
 export default {
   name: 'Evenements',
-  props: {
-    title: String,
-  },
   data() {
     return {
-      Advancement: '8',
+      evenements: this.$store.state.Game.events,
     };
   },
 };

@@ -2,17 +2,17 @@
   <div id="dashboard">
     <NavBar />
     <b-tabs type="is-toggle" position="is-centered" v-model="activeTab">
-      <b-tab-item label="Overview">
+      <b-tab-item label="Général">
         <Overview />
       </b-tab-item>
-      <b-tab-item label="Player">
-        <PlayerView />
+      <b-tab-item label="Faire une annonce">
+        <Annonce />
       </b-tab-item>
-      <b-tab-item label="Players">
+      <b-tab-item label="Joueurs">
         <PlayersView />
       </b-tab-item>
-      <b-tab-item label="Missions">
-        <Missions />
+      <b-tab-item label="Evenements">
+        <Evenements/>
       </b-tab-item>
     </b-tabs>
   </div>
@@ -22,18 +22,18 @@
 /* eslint-disable no-unused-vars */
 import NavBar from '@/components/DashboardNavBar.vue';
 import PlayersView from '@/components/PlayersView.vue';
-import PlayerView from '@/components/PlayerView.vue';
+import Annonce from '@/components/Annonce.vue';
 import Overview from '@/components/Overview.vue';
-import Missions from '@/components/Missions.vue';
+import Evenements from '@/components/Evenements.vue';
 
 export default {
   name: 'Dashboard',
   components: {
     NavBar,
     PlayersView,
-    PlayerView,
+    Annonce,
     Overview,
-    Missions,
+    Evenements,
   },
   data() {
     return {

@@ -3,18 +3,21 @@
     <header class="card-header">
       <p class="card-header-title is-centered player-name">
         <img class="player-profile-pic" src="https://i.imgur.com/SfvDmCx.png"/>
-        {{title}}
-        <br /> aka "The Murderer"
+        <br /> {{this.$store.state.players[this.num].prefered}}
       </p>
     </header>
     <div class="card-content">
       <div class="content player-role">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Neque sed blanditiis,
-        assumenda repellendus tempore voluptatum eum! Aspernatur nam doloremque asperiores.
-        Expedita vero ducimus alias repudiandae dolorem distinctio officia tempora quas.
+        <p>
+          Joueur : {{this.$store.state.players[this.num].name}}
+        </p>
+        <p>
+          Etat : Vivant
+        </p>
       </div>
     </div>
-    <footer class="card-footer">
+    <button class="button is-primary is-medium" @click="voir()">Voir inventaire</button>
+    <!-- <footer class="card-footer">
     <b-menu-list>
       <b-menu-item icon="settings" :active="isActive" expanded>
         <template slot="label" slot-scope="props">
@@ -34,7 +37,7 @@
         </b-menu-item>
       </b-menu-item>
     </b-menu-list>
-    </footer>
+    </footer> -->
   </div>
 </template>
 
@@ -42,6 +45,7 @@
 export default {
   data() {
     return {
+      // IL FAUDRAIT Game.Players.name au lieu de players.name utilisé pour les tests
       isActive: true,
       Etat: 'Vivant',
       Last_Mission: 'Tuer le colonel (avec le chandelier)',
@@ -49,11 +53,14 @@ export default {
   },
   name: 'TemplateCard',
   props: {
-    title: String,
+    num: String, // l'index de this.store.state.Game.Players
   },
   methods: {
     CompleteCard() {
       return 4;
+    },
+    voir() {
+      console.log('YEAH');
     },
   },
 };

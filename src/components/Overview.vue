@@ -249,8 +249,40 @@ export default {
       };
     },
   },
+  created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role
+    const ourtoken = this.$store.state.token;
+    const content = {
+      type: 'getOverview',
+      status: 'ok',
+      token: ourtoken,
+      data: {
+      },
+    };
+    let data;
+    this.$socket.sendObj(content);
+    this.$options.sockets.onmessage = function (message) {
+      data = JSON.parse(message.data);
+      if (data.type === 'getOverview') {
+        console.log(data);
+      }
+      if (data) {
+        delete this.$options.sockets.onmessage;
+      }
+    };
+  },
   mounted() {
-    this.calculTemps();
+    this.calculTemps();// a la creation de la page on instaure un listener qui recoit une update quand un nouveau joueur se connecte
+    let data;
+    this.$options.sockets.onmessage = function (message) {
+      data = JSON.parse(message.data);
+      if (data.type === 'updatePlayers') {
+        this.$store.commit('setPlayerInit', data.data.players);
+        console.log(data);
+      }
+    };
+  },
+  beforeDestroy() {
+    delete this.$options.sockets.onmessage;
   },
 };
 </script>

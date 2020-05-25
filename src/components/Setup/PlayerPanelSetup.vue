@@ -13,7 +13,6 @@
   <b-modal v-if="!RandomDone && random" :active.sync="random" scroll="keep">
     <b-button class="button is-primary is-large is-vcentered is-4" @click="SendRandom()"> Êtes vous vraiment sûr ? </b-button>
   </b-modal>
-
 </div>
 </template>
 

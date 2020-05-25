@@ -19,7 +19,7 @@
     <b-modal :active.sync="start" scroll="keep"> <!-- le modal associé au start permettant de valider le lancement de la partie. Lance la partie avec la fonction demarrer -->
         <b-message class= "is-primary has-text-centered is-size-5">
           <article class="is-centered has-text-centered"> Voulez vous vraiment lancer la partie ? </article>
-          <b-button class="button is-primary tile is-centered is-12" @click="demarrer"> C'est parti ! </b-button>
+          <b-button class="button is-primary tile is-centered is-12" @click="demarrer(demarrer)"> C'est parti ! </b-button>
         </b-message>
     </b-modal>
   </div>
@@ -163,9 +163,32 @@ export default {
         }
       };
     },
-    demarrer() {
-      this.$store.commit('setPlayers', this.Players); // on enregistre nos joueurs avec leurs rôles dans le store
-      this.$router.push({ path: '/overview' }); // on change de page
+    demarrer(demarrer) {
+      const ourtoken = this.$store.state.token;
+      const content = {
+        type: 'StartGame',
+        status: 'ok',
+        token: ourtoken,
+        data: {
+        },
+      };
+      let data;
+      this.$socket.sendObj(content);
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        if (data.type === 'StartGame') {
+          console.log(data);
+          if (data.status === 'error') {
+            demarrer(demarrer);
+          } else {
+            this.$store.commit('setPlayers', this.Players); // on enregistre nos joueurs avec leurs rôles dans le store
+            this.$router.push({ path: '/overview' }); // on change de page
+          }
+        }
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
+      };
     },
     Choose(Role, Player, ValidatePlayer, envoijoueur) {
       if (Role.length !== 0) { // si un rôle est selectionne

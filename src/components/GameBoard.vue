@@ -22,6 +22,26 @@ export default {
   },
   methods: {
   },
+  created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role
+    const content = {
+      type: 'Initialize',
+      status: 'ok',
+      token: null,
+      data: {
+      },
+    };
+    let data;
+    this.$socket.sendObj(content);
+    this.$options.sockets.onmessage = function (message) {
+      data = JSON.parse(message.data);
+      if (data.type === 'Initialize') {
+        console.log(data);
+      }
+      if (data) {
+        delete this.$options.sockets.onmessage;
+      }
+    };
+  },
 };
 </script>
 

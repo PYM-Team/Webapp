@@ -1,7 +1,9 @@
 <template>
   <div id="Annonce">
-    <b-field label="Annonce">
-        <b-input maxlength="100" size="is-medium" v-model="texteAnnonce"></b-input>
+    <article class="title is-1 is-centered"> Entrez le texte à envoyer </article>
+       <br>
+    <b-field>
+      <b-input maxlength="100" size="is-medium" v-model="texteAnnonce"></b-input>
     </b-field>
     <button class="button is-primary is-medium" @click="envoiAnnonce(envoiAnnonce)">Envoyer aux joueurs</button>
   </div>

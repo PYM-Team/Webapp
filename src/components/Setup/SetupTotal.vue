@@ -176,6 +176,7 @@ export default {
       this.$socket.sendObj(content);
       this.$options.sockets.onmessage = function (message) {
         data = JSON.parse(message.data);
+        console.log(data);
         if (data.type === 'StartGame') {
           console.log(data);
           if (data.status === 'error') {

@@ -14,9 +14,15 @@
         <p>
           Etat : Vivant
         </p>
+        <div class="field is-grouped">
+          <p class="control">
+            <button class="button is-primary is-3 is-medium is-pulled-right is-rounded" @click="voirInv()">Voir inventaire</button>
+          </p>
+          <p class="control">
+          <button class="button is-primary is-3 is-medium is-rounded is-pulled-left" @click="voirRel()">Voir relations</button>
+          </p>
+        </div>
       </div>
-    <button class="button is-primary is-medium is-pulled-right" @click="voirInv()">Voir inventaire</button>
-    <button class="button is-primary is-medium if-pulled-left" @click="voirRel()">Voir relations</button>
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@
     <!-- La première partie est verticale - c'est notre panneau avec les joueurs et les boutons de choix aléatoire et de démarrage de la partie -->
 
     <article class="tile is-child is-12 is-centered"> <!-- Le panneau avec les joueurs qui renvoit les fonctions random/selected/randomise-->
-      <PlayerPanel :random="this.RandomiseOn" v-on:selected='setSelected($event)' v-on:randomise='Assigner($event)'/>
+      <PlayerPanel :isClicked="RandomiseOn" v-on:selected='setSelected($event)' v-on:randomise='Assigner($event)'/>
     </article>
 
      <b-button class="notification is-primary title-font is-vcentered is-centered"  v-on:click="Randomize"> <!-- Le bouton qui lance la distribution aleatoire en appelant la fonction Randomize-->
@@ -122,12 +122,13 @@ export default {
       this.pref = _SelectedKey[1]; // on assigne a pref le rôle prefere du joueur selectionne
     },
     Randomize() {
-      this.RandomiseOn = true; // dis à la liste de player de faire un tirage aléatoire
+      this.RandomiseOn = true;
     },
     Assigner(_SelectedKey) {
       for (let i = 0; i < _SelectedKey.length; i += 1) {
         this.ValidatePlayer(_SelectedKey[i][0], _SelectedKey[i][1]); // récupère et assigne en fonction de la ditribution aléatoire
       }
+      this.RandomiseOn = false;
     },
     Start() {
       if (this.Players.length === this.Value) { // si il y a autant de joueurs avec rôles que de rôles à assigner (=chaque joueur à un rôle)

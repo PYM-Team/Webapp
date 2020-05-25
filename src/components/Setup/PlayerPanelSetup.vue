@@ -10,8 +10,10 @@
       </div>
     </ul>
   </aside>
-  <b-modal v-if="!RandomDone && random" :active.sync="random" scroll="keep">
-    <b-button class="button is-primary is-large is-vcentered is-4" @click="SendRandom()"> Êtes vous vraiment sûr ? </b-button>
+  <b-modal :active.sync="isClicked" scroll="keep">
+    <article>
+      <b-button class="button is-primary is-large is-vcentered is-4" @click="SendRandom()"> Êtes vous vraiment sûr ? </b-button>
+    </article>
   </b-modal>
 </div>
 </template>
@@ -23,8 +25,8 @@ export default {
     return {
       players: this.$store.state.players, // la liste des joueurs connectés avec leur rôles préférés
       RandomRoles: [],
+      // roles: [];
       roles: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'], // rôle disponible initialement
-      RandomDone: false,
     };
   },
   methods: {
@@ -40,8 +42,10 @@ export default {
           this.roles.splice(dice, 1);
         }
       }
-      this.RandomDone = true;
+      this.$store.commit('setRandom', false);
       this.$emit('randomise', this.RandomRoles);
+      this.RandomRoles = [];
+      this.roles = ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'];
     },
   },
   mounted() { // a la creation de la page on instaure un listener qui recoit une update quand un nouveau joueur se connecte
@@ -66,7 +70,7 @@ export default {
     }
   },
   props: {
-    random: Boolean,
+    isClicked: Boolean,
   },
 };
 

@@ -7,11 +7,11 @@ export default new Vuex.Store({
   state: {
     init: {
       templates: [
-        { name: 'LeParrain', catchphrase: "Don Giorgio, baron de la drogue et parrain de la pègre locale, a rendu l'âme. A qui profite le crime ?", description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.' },
-        { name: 'Intrigues à la cour du roi', catchphrase: 'GameOfTrones mais en mieux !', description: 'A VENIR' },
+        { name: 'Le Parrain', catchphrase: "Don Giorgio, baron de la drogue et parrain de la pègre locale, a rendu l'âme. A qui profite le crime ?", description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.' },
+        { name: 'Intrigues à la cour du roi', catchphrase: 'Game Of Thrones mais en mieux !', description: 'A VENIR' },
         { name: 'En pleine guerre froide', catchphrase: 'Devenez un espion américain perdu en terre communiste', description: 'A VENIR' },
-        { name: 'Bagarre de saloon', catchphrase: 'Des flingues et des tequillas. Une bonne soirée vous attends', description: 'A VENIR' },
-        { name: 'Mariage compromis', catchphrase: "Votre vie n'est pas assez triste ? Testez alors ce scénario plein de trahisons et de drama", description: 'A VENIR' },
+        { name: 'Bagarre de saloon', catchphrase: 'Des flingues et des tequilas. Une bonne soirée vous attend', description: 'A VENIR' },
+        { name: 'Mariage compromis', catchphrase: "Votre vie n'est pas assez triste ? Testez ce scénario plein de trahisons et de drama", description: 'A VENIR' },
         { name: 'Panique à la discothèque', catchphrase: 'Enquêtes et affros. Thriller passionant dans une boite de nuit disco des années 80', description: 'A VENIR' },
       ],
     },
@@ -32,6 +32,7 @@ export default new Vuex.Store({
       description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
       duree: 10,
       Players: [],
+      PlayersDetailed: [],
       events: [
         { nom: 'start', description: 'lance la partie', declenche: true },
         { nom: 'fin', description: 'termine la partie', declenche: false },
@@ -86,6 +87,12 @@ export default new Vuex.Store({
       for (let i = 0; i < tab.length; i += 1) {
         state.Game.Players.push(tab[i]);
       }
+    },
+    setEvents(state, tabEvents) {
+      state.Game.events = tabEvents;
+    },
+    setPlayersDetailed(state, tabPD) {
+      state.Game.PlayersDetailed = tabPD;
     },
   },
   actions: {

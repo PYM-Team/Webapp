@@ -77,6 +77,7 @@ export default {
       tryPause: 0,
       tryPlay: 0,
       tryStop: 0,
+      tryGet: 0,
       stopsur: false,
       stop: false,
       AlertTemps: false, // declencheur du modal pour dire que le temps est depassé
@@ -108,15 +109,17 @@ export default {
       let data;
       this.$socket.sendObj(content);
       this.$options.sockets.onmessage = function (message) {
+        console.log(data);
         data = JSON.parse(message.data);
         if (data.type === 'stopGame') {
           console.log(data);
           if (data.status === 'error') {
-            this.tryPause += 1;
-            if (this.tryPause === 5) {
+            this.tryStop += 1;
+            if (this.tryStop === 5) {
               this.Error();
               delete this.$options.sockets.onmessage;
-              this.tryPause = 0;
+              this.tryStop = 0;
+              this.stopsur = false;
             } else {
               setTimeout(this.StopPartie(), 300);
             }
@@ -262,6 +265,35 @@ export default {
   },
   mounted() {
     this.calculTemps();
+  },
+  created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role
+    const ourtoken = this.$store.state.token;
+    const content = {
+      type: 'getOverview',
+      status: 'ok',
+      token: ourtoken,
+      data: {
+      },
+    };
+    let data;
+    this.$socket.sendObj(content);
+    this.$options.sockets.onmessage = function (message) {
+      data = JSON.parse(message.data);
+      if (data.type === 'getOverview') {
+        console.log(data);
+        if (data.status === 'error') {
+          this.tryGet += 1;
+          if (this.tryGet === 5) {
+            delete this.$options.sockets.onmessage;
+          } else {
+            setTimeout(this.created(), 300);
+          }
+        }
+      }
+      if (data) {
+        delete this.$options.sockets.onmessage;
+      }
+    };
   },
 };
 </script>

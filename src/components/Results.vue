@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import PlayersView from '@/components/PlayersView.vue';
+import PlayersView from '@/components/Personnage/PlayersView.vue';
 import Evenements from '@/components/Evenements.vue';
 
 export default {

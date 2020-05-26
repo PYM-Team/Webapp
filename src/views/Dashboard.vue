@@ -21,7 +21,7 @@
 <script>
 /* eslint-disable no-unused-vars */
 import NavBar from '@/components/DashboardNavBar.vue';
-import PlayersView from '@/components/PlayersView.vue';
+import PlayersView from '@/components/Personnage/PlayersView.vue';
 import Annonce from '@/components/Annonce.vue';
 import Overview from '@/components/Overview.vue';
 import Evenements from '@/components/Evenements.vue';

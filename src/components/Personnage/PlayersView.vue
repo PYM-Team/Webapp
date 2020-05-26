@@ -8,7 +8,7 @@
 
 <script>
 
-import PlayerCard from '@/components/PlayerCard.vue';
+import PlayerCard from './PlayerCard.vue';
 
 export default {
   name: 'PlayersView',

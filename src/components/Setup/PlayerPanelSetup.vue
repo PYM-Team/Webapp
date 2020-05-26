@@ -52,6 +52,7 @@ export default {
     this.players = this.$store.state.players;
     let data;
     let n = 0;
+    console.log('done1');
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       console.log(data);
@@ -61,6 +62,7 @@ export default {
         this.players = this.$store.state.players;
         console.log(data);
         if (n === 1) { // au premier joueur reçu on recupere les rôles
+          console.log('done');
           this.roles = this.$store.state.Game.roles;
         }
       }
@@ -83,3 +85,15 @@ export default {
   color: white !important;
 }
 </style>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player</title>
+</head>
+<body>
+  <h1>Player view</h1>
+</body>
+</html>

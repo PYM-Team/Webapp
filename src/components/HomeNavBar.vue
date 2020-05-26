@@ -84,7 +84,7 @@ export default {
           } else {
             console.log(data);
             this.$store.commit('setToken', data.data.token);
-            this.$router.push({ path: '/choice' });
+            this.$router.push({ path: '/Overview' });
           }
         }
         if (data) {

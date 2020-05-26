@@ -34,7 +34,7 @@
 
 <script>
 export default {
-  data() {
+  data() { // donneesInv, colonnesInv etc seront récupérées depuis le store (et donc depuis l'API)
     return {
       isActive: true,
       modalInv: false,
@@ -73,17 +73,6 @@ export default {
   name: 'TemplateCard',
   props: {
     num: String, // l'index de this.store.state.Game.Players
-  },
-  methods: {
-    CompleteCard() {
-      return 4;
-    },
-    voirInv() {
-      // affiche l'inventaire sous forme d'un tableau
-    },
-    voirRel() {
-      // affiche le tableau des relations
-    },
   },
 };
 </script>

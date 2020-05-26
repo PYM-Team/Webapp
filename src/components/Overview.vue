@@ -45,7 +45,7 @@
             </b-message>
           </b-modal>
 
-          <b-loading :is-full-page="isFullPage" :active.sync="isLoading" :can-cancel="false"> <!-- Quand la partie est mise en pause fige l'ecran avec seulement un bouton play -->
+          <b-loading :active.sync="isLoading" :can-cancel="false"> <!-- Quand la partie est mise en pause fige l'ecran avec seulement un bouton play -->
             <button class="button tile is-child is-primary is-large is-1 is-rounded" @click="setPlay(setPlay, calculTemps)">Play</button>
           </b-loading>
 

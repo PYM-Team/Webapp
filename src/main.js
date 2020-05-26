@@ -4,7 +4,7 @@ import VueNativeSock from 'vue-native-websocket';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import 'buefy/dist/buefy.css';
+// import 'buefy/dist/buefy.css';
 
 
 Vue.use(VueNativeSock, 'wss://rpplanner-api.herokuapp.com/', {

@@ -82,6 +82,7 @@ export default {
           if (data.status === 'error') {
             this.error = true;
           } else {
+            this.$store.commit('setGameId', this.Game.id);
             console.log(data);
             this.$store.commit('setToken', data.data.token);
             if (data.data.status === 'setup') {

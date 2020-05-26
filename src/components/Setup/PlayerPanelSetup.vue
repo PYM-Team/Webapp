@@ -5,8 +5,9 @@
       <strong> Joueurs </strong>
     </p>
     <ul class="menu-list">
+    <b-loading :active.sync="Loading" :can-cancel="false" :is-full-page="false"></b-loading>
       <div v-for="player in players" v-bind:key="player.name">
-        <li v-if="player.connected" v-on:click="SelectPlayer(player.name, player.prefered)"><a><strong> {{ player.name }} </strong> <br> <sub> veut etre {{ player.prefered }} </sub></a></li>
+        <li v-if="player.connected && Loading === false" v-on:click="SelectPlayer(player.name, player.prefered)"><a><strong> {{ player.name }} </strong> <br> <sub> veut etre {{ player.prefered }} </sub></a></li>
       </div>
     </ul>
   </aside>
@@ -26,6 +27,7 @@ export default {
       players: this.$store.state.players, // la liste des joueurs connectés avec leur rôles préférés
       RandomRoles: [],
       roles: [],
+      Loading: true,
       // roles: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'], // rôle disponible initialement
     };
   },
@@ -50,9 +52,15 @@ export default {
       this.$emit('randomise', this.RandomRoles);
       this.RandomRoles = [];
     },
+    InitPlayer() {
+      this.players = this.$store.state.players;
+      this.Loading = false;
+    },
   },
   mounted() { // a la creation de la page on instaure un listener qui recoit une update quand un nouveau joueur se connecte
-    this.players = this.$store.state.players;
+    setTimeout(() => {
+      this.InitPlayer();
+    }, 1000);
     let data;
     let RolesBases;
     let n = 0;

@@ -14,15 +14,20 @@
         <p>
           Etat : Vivant
         </p>
-        <div class="field is-grouped">
-          <p class="control">
-            <button class="button is-primary is-3 is-medium is-pulled-right is-rounded" @click="voirInv()">Voir inventaire</button>
-          </p>
-          <p class="control">
-          <button class="button is-primary is-3 is-medium is-rounded is-pulled-left" @click="voirRel()">Voir relations</button>
-          </p>
-        </div>
       </div>
+    <button class="button is-primary is-medium is-pulled-right" @click="modalInv = true">Voir inventaire</button>
+    <button class="button is-primary is-medium if-pulled-left" @click="modalRel = true">Voir relations</button>
+
+    <!-- INVENTAIRE -->
+    <b-modal :active.sync="modalInv">
+      <b-table :data="donneesInv" :columns="colonnesInv"></b-table>
+    </b-modal>
+
+    <!-- RELATIONS -->
+    <b-modal :active.sync="modalRel">
+      <b-table :data="donneesRel" :columns="colonnesRel"></b-table>
+    </b-modal>
+
     </div>
   </div>
 </template>
@@ -32,6 +37,37 @@ export default {
   data() {
     return {
       isActive: true,
+      modalInv: false,
+      modalRel: false,
+      donneesInv: [
+        { objet: 'Flasque de Tequila', description: 'Un petit remontant pour se donner du courage' },
+        { objet: 'Flingue', description: 'Pour El Sampico, cette arme est une extension de sa volonté' },
+        { objet: 'Note de l’hôtel', description: 'Une note de l’hôtel où il a passé la nuit avec Carla le soir du meurtre. Elle aurait été l’alibi parfait si elle ne révélait pas en même temps sa relation secrète et incriminante avec sa dulcinée' },
+      ],
+      colonnesInv: [
+        {
+          field: 'objet',
+          label: 'Objet',
+        },
+        {
+          field: 'description',
+          label: 'Description',
+        },
+      ],
+      donneesRel: [
+        { perso: 'Petro Francesco', pensee: 'Le gars a l’air solide, il à l’oeil et le corps entraînés, ça se voit' },
+        { perso: 'Tomasso Giorgio', pensee: 'Le fils à papa. Le gringo n’a jamais touché à un flingue de sa vie' },
+      ],
+      colonnesRel: [
+        {
+          field: 'perso',
+          label: 'Personnage',
+        },
+        {
+          field: 'pensee',
+          label: 'Ce que je pense du personnage',
+        },
+      ],
     };
   },
   name: 'TemplateCard',

@@ -4,6 +4,12 @@
 ```
 npm install
 ```
+```
+npm install node-sass
+```
+```
+npm install sass-loader
+```
 
 ### Compiles and hot-reloads for development
 ```

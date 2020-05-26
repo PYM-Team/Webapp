@@ -58,6 +58,37 @@ export default {
       console.log('Lost a player');
       this.$store.state.players = playerlist;
     });
+    // requête getGM
+    const ourtoken = this.$store.state.token;
+    const content = {
+      type: 'getGM',
+      status: 'ok',
+      token: ourtoken,
+      data: {},
+    };
+    let data;
+    this.$socket.sendObj(content);
+    this.$options.sockets.onmessage = function (message) {
+      data = JSON.parse(message.data);
+      if (data.type === 'pause') {
+        console.log(data);
+        if (data.status === 'error') {
+          this.tryPause += 1;
+          if (this.tryPause === 5) {
+            delete this.$options.sockets.onmessage;
+          } else {
+            setTimeout(this.setPause, 300);
+          }
+        } else {
+          // ça  a marché
+          this.$store.commit('setEvents', data.data.events);
+          this.$store.commit('setPlayersDetailed', data.data.players);
+        }
+      }
+      if (data) {
+        delete this.$options.sockets.onmessage;
+      }
+    };
   },
 };
 </script>

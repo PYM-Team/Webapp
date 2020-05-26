@@ -10,6 +10,19 @@
       </template>
 
       <template slot="end">
+        <b-navbar-item tag="div">
+          <h1 v-if="url === 'Overview' " class="has-text-grey-lighter is-size-4 is-centered">
+            Player
+          </h1>
+          <h1 v-if="url === 'Dashboard' " class="has-text-grey-lighter is-size-4 is-centered">
+            Maitre du jeu
+          </h1>
+        </b-navbar-item>
+        <b-navbar-item tag="div">
+              <div class="field">
+                <b-switch size="is-large" :outlined=true @input="ChangePageDelay(ChangePage)" v-bind:value="changePage"></b-switch>
+              </div>
+          </b-navbar-item>
           <b-navbar-item tag="div">
               <div class="buttons">
                   <a class="button is-primary" @click="Save">
@@ -42,7 +55,8 @@ export default {
   data() {
     return {
       quit: false,
-
+      url: '',
+      changePage: false,
     };
   },
   methods: {
@@ -56,6 +70,24 @@ export default {
     Quitter() {
       this.$router.push({ path: '/' });
     },
+    ChangePageDelay(ChangePage) {
+      setTimeout(ChangePage, 180);
+    },
+    ChangePage() {
+      if (this.url === 'Overview') {
+        this.$router.push({ path: '/Dashboard' });
+      } else {
+        this.$router.push({ path: '/Overview' });
+      }
+    },
+  },
+  created() {
+    this.url = this.$route.name;
+    if (this.url === 'Overview') {
+      this.changePage = false;
+    } else {
+      this.changePage = true;
+    }
   },
 };
 </script>

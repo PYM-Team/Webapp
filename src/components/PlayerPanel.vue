@@ -1,9 +1,9 @@
 <template>
   <aside class="menu">
     <p class="menu-label">
-      Joueurs
+      <strong>Joueurs</strong>
     </p>
-    <ul class="menu-list player-name"> <!-- Pour tous les joueurs connectés on les affiche dans un menu -->
+    <ul class="menu-list"> <!-- Pour tous les joueurs connectés on les affiche dans un menu -->
       <div v-for="(player) in this.$store.state.Game.Players" v-bind:key="player.name">
         <li v-on:click="SelectPlayer(player.name)"><a>{{ player.name }}</a></li>
       </div>
@@ -25,7 +25,7 @@ export default {
 
 <style>
 .menu-label {
-  font-family: "Luckiest Guy", cursive;
+  font-family: "sans serif";
   font-size: 2rem !important;
   color: white !important;
 }

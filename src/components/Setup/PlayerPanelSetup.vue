@@ -2,9 +2,9 @@
 <div>
   <aside class="menu"> <!-- on affiche un menu avec pour titre players et comme contenu la liste des joueurs connectés avec leurs rôles préférés-->
     <p class="menu-label">
-      Players
+      <strong> Joueurs </strong>
     </p>
-    <ul class="menu-list player-name">
+    <ul class="menu-list">
       <div v-for="player in players" v-bind:key="player.name">
         <li v-if="player.connected" v-on:click="SelectPlayer(player.name, player.prefered)"><a><strong> {{ player.name }} </strong> <br> <sub> veut etre {{ player.prefered }} </sub></a></li>
       </div>
@@ -79,9 +79,9 @@ export default {
 </script>
 
 <style>
-.menu-label {
-  font-family: "Luckiest Guy", cursive;
-  font-size: 2rem !important;
+.menu-list {
+  font-family: "sans serif";
+  font-size: 1.5rem !important;
   color: white !important;
 }
 </style>

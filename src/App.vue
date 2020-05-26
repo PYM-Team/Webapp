@@ -10,10 +10,25 @@
 @import "~bulma/sass/utilities/_all";
 
 // Set your colors
-$primary: #ef6767;
-$primary-invert: findColorInvert($primary);
-$twitter: #4099FF;
-$twitter-invert: findColorInvert($twitter);
+$primary: #e00909;
+$primary-invert: $white;
+$danger: #1224c7;
+$title-color:  #3b0f0f;
+
+// police du text
+// $title-family: "Luckiest Guy", cursive;
+// $button-family: "Luckiest Guy", cursive;
+
+// personnalisation élément card de bulma
+$card-background-color: $white;
+$card-header-color: $title-color;
+
+// personnalisation élément message de buefy
+$background: $primary-invert;
+
+
+// personnalisation élément title de bulma
+$title-color: $title-color;
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
@@ -26,7 +41,7 @@ $colors: (
     "success": ($success, $success-invert),
     "warning": ($warning, $warning-invert),
     "danger": ($danger, $danger-invert),
-    "twitter": ($twitter, $twitter-invert)
+    // "twitter": ($twitter, $twitter-invert)
 );
 
 // Links

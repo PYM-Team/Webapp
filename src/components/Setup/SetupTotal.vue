@@ -327,8 +327,4 @@ export default {
   width: 100px;
   height: auto;
 }
-.title {
-  font-family: "Luckiest Guy", cursive;
-  color: white !important;
-}
 </style>

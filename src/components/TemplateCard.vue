@@ -25,7 +25,7 @@
 
   <b-modal :active.sync="learn" scroll="keep"> <!-- modal lancé par le "en savoir plus" donne une description plus detaillée du template -->
         <b-message class= "is-primary has-text-centered is-size-5">
-          <article class="title is-2 has-text-black is-centered has-text-centered"> Description <br></article>
+          <article class="title is-2 is-centered has-text-centered"> Description <br></article>
           <article class="is-centered has-text-centered"> {{description}} {{data}} </article>
           <b-button class="button is-primary tile is-centered is-12" @click="createGame"> Démarrer </b-button> <!-- Crée un bouton démarrer pour choisir ce template et lancer l'initialisation de la partie -->
         </b-message>
@@ -33,7 +33,7 @@
 
   <b-modal :active.sync="Param" scroll="keep"> <!-- modal pour initialiser la partie -->
     <b-message class= "is-primary has-text-centered is-size-5">
-      <article class="is-centered title is-2 has-text-black has-text-centered"> Parametrez votre partie </article>
+      <article class="is-centered title is-2 has-text-centered"> Parametrez votre partie </article>
       <label v-if="error === true" class ="is-danger">  <b> Veuillez remplir les deux champs </b> </label>
       <b-field label="Nom de la partie"> <!-- Champ pour remplir le nom de la partie -->
         <b-input v-model="name" @input="inputName"></b-input> </b-field>

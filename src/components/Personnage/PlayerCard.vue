@@ -84,8 +84,5 @@ export default {
   border-radius: 5rem;
   margin-right: 1rem;
 }
-.card {
-  border-radius: 1rem;
-  background-image: linear-gradient(#c463ff, #d18bfc);
-}
+
 </style>

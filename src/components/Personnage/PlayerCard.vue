@@ -3,13 +3,13 @@
     <header class="card-header">
       <p class="card-header-title is-centered player-name">
         <img class="player-profile-pic" src="https://i.imgur.com/SfvDmCx.png"/>
-        <br /> {{this.$store.state.players[this.num].prefered}}
+        <br /> {{this.$store.state.players[this.num].prefered}} <!--this.$store.state.Game.PlayersDetailed[this.num].name-->
       </p>
     </header>
     <div class="card-content">
       <div class="content player-role">
         <p>
-          Joueur : {{this.$store.state.players[this.num].name}}
+          Joueur : {{this.$store.state.players[this.num].name}} <!--this.$store.state.Game.PlayersDetailed[this.num].name-->
         </p>
         <p>
           Etat : Vivant
@@ -34,11 +34,13 @@
 
 <script>
 export default {
-  data() { // donneesInv, colonnesInv etc seront récupérées depuis le store (et donc depuis l'API)
+  data() {
     return {
       isActive: true,
       modalInv: false,
       modalRel: false,
+      // donnesInv: this.$store.state.Game.PlayersDetailed[this.num].inventory,
+      // donnesRel: this.$store.state.Game.PlayersDetailed[this.num].relations,
       donneesInv: [
         { objet: 'Flasque de Tequila', description: 'Un petit remontant pour se donner du courage' },
         { objet: 'Flingue', description: 'Pour El Sampico, cette arme est une extension de sa volonté' },
@@ -46,14 +48,18 @@ export default {
       ],
       colonnesInv: [
         {
-          field: 'objet',
+          field: 'name',
           label: 'Objet',
         },
         {
           field: 'description',
           label: 'Description',
         },
-      ],
+        {
+          field: 'clue',
+          label: 'Indice',
+        },
+      ], // VOIR LES NOMS QU'ILS ONT DONNE DANS L'API
       donneesRel: [
         { perso: 'Petro Francesco', pensee: 'Le gars a l’air solide, il à l’oeil et le corps entraînés, ça se voit' },
         { perso: 'Tomasso Giorgio', pensee: 'Le fils à papa. Le gringo n’a jamais touché à un flingue de sa vie' },
@@ -86,3 +92,4 @@ export default {
 }
 
 </style>
+

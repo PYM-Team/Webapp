@@ -34,6 +34,7 @@ export default {
       this.$emit('selected', [key, prefered]); // quand on clique sur un joueur emet un evenement renvoyant un tableau avec le nom du joueur et son rôle preféré
     },
     SendRandom() {
+      this.roles = this.$store.state.Game.roles;
       let dice = 0;
       for (let i = 0; i < (this.players.length); i += 1) {
         if (this.players[i].connected) {
@@ -45,7 +46,6 @@ export default {
       this.$store.commit('setRandom', false);
       this.$emit('randomise', this.RandomRoles);
       this.RandomRoles = [];
-      this.roles = ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'];
     },
   },
   mounted() { // a la creation de la page on instaure un listener qui recoit une update quand un nouveau joueur se connecte

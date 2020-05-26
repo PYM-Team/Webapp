@@ -18,7 +18,7 @@
             Maitre du jeu
           </h1>
         </b-navbar-item>
-        <b-navbar-item tag="div">
+        <b-navbar-item v-if="url === 'Dashboard' || url === 'Overview' " tag="div">
               <div class="field">
                 <b-switch size="is-large" :outlined=true @input="ChangePageDelay(ChangePage)" v-bind:value="changePage"></b-switch>
               </div>

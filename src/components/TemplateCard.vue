@@ -66,6 +66,7 @@ export default {
       dureeSecondes: 0,
       Param: false,
       data: '',
+      tryCreate: '0',
       // description: 'Cette enquête se déroule dans les années 30, en plein coeur de la mafia italienne. Le parrain Don Giorgio a été assassiné. Qui a pu commettre une telle atrocité ? Qui va hériter de son empire et de sa fortune ? Toutes ces questions trouveront leur réponse ce soir.',
     };
   },
@@ -101,7 +102,7 @@ export default {
           status: 'ok',
           token: null,
           data: {
-            templateName: 'LeParrain',
+            templateName: this.title,
             duree: ourduree,
             name: ourname,
           },
@@ -112,9 +113,23 @@ export default {
           data = JSON.parse(message.data);
           console.log(data);
           if (data.type === 'createGame') {
-            this.$store.commit('setGameId', data.data.gameId);
-            this.$store.commit('setToken', data.data.token);
-            this.$router.push({ path: '/setup' });
+            if (data.status === 'error') {
+              setTimeout(this.GameStart(), 300);
+              this.tryCreate += 1;
+              if (this.tryCreate === 5) {
+                this.$buefy.toast.open({
+                  duration: 5000,
+                  message: 'Une erreur s\'est produite veuillez reessayer plus tard',
+                  position: 'is-bottom',
+                  type: 'is-danger',
+                });
+                delete this.$options.sockets.onmessage;
+              }
+            } else {
+              this.$store.commit('setGameId', data.data.gameId);
+              this.$store.commit('setToken', data.data.token);
+              this.$router.push({ path: '/setup' });
+            }
           }
         };
         if (data) {

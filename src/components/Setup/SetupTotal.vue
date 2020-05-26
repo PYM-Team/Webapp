@@ -91,6 +91,8 @@ export default {
   name: 'PlayerView',
   data() {
     return {
+      tryStart: '0',
+      tryRole: '0',
       RandomiseOn: false,
       Value: 0,
       Players: [], // tableau des players attribue
@@ -137,6 +139,14 @@ export default {
         this.$buefy.snackbar.open('Tous les rôles ne sont pas attribués'); // sinon on affiche un popup pour dire que tous les rôles ne sont pas assignés
       }
     },
+    Error() {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: 'Une erreur s\'est produite veuillez reessayer plus tard',
+        position: 'is-bottom',
+        type: 'is-danger',
+      });
+    },
     envoijoueur(name, role, envoijoueur) {
       const ourtoken = this.$store.state.token;
       const content = {
@@ -156,6 +166,12 @@ export default {
           console.log(data);
           if (data.status === 'error') {
             setTimeout(envoijoueur(name, role, envoijoueur), 300);
+          }
+          this.tryRole += 1;
+          if (this.tryRole === 5) {
+            this.Error();
+            delete this.$options.sockets.onmessage;
+            this.tryRole = 0;
           }
         }
         if (data) {
@@ -181,6 +197,12 @@ export default {
           console.log(data);
           if (data.status === 'error') {
             setTimeout(demarrer(demarrer), 300);
+            this.tryStart += 1;
+            if (this.tryCreate === 5) {
+              this.Error();
+              delete this.$options.sockets.onmessage;
+              this.tryCreate = 0;
+            }
           } else {
             this.$store.commit('setPlayers', this.Players); // on enregistre nos joueurs avec leurs rôles dans le store
             this.$router.push({ path: '/overview' }); // on change de page

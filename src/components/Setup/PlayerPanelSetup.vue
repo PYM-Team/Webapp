@@ -34,7 +34,10 @@ export default {
       this.$emit('selected', [key, prefered]); // quand on clique sur un joueur emet un evenement renvoyant un tableau avec le nom du joueur et son rôle preféré
     },
     SendRandom() {
-      this.roles = this.$store.state.Game.roles;
+      const RolesBases = this.$store.state.Game.roles;
+      for (let i = 0; i < this.$store.state.Game.roles.length; i += 1) {
+        this.roles.push(RolesBases[i]);
+      }
       let dice = 0;
       for (let i = 0; i < (this.players.length); i += 1) {
         if (this.players[i].connected) {
@@ -43,7 +46,7 @@ export default {
           this.roles.splice(dice, 1);
         }
       }
-      this.$store.commit('setRandom', false);
+      // this.$store.commit('setRandom', false);
       this.$emit('randomise', this.RandomRoles);
       this.RandomRoles = [];
     },
@@ -51,16 +54,37 @@ export default {
   mounted() { // a la creation de la page on instaure un listener qui recoit une update quand un nouveau joueur se connecte
     this.players = this.$store.state.players;
     let data;
+    let RolesBases;
     let n = 0;
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
+      if (data.type === 'startGame') {
+        console.log(data);
+        console.log('PartieStarted');
+        if (data.status === 'error') {
+          this.tryStart += 1;
+          if (this.tryCreate === 5) {
+            this.Error();
+            delete this.$options.sockets.onmessage;
+            this.tryCreate = 0;
+          } else {
+            setTimeout(this.demarrer(), 300);
+          }
+        } else {
+          console.log('goo');
+          this.$router.push({ path: '/overview' }); // on change de page
+        }
+      }
       if (data.type === 'updatePlayers') {
         console.log(data);
         n += 1;
         this.$store.commit('setPlayerInit', data.data.players);
         this.players = this.$store.state.players;
         if (n === 1) { // au premier joueur reçu on recupere les rôles
-          this.roles = this.$store.state.Game.roles;
+          RolesBases = this.$store.state.Game.roles;
+          for (let i = 0; i < this.$store.state.Game.roles.length; i += 1) {
+            this.roles.push(RolesBases[i]);
+          }
         }
       }
     };

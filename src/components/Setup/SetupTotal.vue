@@ -182,6 +182,7 @@ export default {
     },
     demarrer() {
       const ourtoken = this.$store.state.token;
+      this.$store.commit('setPlayers', this.Players);
       const content = {
         type: 'startGame',
         status: 'ok',
@@ -206,8 +207,7 @@ export default {
               setTimeout(this.demarrer(), 300);
             }
           } else {
-            console.log('goo');
-            this.$store.commit('setPlayers', this.Players); // on enregistre nos joueurs avec leurs rôles dans le store
+            console.log('goo'); // on enregistre nos joueurs avec leurs rôles dans le store
             this.$router.push({ path: '/overview' }); // on change de page
           }
         }

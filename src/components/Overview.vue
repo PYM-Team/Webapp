@@ -115,7 +115,7 @@ export default {
           console.log(data);
           this.data.data.currentTime = this.tempsActuelSecondes;
           if (data.status === 'error') {
-            setPlay();
+            setTimeout(setPlay(setPlay, calculTemps), 300);
           }
         }
         if (data) {
@@ -194,7 +194,7 @@ export default {
         if (data.type === 'pause') {
           console.log(data);
           if (data.status === 'error') {
-            setPause();
+            setTimeout(setPause(setPause), 300);
           }
         }
         if (data) {

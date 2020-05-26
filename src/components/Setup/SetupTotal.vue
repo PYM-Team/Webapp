@@ -155,7 +155,7 @@ export default {
         if (data.type === 'setPlayerRole') {
           console.log(data);
           if (data.status === 'error') {
-            envoijoueur(name, role);
+            setTimeout(envoijoueur(name, role, envoijoueur), 300);
           }
         }
         if (data) {
@@ -180,7 +180,7 @@ export default {
         if (data.type === 'StartGame') {
           console.log(data);
           if (data.status === 'error') {
-            demarrer(demarrer);
+            setTimeout(demarrer(demarrer), 300);
           } else {
             this.$store.commit('setPlayers', this.Players); // on enregistre nos joueurs avec leurs rôles dans le store
             this.$router.push({ path: '/overview' }); // on change de page

@@ -12,7 +12,7 @@
       <template slot="end">
         <b-navbar-item tag="div">
           <h1 v-if="url === 'Overview' " class="has-text-grey-lighter is-size-4 is-centered">
-            Player
+            Joueur
           </h1>
           <h1 v-if="url === 'Dashboard' " class="has-text-grey-lighter is-size-4 is-centered">
             Maitre du jeu

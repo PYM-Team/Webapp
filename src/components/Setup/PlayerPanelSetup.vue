@@ -25,8 +25,8 @@ export default {
     return {
       players: this.$store.state.players, // la liste des joueurs connectés avec leur rôles préférés
       RandomRoles: [],
-      // roles: [];
-      roles: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'], // rôle disponible initialement
+      roles: [],
+      // roles: ['Vito Falcaninio', 'Carla Gurzio', 'Petro Francesco', 'Sebastiano Pechetto', 'Tommaso-Giorgio', '“El Sampico”'], // rôle disponible initialement
     };
   },
   methods: {
@@ -52,7 +52,6 @@ export default {
     this.players = this.$store.state.players;
     let data;
     let n = 0;
-    console.log('done1');
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       console.log(data);
@@ -62,14 +61,10 @@ export default {
         this.players = this.$store.state.players;
         console.log(data);
         if (n === 1) { // au premier joueur reçu on recupere les rôles
-          console.log('done');
           this.roles = this.$store.state.Game.roles;
         }
       }
     };
-    if (n === this.roles.length) {
-      delete this.$options.sockets.onmessage;
-    }
   },
   props: {
     isClicked: Boolean,

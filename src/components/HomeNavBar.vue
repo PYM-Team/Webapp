@@ -84,7 +84,13 @@ export default {
           } else {
             console.log(data);
             this.$store.commit('setToken', data.data.token);
-            this.$router.push({ path: '/Overview' });
+            if (data.data.status === 'setup') {
+              this.$router.push({ path: '/setup' });
+            } else if (data.data.status === 'overview') {
+              this.$router.push({ path: '/Overview' });
+            } else if (data.data.status === 'finish') {
+              this.$router.push({ path: '/Results' });
+            }
           }
         }
         if (data) {

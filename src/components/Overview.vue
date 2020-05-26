@@ -76,6 +76,7 @@ export default {
     return {
       tryPause: 0,
       tryPlay: 0,
+      tryStop: 0,
       stopsur: false,
       stop: false,
       AlertTemps: false, // declencheur du modal pour dire que le temps est depassé
@@ -95,8 +96,38 @@ export default {
   },
   methods: {
     StopPartie() {
-      // Envoyer à l'API
-      this.$router.push({ path: '/' });
+      const ourtoken = this.$store.state.token;
+      const content = {
+        type: 'stopGame',
+        status: 'ok',
+        token: ourtoken,
+        data: {
+          finalDuration: this.tempsActuelSecondes,
+        },
+      };
+      let data;
+      this.$socket.sendObj(content);
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        if (data.type === 'stopGame') {
+          console.log(data);
+          if (data.status === 'error') {
+            this.tryPause += 1;
+            if (this.tryPause === 5) {
+              this.Error();
+              delete this.$options.sockets.onmessage;
+              this.tryPause = 0;
+            } else {
+              setTimeout(this.StopPartie(), 300);
+            }
+          } else {
+            this.$router.push({ path: '/Results' });
+          }
+        }
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
+      };
     },
     setPlay(calculTemps) {
       calculTemps();

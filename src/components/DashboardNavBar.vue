@@ -41,7 +41,7 @@
             <b-message class= "is-primary has-text-centered is-size-5">
             <article class="title is-centered has-text-black has-text-centered"> Voulez vous vraiment quitter la partie en cours ? </article>
             <article class="is-centered is-size-3 has-text-centered"> Notez bien votre numéro de partie : <strong>{{this.$store.state.Game.gameId}}</strong> </article> <br>
-            <b-button class="button is-primary tile is-centered is-12" @click="Quitter"> Salut ! </b-button>
+            <b-button class="button is-primary tile is-centered is-12" @click="Save(), Quitter()"> Salut ! </b-button>
             </b-message>
           </b-modal>
       </template>
@@ -57,15 +57,45 @@ export default {
       quit: false,
       url: '',
       changePage: false,
+      trysave: 0,
     };
   },
   methods: {
     Save() {
-      // save
-      this.$buefy.toast.open({
-        message: 'Partie sauvegardé ! ',
-        type: 'is-success',
-      });
+      const ourtoken = this.$store.state.token;
+      const content = {
+        type: 'save',
+        status: 'ok',
+        token: ourtoken,
+        data: {
+        },
+      };
+      let data;
+      this.$socket.sendObj(content);
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        if (data.type === 'save') {
+          console.log(data);
+          if (data.status === 'error') {
+            this.trysave += 1;
+            if (this.trysave === 5) {
+              this.Error();
+              delete this.$options.sockets.onmessage;
+              this.trysave = 0;
+            } else {
+              setTimeout(this.StopPartie(), 300);
+            }
+          } else {
+            this.$buefy.toast.open({
+              message: 'Partie sauvegardé ! ',
+              type: 'is-success',
+            });
+          }
+        }
+        if (data) {
+          delete this.$options.sockets.onmessage;
+        }
+      };
     },
     Quitter() {
       this.$router.push({ path: '/' });

@@ -23,14 +23,7 @@ export default new Vuex.Store({
     connection: null,
     token: 0,
     ID: 0,
-    players: [
-      { name: 'toto', connected: true, prefered: 'Meurtrier' },
-      { name: 'tata', connected: true, prefered: 'Serviteur' },
-      { name: 'tutu', connected: true, prefered: 'Epouse' },
-      { name: 'tato', connected: true, prefered: 'Espion' },
-      { name: 'tito', connected: true, prefered: 'Serviteur' },
-      { name: 'tuti', connected: true, prefered: 'Fils' },
-    ],
+    players: [],
     Game: {
       gameName: 'fff',
       gameTemplate: 'La mort du parrain',

@@ -5,7 +5,7 @@
     <b-field>
       <b-input maxlength="100" size="is-medium" v-model="texteAnnonce"></b-input>
     </b-field>
-    <button class="button is-primary is-medium" @click="envoiAnnonce(envoiAnnonce)">Envoyer aux joueurs</button>
+    <button class="button is-primary is-medium" @click="envoiAnnonce()">Envoyer aux joueurs</button>
   </div>
 </template>
 
@@ -14,11 +14,20 @@ export default {
   name: 'Annonce',
   data() {
     return {
+      tryAnnonce: 0,
       texteAnnonce: '',
     };
   },
   methods: {
-    envoiAnnonce(envoiAnnonce) {
+    Error() {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: 'Une erreur s\'est produite veuillez reessayer plus tard',
+        position: 'is-bottom',
+        type: 'is-danger',
+      });
+    },
+    envoiAnnonce() {
       const ourtoken = this.$store.state.token;
       const ourmessage = this.texteAnnonce;
       const content = {
@@ -36,7 +45,13 @@ export default {
         if (data.type === 'announce') {
           console.log(data);
           if (data.status === 'error') {
-            envoiAnnonce();
+            this.envoiAnnonce();
+            this.tryAnnonce += 1;
+            if (this.tryRole === 5) {
+              this.Error();
+              delete this.$options.sockets.onmessage;
+              this.tryAnnonce = 0;
+            }
           }
         }
         if (data) {

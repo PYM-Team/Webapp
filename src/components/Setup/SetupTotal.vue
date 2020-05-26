@@ -19,7 +19,7 @@
     <b-modal :active.sync="start" scroll="keep"> <!-- le modal associé au start permettant de valider le lancement de la partie. Lance la partie avec la fonction demarrer -->
         <b-message class= "is-primary has-text-centered is-size-5">
           <article class="is-centered has-text-centered"> Voulez vous vraiment lancer la partie ? </article>
-          <b-button class="button is-primary tile is-centered is-12" @click="demarrer(demarrer)"> C'est parti ! </b-button>
+          <b-button class="button is-primary tile is-centered is-12" @click="demarrer()"> C'est parti ! </b-button>
         </b-message>
     </b-modal>
   </div>
@@ -69,7 +69,7 @@
                 </option>
             </b-select>
             <br>
-            <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="Choose(SelectedRole, selectedKey, ValidatePlayer, envoijoueur)"> Valider </b-button> <!-- bouton pour valider un choix en appelant la fonction choose -->
+            <b-button class="button is-primary is-pulled-right tile is-right is-4" @click="Choose(SelectedRole, selectedKey, validatePlayer)"> Valider </b-button> <!-- bouton pour valider un choix en appelant la fonction choose -->
         </b-message>
         <b-message v-if="role.length===0">
           <article class="title is-2 has-text-black is-centered has-text-centered"> Tout les rôles sont assignés <br></article>
@@ -91,8 +91,9 @@ export default {
   name: 'PlayerView',
   data() {
     return {
-      tryStart: '0',
-      tryRole: '0',
+      tryStart: 0,
+      tryRole: 0,
+      tryGet: 0,
       RandomiseOn: false,
       Value: 0,
       Players: [], // tableau des players attribue
@@ -147,7 +148,7 @@ export default {
         type: 'is-danger',
       });
     },
-    envoijoueur(name, role, envoijoueur) {
+    envoijoueur(name, role) {
       const ourtoken = this.$store.state.token;
       const content = {
         type: 'setPlayerRole',
@@ -165,13 +166,14 @@ export default {
         if (data.type === 'setPlayerRole') {
           console.log(data);
           if (data.status === 'error') {
-            setTimeout(envoijoueur(name, role, envoijoueur), 300);
-          }
-          this.tryRole += 1;
-          if (this.tryRole === 5) {
-            this.Error();
-            delete this.$options.sockets.onmessage;
-            this.tryRole = 0;
+            this.tryRole += 1;
+            if (this.tryRole === 5) {
+              this.Error();
+              delete this.$options.sockets.onmessage;
+              this.tryRole = 0;
+            } else {
+              setTimeout(this.envoijoueur(name, role), 300);
+            }
           }
         }
         if (data) {
@@ -179,7 +181,7 @@ export default {
         }
       };
     },
-    demarrer(demarrer) {
+    demarrer() {
       const ourtoken = this.$store.state.token;
       const content = {
         type: 'StartGame',
@@ -196,12 +198,13 @@ export default {
         if (data.type === 'StartGame') {
           console.log(data);
           if (data.status === 'error') {
-            setTimeout(demarrer(demarrer), 300);
             this.tryStart += 1;
             if (this.tryCreate === 5) {
               this.Error();
               delete this.$options.sockets.onmessage;
               this.tryCreate = 0;
+            } else {
+              setTimeout(this.demarrer(), 300);
             }
           } else {
             this.$store.commit('setPlayers', this.Players); // on enregistre nos joueurs avec leurs rôles dans le store
@@ -213,17 +216,17 @@ export default {
         }
       };
     },
-    Choose(Role, Player, ValidatePlayer, envoijoueur) {
+    Choose(Role, Player, ValidatePlayer) {
       if (Role.length !== 0) { // si un rôle est selectionne
         this.choose = false; // on ferme le modal
-        ValidatePlayer(Role, Player, envoijoueur); // on lance validatePlayer avec notre rôle et notre player
+        ValidatePlayer(Role, Player); // on lance validatePlayer avec notre rôle et notre player
         this.SelectedRole = []; // on reinitialise le rôle selectionne
       } else {
         this.$buefy.snackbar.open('Vous n\'avez pas assigné de rôle');
       }
     },
     // eslint-disable-next-line no-unused-vars
-    ValidatePlayer(genre, player, envoijoueur) { // permet d'assigner à un joueur un role
+    ValidatePlayer(genre, player) { // permet d'assigner à un joueur un role
       let place = 0;
       let act;
       for (let i = 0; i < this.Players.length; i += 1) {
@@ -248,7 +251,7 @@ export default {
         this.role.splice(this.role.indexOf(undefined), 1);
       }
 
-      // envoijoueur(player, genre, envoijoueur);
+      this.envoijoueur(player, genre);
     },
   },
   created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role
@@ -265,6 +268,16 @@ export default {
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       if (data.type === 'getSetup') {
+        if (data.status === 'error') {
+          this.tryGet += 1;
+          if (this.tryGet === 5) {
+            this.Error();
+            delete this.$options.sockets.onmessage;
+            this.tryGet = 0;
+          } else {
+            setTimeout(this.created(), 300);
+          }
+        }
         this.$store.commit('setRoles', data.data.rolesNames);
         this.$store.commit('setPlayerInit', data.data.players);
         this.$store.commit('setDescription', data.data.gameDescription);

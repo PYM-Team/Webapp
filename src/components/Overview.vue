@@ -25,7 +25,7 @@
 
           </article>
 
-          <button class="button tile is-child is-primary is-medium is-5" @click="setPause(setPause)">Pause</button>
+          <button class="button tile is-child is-primary is-medium is-5" @click="setPause()">Pause</button>
           <button class="button tile is-child is-primary is-medium is-5" @click="stop = true">Arreter la partie</button>
 
           <b-modal :active.sync="stop" scroll="keep"> <!-- le modal demande confirmation avant de quitter -->
@@ -46,7 +46,7 @@
           </b-modal>
 
           <b-loading :active.sync="isLoading" :can-cancel="false"> <!-- Quand la partie est mise en pause fige l'ecran avec seulement un bouton play -->
-            <button class="button tile is-child is-primary is-large is-1 is-rounded" @click="setPlay(setPlay, calculTemps)">Play</button>
+            <button class="button tile is-child is-primary is-large is-1 is-rounded" @click="setPlay( calculTemps)">Play</button>
           </b-loading>
 
           <b-modal :active.sync="AlertTemps" scroll="keep">
@@ -74,6 +74,8 @@ export default {
   components: { playerPanel },
   data() {
     return {
+      tryPause: 0,
+      tryPlay: 0,
       stopsur: false,
       stop: false,
       AlertTemps: false, // declencheur du modal pour dire que le temps est depassé
@@ -96,9 +98,8 @@ export default {
       // Envoyer à l'API
       this.$router.push({ path: '/' });
     },
-    setPlay(setPlay, calculTemps) {
+    setPlay(calculTemps) {
       calculTemps();
-      this.isLoading = false;
       const ourtoken = this.$store.state.token;
       const content = {
         type: 'resume',
@@ -113,9 +114,18 @@ export default {
         data = JSON.parse(message.data);
         if (data.type === 'resume') {
           console.log(data);
-          this.data.data.currentTime = this.tempsActuelSecondes;
           if (data.status === 'error') {
-            setTimeout(setPlay(setPlay, calculTemps), 300);
+            this.tryPlay += 1;
+            if (this.tryPlay === 5) {
+              this.Error();
+              delete this.$options.sockets.onmessage;
+              this.tryPlay = 0;
+            } else {
+              setTimeout(this.setPlay(calculTemps), 300);
+            }
+          } else {
+            this.data.data.currentTime = this.tempsActuelSecondes;
+            this.isLoading = false;
           }
         }
         if (data) {
@@ -125,6 +135,14 @@ export default {
     },
     setSelected(_SelectedKey) {
       this.selectedKey = _SelectedKey;
+    },
+    Error() {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: 'Une erreur s\'est produite veuillez reessayer plus tard',
+        position: 'is-bottom',
+        type: 'is-danger',
+      });
     },
     getDate() {
       const dateActuelle = new Date();
@@ -173,9 +191,8 @@ export default {
         minutes: (m === 60 ? bourrageZeros(0) : bourrageZeros(m)),
       };
     },
-    setPause(setPause) {
+    setPause() {
       clearInterval(this.intervalle);
-      this.isLoading = true;
 
       const ourtoken = this.$store.state.token;
       const TimePause = this.tempsActuelSecondes;
@@ -194,7 +211,16 @@ export default {
         if (data.type === 'pause') {
           console.log(data);
           if (data.status === 'error') {
-            setTimeout(setPause(setPause), 300);
+            this.tryPause += 1;
+            if (this.tryPause === 5) {
+              this.Error();
+              delete this.$options.sockets.onmessage;
+              this.tryPause = 0;
+            } else {
+              setTimeout(this.setPause, 300);
+            }
+          } else {
+            this.isLoading = true;
           }
         }
         if (data) {

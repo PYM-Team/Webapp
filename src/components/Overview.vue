@@ -51,7 +51,7 @@
 
           <b-modal :active.sync="AlertTemps" scroll="keep">
             <b-message >
-            <article class="title is-2 has-text-danger is-centered has-text-centered"> Le temps est depassé ! <br></article>
+            <article class="title is-2 is-centered has-text-centered"> Le temps est depassé ! <br></article>
             </b-message>
           </b-modal>
         </div>

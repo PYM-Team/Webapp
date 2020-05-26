@@ -8,7 +8,7 @@
       <b-tab-item label="Faire une annonce">
         <Annonce />
       </b-tab-item>
-      <b-tab-item label="Joueurs">
+      <b-tab-item label="Personnages">
         <PlayersView />
       </b-tab-item>
       <b-tab-item label="Evenements">
@@ -67,15 +67,11 @@ export default {
 
 html {
   height: 100%;
-  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url("https://i.imgur.com/Q6jFqbg.jpg") no-repeat center fixed;
+  background: url(https://images-na.ssl-images-amazon.com/images/I/014m2zoaPrL.png);
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
-.player-name {
-  font-family: "Luckiest Guy", cursive;
-  font-size: 1.2rem;
 }
 .player-role {
   font-family: "Patrick Hand", cursive;
@@ -83,7 +79,6 @@ html {
 }
 .tabs a {
   border: none !important;
-  font-family: "Luckiest Guy", cursive;
   font-size: 1rem;
   color: white !important;
 }
@@ -95,6 +90,6 @@ html {
   margin-top: -1px;
   border-top-style: solid;
   border-top-width: 1px;
-  border-color: #cf86fc;
+  border-color: #ff0000;
 }
 </style>

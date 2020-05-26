@@ -54,12 +54,11 @@ export default {
     let n = 0;
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
-      console.log(data);
       if (data.type === 'updatePlayers') {
+        console.log(data);
         n += 1;
         this.$store.commit('setPlayerInit', data.data.players);
         this.players = this.$store.state.players;
-        console.log(data);
         if (n === 1) { // au premier joueur reçu on recupere les rôles
           this.roles = this.$store.state.Game.roles;
         }

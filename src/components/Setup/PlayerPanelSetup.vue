@@ -11,9 +11,10 @@
       </div>
     </ul>
   </aside>
-  <b-modal :active.sync="isClicked" scroll="keep">
+  <b-modal :active.sync="isClicked" class="is-centered" scroll="keep">
     <article>
-      <b-button class="button is-primary is-large is-vcentered is-4" @click="SendRandom()"> Êtes vous vraiment sûr ? </b-button>
+      <b-button class="button is-8 is-primary is-large is-centered is-rounded is-vcentered is-4" @click="SendUnRandom()"> Tirage prenant en compte les préférences </b-button> <br> <br>
+      <b-button class="button is-8 is-primary is-large is-rounded is-vcentered is-4" @click="SendRandom()"> Tirage Aléatoire Total </b-button>
     </article>
   </b-modal>
 </div>
@@ -47,6 +48,51 @@ export default {
           dice = Math.floor(Math.random() * this.roles.length);
           this.RandomRoles.push([this.roles[dice], this.players[i].name]);
           this.roles.splice(dice, 1);
+        }
+      }
+      // this.$store.commit('setRandom', false);
+      this.$emit('randomise', this.RandomRoles);
+      this.RandomRoles = [];
+    },
+    SendUnRandom() {
+      const RolesBases = this.$store.state.Game.roles;
+      for (let k = 0; k < this.$store.state.Game.roles.length; k += 1) {
+        this.roles.push(RolesBases[k]);
+      }
+      this.roles.splice(this.$store.state.Game.roles.length, 100);
+      let diceP = 0;
+      let diceR = 0;
+      let assign = false;
+      const RandomPlayer = [];
+      const Player = this.$store.state.players;
+      for (let t = 0; t < (this.$store.state.players.length); t += 1) {
+        RandomPlayer.push(Player[t]);
+      }
+      RandomPlayer.splice(this.$store.state.players.length, 100);
+
+      for (let i = 0; i < (Player.length); i += 1) {
+        diceP = Math.floor(Math.random() * RandomPlayer.length);
+        if (RandomPlayer[diceP] !== undefined) {
+          if (RandomPlayer[diceP].connected) {
+            for (let j = 0; j < this.roles.length; j += 1) {
+              if (RandomPlayer[diceP].prefered === (this.roles[j])) {
+                this.RandomRoles.push([RandomPlayer[diceP].prefered, RandomPlayer[diceP].name]);
+                this.roles.splice(j, 1);
+                RandomPlayer.splice(RandomPlayer.indexOf(RandomPlayer[diceP]), 1);
+                assign = true;
+              }
+            }
+            if (assign === false) {
+              diceR = Math.floor(Math.random() * this.roles.length);
+              this.RandomRoles.push([this.roles[diceR], this.players[diceP].name]);
+              this.roles.splice(diceR, 1);
+              RandomPlayer.splice(RandomPlayer.indexOf(RandomPlayer[diceP]), 1);
+            } else {
+              assign = false;
+            }
+          }
+        } else {
+          console.log('undefined');
         }
       }
       // this.$store.commit('setRandom', false);

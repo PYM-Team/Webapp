@@ -26,10 +26,7 @@ export default new Vuex.Store({
       duree: 10,
       Players: [],
       PlayersDetailed: [],
-      events: [
-        { nom: 'start', description: 'lance la partie', declenche: true },
-        { nom: 'fin', description: 'termine la partie', declenche: false },
-      ],
+      events: [],
     },
   },
   mutations: {

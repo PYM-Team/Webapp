@@ -40,6 +40,7 @@ export default {
       for (let i = 0; i < this.$store.state.Game.roles.length; i += 1) {
         this.roles.push(RolesBases[i]);
       }
+      this.roles.splice(this.$store.state.Game.roles.length, 100);
       let dice = 0;
       for (let i = 0; i < (this.players.length); i += 1) {
         if (this.players[i].connected) {

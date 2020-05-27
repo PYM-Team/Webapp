@@ -110,7 +110,7 @@ export default {
     }, 1000);
     let data;
     let RolesBases;
-    let n = 0;
+    let n = 0; 
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       if (data.type === 'startGame') {

@@ -19,6 +19,13 @@ export default {
       this.$emit('selected', key);
     },
   },
+  mounted() {
+    this.$options.sockets.onmessage = function (message) {
+      if (data.type === 'updatePlayers') {
+        console.log(data);
+        this.$store.commit('setPlayers', data.data.players);
+      }
+  }
 };
 
 </script>

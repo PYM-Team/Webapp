@@ -7,8 +7,8 @@
     </article>
     <NavBar />
     <b-tabs type="is-toggle" position="is-centered" v-model="activeTab">
-      <b-tab-item label="Statistiques">
-      </b-tab-item>
+      <!-- <b-tab-item label="Statistiques">
+      </b-tab-item> -->
       <b-tab-item label="Joueurs">
         <PlayersView />
       </b-tab-item>

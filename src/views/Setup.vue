@@ -16,5 +16,10 @@ export default {
     Setup,
     NavBar,
   },
+  mounted() {
+    if (this.$store.state.token === 0) {
+      this.$router.push({ path: '/' });
+    }
+  },
 };
 </script>

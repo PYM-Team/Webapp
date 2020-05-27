@@ -46,6 +46,9 @@ export default {
     };
   },
   mounted() {
+    if (this.$store.state.token === 0) {
+      this.$router.push({ path: '/' });
+    }
     // on atend la fin du chargement de la page pour commencer les écoutes
     this.$store.state.socket.emit('createGame', 101938);
     this.$store.state.gameId = 101938;

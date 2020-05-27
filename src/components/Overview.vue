@@ -264,7 +264,6 @@ export default {
     },
   },
   mounted() {
-    this.calculTemps();
   },
   created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role
     const ourtoken = this.$store.state.token;
@@ -292,9 +291,15 @@ export default {
           console.log(data);
           this.$store.commit('setDescription', data.data.gameDescription);
           this.$store.commit('setGameId', data.data.gameId);
-          this.$store.commit('setDuree', data.data.GlobalDuration);
-          this.$store.commit('setGameId', data.data.gameId);
+          this.$store.commit('setDuree', data.data.globalDuration);
+          this.tempsMax = this.$store.state.Game.duree;
+          let secondes = data.data.remainingDuration;
+          this.heures = parseInt((data.data.remainingDuration / 3600), 10);
+          secondes = parseInt((data.data.remainingDuration % 3600), 10);
+          this.minutes = parseInt((secondes / 60), 10);
+          this.secondes = parseInt((secondes % 60), 10);
           this.tempsActuelSecondes = data.data.remainingDuration;
+          this.calculTemps();
         }
       }
       if (data) {

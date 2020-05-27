@@ -58,7 +58,9 @@ export default {
     },
   },
   created() {
-    setTimeout(this.GetTemplates, 500);// a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role
+    setTimeout(() => {
+      this.GetTemplates();
+    }, 500); // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role
   },
 };
 </script>

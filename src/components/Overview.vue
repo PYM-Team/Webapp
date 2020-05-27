@@ -158,7 +158,7 @@ export default {
               setTimeout(this.setPlay(calculTemps), 300);
             }
           } else {
-            this.data.data.currentTime = this.tempsActuelSecondes;
+            data.data.currentTime = this.tempsActuelSecondes;
             this.isLoading = false;
           }
         }
@@ -280,7 +280,6 @@ export default {
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       if (data.type === 'getOverview') {
-        console.log(data);
         if (data.status === 'error') {
           this.tryGet += 1;
           if (this.tryGet === 5) {
@@ -288,6 +287,14 @@ export default {
           } else {
             setTimeout(this.created(), 300);
           }
+        } else {
+          console.log('hey');
+          console.log(data);
+          this.$store.commit('setDescription', data.data.gameDescription);
+          this.$store.commit('setGameId', data.data.gameId);
+          this.$store.commit('setDuree', data.data.GlobalDuration);
+          this.$store.commit('setGameId', data.data.gameId);
+          this.tempsActuelSecondes = data.data.remainingDuration;
         }
       }
       if (data) {

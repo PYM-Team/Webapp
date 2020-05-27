@@ -266,6 +266,7 @@ export default {
     this.$socket.sendObj(content);
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
+      console.log(data);
       if (data.type === 'getSetup') {
         if (data.status === 'error') {
           this.tryGet += 1;
@@ -273,8 +274,6 @@ export default {
             this.Error();
             delete this.$options.sockets.onmessage;
             this.tryGet = 0;
-          } else {
-            setTimeout(this.created(), 300);
           }
         }
         this.$store.commit('setRoles', data.data.rolesNames);

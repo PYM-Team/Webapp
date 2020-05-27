@@ -114,7 +114,6 @@ export default {
           console.log(data);
           if (data.type === 'createGame') {
             if (data.status === 'error') {
-              console.log('ERROR');
               setTimeout(this.GameStart(), 300);
               this.tryCreate += 1;
               if (this.tryCreate === 5) {
@@ -127,7 +126,6 @@ export default {
                 delete this.$options.sockets.onmessage;
               }
             } else {
-              console.log('BONJOUR');
               this.$store.commit('setGameId', data.data.gameId);
               this.$store.commit('setToken', data.data.token);
               this.$router.push({ path: '/setup' });

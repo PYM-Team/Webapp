@@ -57,6 +57,7 @@ export default new Vuex.Store({
     },
     setDuree(state, n) {
       state.Game.duree = n;
+      console.log('dureeDone');
     },
     setDescription(state, desc) {
       state.Game.description = desc;

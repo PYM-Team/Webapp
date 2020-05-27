@@ -5,7 +5,7 @@
     </p>
     <ul class="menu-list"> <!-- Pour tous les joueurs connectés on les affiche dans un menu -->
       <div v-for="(player) in this.$store.state.Game.Players" v-bind:key="player.name">
-        <li v-on:click="SelectPlayer(player.name)"><a>{{ player.name }}</a></li>
+        <li v-on:click="SelectPlayer(player.name)"><a><strong> {{ player.name }} </strong> <br> <sub> {{ player.role.name }} </sub></a></li>
       </div>
     </ul>
   </aside>

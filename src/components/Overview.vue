@@ -283,15 +283,13 @@ export default {
           this.tryGet += 1;
           if (this.tryGet === 5) {
             delete this.$options.sockets.onmessage;
-          } else {
-            setTimeout(this.created(), 300);
           }
         } else {
-          console.log('hey');
           console.log(data);
           this.$store.commit('setDescription', data.data.gameDescription);
           this.$store.commit('setGameId', data.data.gameId);
           this.$store.commit('setDuree', data.data.globalDuration);
+          this.$store.commit('setPlayers', data.data.players);
           this.tempsMax = this.$store.state.Game.duree;
           let secondes = data.data.remainingDuration;
           this.heures = parseInt((data.data.remainingDuration / 3600), 10);

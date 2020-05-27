@@ -81,6 +81,7 @@ export default new Vuex.Store({
       state.Game.gameName = n;
     },
     setPlayers(state, tab) {
+      state.Game.Players = [];
       for (let i = 0; i < tab.length; i += 1) {
         state.Game.Players.push(tab[i]);
       }

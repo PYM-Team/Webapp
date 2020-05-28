@@ -29,6 +29,13 @@ $background: $primary-invert;
 
 // personnalisation élément title de bulma
 $title-color: $title-color;
+$subtitle-color: $white;
+$subtitle-family: false;
+$subtitle-size: $size-3;
+$subtitle-weight: 600;
+
+// personnalisation élément menu de bulma
+$menu-item-color: $white;
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (

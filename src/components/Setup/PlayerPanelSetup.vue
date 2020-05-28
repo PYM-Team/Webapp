@@ -2,7 +2,7 @@
 <div>
   <aside class="menu"> <!-- on affiche un menu avec pour titre players et comme contenu la liste des joueurs connectés avec leurs rôles préférés-->
     <p class="menu-label">
-      <strong> Joueurs </strong>
+      <strong class="subtitle"> Joueurs </strong>
     </p>
     <ul class="menu-list">
     <b-loading :active.sync="Loading" :can-cancel="false" :is-full-page="false"></b-loading>
@@ -158,7 +158,6 @@ export default {
 .menu-list {
   font-family: "sans serif";
   font-size: 1.5rem !important;
-  color: white !important;
 }
 </style>
 

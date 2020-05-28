@@ -43,8 +43,10 @@ export default {
       }
       this.roles.splice(this.$store.state.Game.roles.length, 100);
       let dice = 0;
-      for (let i = 0; i < (this.players.length); i += 1) {
-        if (this.players[i].connected) {
+      let diceP = 0;
+      for (let i = 0; i < (this.RolesBases); i += 1) {
+        diceP = Math.floor(Math.random() * this.players.length);
+        if (this.players[diceP].connected) {
           dice = Math.floor(Math.random() * this.roles.length);
           this.RandomRoles.push([this.roles[dice], this.players[i].name]);
           this.roles.splice(dice, 1);
@@ -70,7 +72,7 @@ export default {
       }
       RandomPlayer.splice(this.$store.state.players.length, 100);
 
-      for (let i = 0; i < (Player.length); i += 1) {
+      for (let i = 0; i < (RolesBases.length); i += 1) {
         diceP = Math.floor(Math.random() * RandomPlayer.length);
         if (RandomPlayer[diceP] !== undefined) {
           if (RandomPlayer[diceP].connected) {

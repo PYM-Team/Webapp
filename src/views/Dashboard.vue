@@ -53,7 +53,6 @@ export default {
     }
   },
   created() {
-    // requête getGM
     const ourtoken = this.$store.state.token;
     const content = {
       type: 'getMg',
@@ -61,13 +60,10 @@ export default {
       token: ourtoken,
       data: {},
     };
-    console.log('REQUETE TENTEE');
     let data;
     this.$socket.sendObj(content);
-    console.log('REQUETE ENVOYEE');
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
-      console.log(data);
       if (data.type === 'getMg') {
         if (data.status === 'error') {
           this.$buefy.toast.open({
@@ -77,16 +73,28 @@ export default {
             type: 'is-danger',
           });
         } else {
-          // ça  a marché
-          console.log('BIEN RECU');
-          console.log(data);
           this.$store.commit('setEvents', data.data.events);
           this.$store.commit('setPlayersDetailed', data.data.players);
           this.Loading = false;
         }
       }
-      if (data) {
-        delete this.$options.sockets.onmessage;
+      if (data.type === 'notification') {
+        if (data.data.type === 'info') {
+          this.$buefy.toast.open({
+            duration: 6000,
+            message: data.data.message,
+            position: 'is-bottom',
+            type: 'is-info',
+          });
+        }
+        if (data.data.type === 'warn') {
+          this.$buefy.toast.open({
+            duration: 6000,
+            message: data.data.message,
+            position: 'is-bottom',
+            type: 'is-warning',
+          });
+        }
       }
     };
   },

@@ -1,7 +1,7 @@
 <template>
   <aside class="menu">
     <p class="menu-label">
-      <strong>Joueurs</strong>
+      <strong class="subtitle">Joueurs</strong>
     </p>
     <ul class="menu-list"> <!-- Pour tous les joueurs connectés on les affiche dans un menu -->
       <div v-for="(player) in this.$store.state.Game.Players" v-bind:key="player.name">
@@ -37,6 +37,5 @@ export default {
 .menu-label {
   font-family: "sans serif";
   font-size: 2rem !important;
-  color: white !important;
 }
 </style>

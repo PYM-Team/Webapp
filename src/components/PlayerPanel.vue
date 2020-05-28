@@ -20,14 +20,16 @@ export default {
     },
   },
   mounted() {
+    let data;
     this.$options.sockets.onmessage = function (message) {
+      data = JSON.parse(message.data);
       if (data.type === 'updatePlayers') {
         console.log(data);
         this.$store.commit('setPlayers', data.data.players);
       }
-  }
+    };
+  },
 };
-
 </script>
 
 <style>

@@ -1,6 +1,7 @@
 <template>
   <div id="dashboard">
-    <NavBar />
+    <b-loading :active.sync="Loading" :can-cancel="false" :is-full-page="false"></b-loading>
+    <NavBar v-if="Loading === false"/>
     <b-tabs type="is-toggle" position="is-centered" v-model="activeTab">
       <b-tab-item label="Général">
         <Overview />
@@ -37,6 +38,7 @@ export default {
   },
   data() {
     return {
+      Loading: true,
       players: {
         toto: { connected: true },
         tata: { connected: true },
@@ -45,9 +47,8 @@ export default {
       activeTab: 0,
     };
   },
-  mounted() {
+  created() {
     // requête getGM
-    console.log('DASHBOARD CREE');
     const ourtoken = this.$store.state.token;
     const content = {
       type: 'getMg',
@@ -55,22 +56,28 @@ export default {
       token: ourtoken,
       data: {},
     };
-    console.log('ENVOYE');
+    console.log('REQUETE TENTEE');
     let data;
     this.$socket.sendObj(content);
+    console.log('REQUETE ENVOYEE');
     this.$options.sockets.onmessage = function (message) {
-      console.log('MESSAGE RECU');
       data = JSON.parse(message.data);
       console.log(data);
       if (data.type === 'getMg') {
-        console.log(data);
         if (data.status === 'error') {
-          console.log('ERROR');
+          this.$buefy.toast.open({
+            duration: 5000,
+            message: 'Une erreur s\'est produite veuillez reessayer plus tard',
+            position: 'is-bottom',
+            type: 'is-danger',
+          });
         } else {
           // ça  a marché
-          console.log('MISE A JOUR');
+          console.log('BIEN RECU');
+          console.log(data);
           this.$store.commit('setEvents', data.data.events);
           this.$store.commit('setPlayersDetailed', data.data.players);
+          this.Loading = false;
         }
       }
       if (data) {

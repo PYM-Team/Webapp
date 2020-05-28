@@ -44,7 +44,7 @@ export default {
       this.roles.splice(this.$store.state.Game.roles.length, 100);
       let dice = 0;
       let diceP = 0;
-      for (let i = 0; i < (this.RolesBases); i += 1) {
+      for (let i = 0; i < this.$store.state.Game.roles.length; i += 1) {
         diceP = Math.floor(Math.random() * this.players.length);
         if (this.players[diceP].connected) {
           dice = Math.floor(Math.random() * this.roles.length);

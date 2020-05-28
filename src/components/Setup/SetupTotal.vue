@@ -161,6 +161,7 @@ export default {
       };
       let data;
       this.$socket.sendObj(content);
+      // eslint-disable-next-line func-names
       this.$options.sockets.onmessage = function (message) {
         data = JSON.parse(message.data);
         if (data.type === 'setPlayerRole') {
@@ -195,8 +196,6 @@ export default {
       this.$options.sockets.onmessage = function (message) {
         data = JSON.parse(message.data);
         if (data.type === 'startGame') {
-          console.log(data);
-          console.log('PartieStarted');
           if (data.status === 'error') {
             this.tryStart += 1;
             if (this.tryCreate === 5) {

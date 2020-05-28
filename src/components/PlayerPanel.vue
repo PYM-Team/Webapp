@@ -21,6 +21,7 @@ export default {
   },
   mounted() {
     let data;
+    // eslint-disable-next-line func-names
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       if (data.type === 'updatePlayers') {

@@ -111,6 +111,7 @@ export default {
     let data;
     let RolesBases;
     let n = 0;
+    // eslint-disable-next-line func-names
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       if (data.type === 'startGame') {

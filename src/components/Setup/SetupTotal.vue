@@ -242,8 +242,6 @@ export default {
         this.role.push(act);
         this.Players.splice(place, 1);
       }
-      console.log(this.Players.length);
-      console.log(this.$store.state.Game.roles.length);
       if (this.Players.length < this.$store.state.Game.roles.length) {
         this.Players.push({ // on ajoute ce joueur avec ce role à la liste des joueurs avec un role
           name: player,

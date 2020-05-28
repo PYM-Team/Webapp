@@ -13,16 +13,21 @@
           <div class="content">
           {{ event.text}}
             <br>
-            <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+            <!-- <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time> -->
           </div>
         </div>
         <footer class="card-footer">
-          <a v-if='event.declenche === true' v-on:click="RelancerEvent()" class="card-footer-item">Relancer cet evenement</a>
-          <a v-if='event.declenche === false' v-on:click="lancerEvent()" class="card-footer-item">Lancer cet evenement</a>
+          <a v-if='event.triggered === true' v-on:click="RelancerEvent()" class="card-footer-item">Relancer cet evenement</a>
+          <a v-if='event.triggered === false' v-on:click="lancerEvent()" class="card-footer-item">Lancer cet evenement</a>
         </footer>
       </div>
       <br>
     </b-tooltip>
+      <b-modal :active.sync="Chantier" scroll="keep">
+          <b-message>
+            <article class="title is-2 has-text-black is-centered has-text-centered"> En chantier! <br> Rdv sur https://github.com/PYM-Team/Webapp pour suggerer des améliorations <br></article>
+          </b-message>
+      </b-modal>
     <br>
   </li>
 </ul>
@@ -37,6 +42,7 @@ export default {
       Fait: false,
       Done: 'Fait',
       NotDone: 'Pas fait',
+      Chantier: false,
     };
   },
   mounted() {
@@ -49,10 +55,10 @@ export default {
       this.evenements = this.$store.state.Game.events;
     },
     lancerEvent() {
-      console.log('eventlance');
+      this.Chantier = true;
     },
     RelancerEvent() {
-      console.log('eventrelance');
+      this.Chantier = true;
     },
   },
 };

@@ -9,7 +9,10 @@
     <div class="card-content">
       <div class="content player-role">
         <p>
-          Joueur : {{this.$store.state.Game.PlayersDetailed[this.num].description}}
+          <i>{{this.$store.state.Game.PlayersDetailed[this.num].description}}</i>
+          <br>
+          <br>
+          Joueur : {{ this.$store.state.Game.Players[this.num].name}}
         </p>
         <p v-if="this.$store.state.Game.PlayersDetailed[this.num].state === true">Etat : conscient</p>
         <p v-if="this.$store.state.Game.PlayersDetailed[this.num].state === false">Etat : inconscient</p>

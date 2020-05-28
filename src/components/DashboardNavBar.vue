@@ -20,7 +20,7 @@
         </b-navbar-item>
         <b-navbar-item v-if="url === 'Dashboard' || url === 'Overview' " tag="div">
               <div class="field">
-                <b-switch size="is-large" :outlined=true @input="ChangePageDelay(ChangePage)" v-bind:value="changePage"></b-switch>
+                <b-switch size="is-large" :outlined=true @input="ChangePageDelay(ChangePage), Save()" v-bind:value="changePage"></b-switch>
               </div>
           </b-navbar-item>
           <b-navbar-item tag="div">
@@ -75,7 +75,6 @@ export default {
       this.$options.sockets.onmessage = function (message) {
         data = JSON.parse(message.data);
         if (data.type === 'save') {
-          console.log(data);
           if (data.status === 'error') {
             this.trysave += 1;
             if (this.trysave === 5) {

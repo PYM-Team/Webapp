@@ -262,6 +262,15 @@ export default {
         }
       };
     },
+    settime(duration) {
+      this.heures = parseInt((duration / 3600), 10);
+      const secondes = parseInt((duration % 3600), 10);
+      this.minutes = parseInt((secondes / 60), 10);
+      this.secondes = parseInt((secondes % 60), 10);
+      this.tempsActuelSecondes = duration;
+      this.calculTemps();
+      console.log('tempslance');
+    },
   },
   mounted() {
   },
@@ -286,18 +295,13 @@ export default {
           }
         } else {
           console.log(data);
+          console.log('hey');
           this.$store.commit('setDescription', data.data.gameDescription);
           this.$store.commit('setGameId', data.data.gameId);
           this.$store.commit('setDuree', data.data.globalDuration);
           this.$store.commit('setPlayers', data.data.players);
           this.tempsMax = this.$store.state.Game.duree;
-          let secondes = data.data.remainingDuration;
-          this.heures = parseInt((data.data.remainingDuration / 3600), 10);
-          secondes = parseInt((data.data.remainingDuration % 3600), 10);
-          this.minutes = parseInt((secondes / 60), 10);
-          this.secondes = parseInt((secondes % 60), 10);
-          this.tempsActuelSecondes = data.data.remainingDuration;
-          this.calculTemps();
+          this.settime(data.data.remainingDuration);
         }
       }
       if (data) {

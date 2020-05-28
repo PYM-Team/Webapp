@@ -226,6 +226,7 @@ export default {
     },
     // eslint-disable-next-line no-unused-vars
     ValidatePlayer(genre, player) { // permet d'assigner à un joueur un role
+      // if (this.role.length !== 0) {
       let place = -1;
       let act;
       for (let i = 0; i < this.Players.length; i += 1) {
@@ -241,12 +242,17 @@ export default {
         this.role.push(act);
         this.Players.splice(place, 1);
       }
-      this.Players.push({ // on ajoute ce joueur avec ce role à la liste des joueurs avec un role
-        name: player,
-        role: genre,
-      });
+      console.log(this.Players.length);
+      console.log(this.$store.state.Game.roles.length);
+      if (this.Players.length < this.$store.state.Game.roles.length) {
+        this.Players.push({ // on ajoute ce joueur avec ce role à la liste des joueurs avec un role
+          name: player,
+          role: genre,
+        });
+      }
       this.role.splice(this.role.indexOf(genre), 1);// on enleve ce role des roles dispos
       this.envoijoueur(player, genre);
+      // }
     },
   },
   created() { // a la creation de la page on demande à l'API les roles dispos -  la description de la partie - les joueurs connectés et leur préférence de role

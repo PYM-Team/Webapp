@@ -52,7 +52,7 @@ export default {
           this.roles.splice(dice, 1);
         }
       }
-      // this.$store.commit('setRandom', false);
+      this.$store.commit('setRandom', false);
       this.$emit('randomise', this.RandomRoles);
       this.RandomRoles = [];
     },
@@ -71,24 +71,27 @@ export default {
         RandomPlayer.push(Player[t]);
       }
       RandomPlayer.splice(this.$store.state.players.length, 100);
-
+      console.log(RolesBases.length);
+      console.log(RandomPlayer);
       for (let i = 0; i < (RolesBases.length); i += 1) {
         diceP = Math.floor(Math.random() * RandomPlayer.length);
-        if (RandomPlayer[diceP] !== undefined) {
+        if (RandomPlayer[diceP] !== undefined && RandomPlayer.indexOf(RandomPlayer[diceP]) !== -1) {
           if (RandomPlayer[diceP].connected) {
             for (let j = 0; j < this.roles.length; j += 1) {
               if (RandomPlayer[diceP].prefered === (this.roles[j])) {
+                console.log('role pas aleatoire');
                 this.RandomRoles.push([RandomPlayer[diceP].prefered, RandomPlayer[diceP].name]);
                 this.roles.splice(j, 1);
-                RandomPlayer.splice(RandomPlayer.indexOf(RandomPlayer[diceP]), 1);
+                RandomPlayer.splice([diceP], 1);
                 assign = true;
               }
             }
             if (assign === false) {
+              console.log('role aléatoire');
               diceR = Math.floor(Math.random() * this.roles.length);
               this.RandomRoles.push([this.roles[diceR], this.players[diceP].name]);
               this.roles.splice(diceR, 1);
-              RandomPlayer.splice(RandomPlayer.indexOf(RandomPlayer[diceP]), 1);
+              RandomPlayer.splice([diceP], 1);
             } else {
               assign = false;
             }

@@ -47,6 +47,32 @@ export default {
       activeTab: 0,
     };
   },
+  methods: {
+    notification() {
+      let data;
+      this.$options.sockets.onmessage = function (message) {
+        data = JSON.parse(message.data);
+        if (data.type === 'notification') {
+          if (data.data.type === 'info') {
+            this.$buefy.toast.open({
+              duration: 6000,
+              message: data.data.message,
+              position: 'is-bottom',
+              type: 'is-info',
+            });
+          }
+          if (data.data.type === 'warn') {
+            this.$buefy.toast.open({
+              duration: 6000,
+              message: data.data.message,
+              position: 'is-bottom',
+              type: 'is-warning',
+            });
+          }
+        }
+      };
+    },
+  },
   mounted() {
     if (this.$store.state.token === 0) {
       this.$router.push({ path: '/' });
@@ -64,7 +90,9 @@ export default {
     this.$socket.sendObj(content);
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
+      console.log(data);
       if (data.type === 'getMg') {
+        console.log(data);
         if (data.status === 'error') {
           this.$buefy.toast.open({
             duration: 5000,
@@ -78,23 +106,11 @@ export default {
           this.Loading = false;
         }
       }
-      if (data.type === 'notification') {
-        if (data.data.type === 'info') {
-          this.$buefy.toast.open({
-            duration: 6000,
-            message: data.data.message,
-            position: 'is-bottom',
-            type: 'is-info',
-          });
-        }
-        if (data.data.type === 'warn') {
-          this.$buefy.toast.open({
-            duration: 6000,
-            message: data.data.message,
-            position: 'is-bottom',
-            type: 'is-warning',
-          });
-        }
+      if (data) {
+        delete this.$options.sockets.onmessage;
+        setTimeout(() => {
+          this.notification();
+        }, 10000);
       }
     };
   },

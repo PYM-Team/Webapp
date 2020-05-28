@@ -227,7 +227,7 @@ export default {
     },
     // eslint-disable-next-line no-unused-vars
     ValidatePlayer(genre, player) { // permet d'assigner à un joueur un role
-      let place = 0;
+      let place = -1;
       let act;
       for (let i = 0; i < this.Players.length; i += 1) {
         if (this.Players[i].name === player) { // recherche le nom du joueur dans le tableau des joueurs aux roles attribués
@@ -247,9 +247,6 @@ export default {
         role: genre,
       });
       this.role.splice(this.role.indexOf(genre), 1);// on enleve ce role des roles dispos
-      if (this.Players.length === 1) {
-        this.role.splice(this.role.indexOf(undefined), 1);
-      }
       this.envoijoueur(player, genre);
     },
   },

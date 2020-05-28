@@ -47,6 +47,11 @@ export default {
       activeTab: 0,
     };
   },
+  mounted() {
+    if (this.$store.state.token === 0) {
+      this.$router.push({ path: '/' });
+    }
+  },
   created() {
     // requête getGM
     const ourtoken = this.$store.state.token;

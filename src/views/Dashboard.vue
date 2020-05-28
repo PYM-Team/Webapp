@@ -46,21 +46,6 @@ export default {
     };
   },
   mounted() {
-    // if (this.$store.state.token === 0) {
-    //   this.$router.push({ path: '/' });
-    // }
-    // // on atend la fin du chargement de la page pour commencer les écoutes
-    // this.$store.state.socket.emit('createGame', 101938);
-    // this.$store.state.gameId = 101938;
-
-    // this.$store.state.socket.on('playerConnected', (playerlist) => {
-    //   console.log('New player');
-    //   this.$store.state.players = playerlist;
-    // });
-    // this.$store.state.socket.on('playerDisconnected', (playerlist) => {
-    //   console.log('Lost a player');
-    //   this.$store.state.players = playerlist;
-    // });
     // requête getGM
     console.log('DASHBOARD CREE');
     const ourtoken = this.$store.state.token;
@@ -83,7 +68,7 @@ export default {
           console.log('ERROR');
         } else {
           // ça  a marché
-          console.log('BONJOUR');
+          console.log('MISE A JOUR');
           this.$store.commit('setEvents', data.data.events);
           this.$store.commit('setPlayersDetailed', data.data.players);
         }

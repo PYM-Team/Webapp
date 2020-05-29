@@ -9,7 +9,7 @@ import store from './store';
 
 Vue.use(VueNativeSock, 'wss://rpplanner-api.herokuapp.com/', {
   reconnection: true, // (Boolean) whether to reconnect automatically (false)
-  reconnectionAttempts: 5000, // (Number) number of reconnection attempts before giving up (Infinity),
+  reconnectionAttempts: 50, // (Number) number of reconnection attempts before giving up (Infinity),
   reconnectionDelay: 3000,
   store,
   format: 'json',
@@ -23,4 +23,3 @@ new Vue({
   store,
   render: (h) => h(App),
 }).$mount('#app');
-// webapp.$connect('wss://rpplanner-api.herokuapp.com/', { format: 'json' });

@@ -48,13 +48,14 @@ export default new Vuex.Store({
     // mutations for reconnect methods
     SOCKET_RECONNECT(state, count) {
       console.info(state, count);
+      console.log('reconnection');
     },
     SOCKET_RECONNECT_ERROR(state) {
       state.socket.reconnectError = true;
+      console.log('reconnection error');
     },
     setDuree(state, n) {
       state.Game.duree = n;
-      console.log('dureeDone');
     },
     setDescription(state, desc) {
       state.Game.description = desc;

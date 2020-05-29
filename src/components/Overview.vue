@@ -269,7 +269,6 @@ export default {
       this.secondes = parseInt((secondes % 60), 10);
       this.tempsActuelSecondes = duration;
       this.calculTemps();
-      console.log('tempslance');
     },
   },
   mounted() {
@@ -294,8 +293,6 @@ export default {
             delete this.$options.sockets.onmessage;
           }
         } else {
-          console.log(data);
-          console.log('hey');
           this.$store.commit('setDescription', data.data.gameDescription);
           this.$store.commit('setGameId', data.data.gameId);
           this.$store.commit('setDuree', data.data.globalDuration);

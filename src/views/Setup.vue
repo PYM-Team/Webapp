@@ -19,6 +19,16 @@ export default {
   mounted() {
     if (this.$store.state.token === 0) {
       this.$router.push({ path: '/' });
+      setInterval(() => {
+        this.$socket.sendObj({
+          type: 'Ping',
+          status: 'ok',
+          token: null,
+          data: {
+          },
+        });
+
+      }, 10000);
     }
   },
 };

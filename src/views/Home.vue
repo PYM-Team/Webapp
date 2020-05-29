@@ -16,7 +16,19 @@ export default {
     GameBoard,
     NavBar,
   },
+  mounted() {
+    setInterval(() => {
+      this.$socket.sendObj({
+        type: 'Ping',
+        status: 'ok',
+        token: null,
+        data: {
+        },
+      });
+    }, 10000);
+  },
 };
+
 </script>
 
 <style>

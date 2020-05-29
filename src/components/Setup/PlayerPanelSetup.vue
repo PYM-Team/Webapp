@@ -71,33 +71,38 @@ export default {
         RandomPlayer.push(Player[t]);
       }
       RandomPlayer.splice(this.$store.state.players.length, 100);
-      console.log(RolesBases.length);
-      console.log(RandomPlayer);
+      let find = false;
+      let findnow = false;
       for (let i = 0; i < (RolesBases.length); i += 1) {
-        diceP = Math.floor(Math.random() * RandomPlayer.length);
-        if (RandomPlayer[diceP] !== undefined && RandomPlayer.indexOf(RandomPlayer[diceP]) !== -1) {
-          if (RandomPlayer[diceP].connected) {
-            for (let j = 0; j < this.roles.length; j += 1) {
-              if (RandomPlayer[diceP].prefered === (this.roles[j])) {
-                console.log('role pas aleatoire');
-                this.RandomRoles.push([RandomPlayer[diceP].prefered, RandomPlayer[diceP].name]);
-                this.roles.splice(j, 1);
-                RandomPlayer.splice([diceP], 1);
-                assign = true;
-              }
-            }
-            if (assign === false) {
-              console.log('role aléatoire');
-              diceR = Math.floor(Math.random() * this.roles.length);
-              this.RandomRoles.push([this.roles[diceR], this.players[diceP].name]);
-              this.roles.splice(diceR, 1);
-              RandomPlayer.splice([diceP], 1);
-            } else {
-              assign = false;
+        do {
+          diceP = Math.floor(Math.random() * RandomPlayer.length);
+          for (let p = 0; p < this.RandomRoles.length; p += 1) {
+            if (RandomPlayer[diceP] === (this.RandomRoles[p][1])) { // recherche le nom du joueur dans le tableau des joueurs aux roles attribués
+              findnow = true;
+              break;
             }
           }
-        } else {
-          console.log('undefined');
+          if (findnow === true) {
+            find = false;
+          }
+        } while (RandomPlayer[diceP] === undefined && find === false);
+        if (RandomPlayer[diceP].connected) {
+          for (let j = 0; j < this.roles.length; j += 1) {
+            if (RandomPlayer[diceP].prefered === (this.roles[j])) {
+              this.RandomRoles.push([RandomPlayer[diceP].prefered, RandomPlayer[diceP].name]);
+              this.roles.splice(j, 1);
+              RandomPlayer.splice([diceP], 1);
+              assign = true;
+            }
+          }
+          if (assign === false) {
+            diceR = Math.floor(Math.random() * this.roles.length);
+            this.RandomRoles.push([this.roles[diceR], RandomPlayer[diceP]]);
+            this.roles.splice(diceR, 1);
+            RandomPlayer.splice(diceP, 1);
+          } else {
+            assign = false;
+          }
         }
       }
       // this.$store.commit('setRandom', false);
@@ -120,8 +125,6 @@ export default {
     this.$options.sockets.onmessage = function (message) {
       data = JSON.parse(message.data);
       if (data.type === 'startGame') {
-        console.log(data);
-        console.log('PartieStarted');
         if (data.status === 'error') {
           this.tryStart += 1;
           if (this.tryCreate === 5) {
@@ -132,12 +135,10 @@ export default {
             setTimeout(this.demarrer(), 300);
           }
         } else {
-          console.log('goo');
           this.$router.push({ path: '/overview' }); // on change de page
         }
       }
       if (data.type === 'updatePlayers') {
-        console.log(data);
         n += 1;
         this.$store.commit('setPlayerInit', data.data.players);
         this.players = this.$store.state.players;

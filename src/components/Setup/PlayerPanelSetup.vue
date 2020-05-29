@@ -97,7 +97,7 @@ export default {
           }
           if (assign === false) {
             diceR = Math.floor(Math.random() * this.roles.length);
-            this.RandomRoles.push([this.roles[diceR], RandomPlayer[diceP]]);
+            this.RandomRoles.push([this.roles[diceR], RandomPlayer[diceP].name]);
             this.roles.splice(diceR, 1);
             RandomPlayer.splice(diceP, 1);
           } else {

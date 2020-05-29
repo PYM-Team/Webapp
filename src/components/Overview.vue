@@ -109,10 +109,8 @@ export default {
       let data;
       this.$socket.sendObj(content);
       this.$options.sockets.onmessage = function (message) {
-        console.log(data);
         data = JSON.parse(message.data);
         if (data.type === 'stopGame') {
-          console.log(data);
           if (data.status === 'error') {
             this.tryStop += 1;
             if (this.tryStop === 5) {
@@ -147,7 +145,6 @@ export default {
       this.$options.sockets.onmessage = function (message) {
         data = JSON.parse(message.data);
         if (data.type === 'resume') {
-          console.log(data);
           if (data.status === 'error') {
             this.tryPlay += 1;
             if (this.tryPlay === 5) {
@@ -243,7 +240,6 @@ export default {
       this.$options.sockets.onmessage = function (message) {
         data = JSON.parse(message.data);
         if (data.type === 'pause') {
-          console.log(data);
           if (data.status === 'error') {
             this.tryPause += 1;
             if (this.tryPause === 5) {

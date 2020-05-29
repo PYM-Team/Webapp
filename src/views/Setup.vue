@@ -27,7 +27,6 @@ export default {
           data: {
           },
         });
-
       }, 10000);
     }
   },
